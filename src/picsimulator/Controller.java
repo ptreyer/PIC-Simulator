@@ -1,4 +1,4 @@
-package sample;
+package picsimulator;
 
 public class Controller {
 }
