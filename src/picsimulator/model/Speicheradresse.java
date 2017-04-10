@@ -1,17 +1,15 @@
 package picsimulator.model;
 
-import static javafx.scene.input.KeyCode.H;
-
 /**
  * Created by ptrey on 10.04.2017.
  */
 public class Speicheradresse {
 
-    private byte adresse;
+    private int adresse;
     private Bit[] bits;
 
     public Speicheradresse(int adresse){
-        this.adresse = Byte.parseByte(Integer.toHexString(adresse));
+        this.adresse = adresse;
         bits = new Bit[8];
         for (int i = 0; i < bits.length; i++) {
             bits[i] = new Bit(Byte.parseByte("00"), 0, 0);
@@ -22,7 +20,7 @@ public class Speicheradresse {
         return String.format("%02X ", adresse);
     }
 
-    public void setAdresse(byte adresse) {
+    public void setAdresse(int adresse) {
         this.adresse = adresse;
     }
 

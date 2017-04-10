@@ -1,7 +1,5 @@
 package picsimulator.model;
 
-import java.util.ArrayList;
-
 /**
  * Created by ptrey on 10.04.2017.
  */
