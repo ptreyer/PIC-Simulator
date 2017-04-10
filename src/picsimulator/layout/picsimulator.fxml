@@ -19,9 +19,9 @@
                     <children>
                         <TableView fx:id="tableFileContent" prefHeight="196.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
-                                <TableColumn text="Breakpoint" />
-                                <TableColumn fx:id="tableColumnZeilennummer" text="Zeilennummer" />
-                                <TableColumn fx:id="tableColumnBefehlscode" text="Befehlscode" />
+                                <TableColumn text="Breakpoint"  minWidth="90" maxWidth="90" />
+                                <TableColumn fx:id="tableColumnZeilennummer" minWidth="50" maxWidth="50" text="Zeile" />
+                                <TableColumn fx:id="tableColumnBefehlscode" minWidth="125" maxWidth="125" text="Befehlscode" />
                                 <TableColumn fx:id="tableColumnBefehl" text="Befehl" />
                         <TableColumn fx:id="tableColumnKommentar" text="Kommentar" />
                             </columns>
