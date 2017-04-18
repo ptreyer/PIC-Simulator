@@ -37,9 +37,10 @@
                     <children>
                   <AnchorPane layoutY="174.0" prefHeight="33.0" prefWidth="128.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
                      <children>
-                        <Button fx:id="BtnStart" layoutY="8.0" mnemonicParsing="false" text="Start" />
-                        <Button fx:id="BtnNext" layoutX="41.0" layoutY="8.0" mnemonicParsing="false" text="Next" />
-                        <Button fx:id="BtnReset" layoutX="82.0" layoutY="8.0" mnemonicParsing="false" text="Reset" />
+                        <Button fx:id="BtnStart" layoutY="8.0" mnemonicParsing="false" onAction="#run" text="Start" />
+                        <Button fx:id="BtnNext" layoutX="41.0" layoutY="8.0" mnemonicParsing="false" onAction="#next" text="Next" />
+                        <Button fx:id="BtnReset" layoutX="82.0" layoutY="8.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
+                        <Button fx:id="BtnClear" layoutX="127.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
                      </children>
                   </AnchorPane>
                   <AnchorPane layoutX="398.0" prefHeight="184.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
