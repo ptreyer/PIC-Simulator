@@ -5,10 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import picsimulator.constants.PicSimulatorConstants;
-import picsimulator.model.Befehl;
-import picsimulator.model.Register;
-import picsimulator.model.Speicher;
+import picsimulator.model.*;
 import picsimulator.services.FileInputService;
 import picsimulator.services.MemoryInitializerService;
 
@@ -16,16 +13,22 @@ import java.util.List;
 
 public class Controller {
 
-    @FXML
-    private TableView<Befehl> tableFileContent;
-    @FXML
-    private TableColumn<Befehl, Integer> tableColumnZeilennummer;
-    @FXML
-    private TableColumn<Befehl, String> tableColumnBefehlscode;
-    @FXML
-    private TableColumn<Befehl, String> tableColumnBefehl;
-    @FXML
-    private TableColumn<Befehl, String> tableColumnKommentar;
+    @FXML private TableView<Befehl> tableFileContent;
+    @FXML private TableColumn<Befehl, Integer> tableColumnZeilennummer;
+    @FXML private TableColumn<Befehl, String> tableColumnBefehlscode;
+    @FXML private TableColumn<Befehl, String> tableColumnBefehl;
+    @FXML private TableColumn<Befehl, String> tableColumnKommentar;
+
+    @FXML private TableView<Speicheradresse> tableMemory;
+    @FXML private TableColumn<Speicheradresse, String> tableColumnMemoryName;
+    @FXML private TableColumn<Bit, Byte> tableColumnMemoryBit0;
+    @FXML private TableColumn<Bit, Byte> tableColumnMemoryBit1;
+    @FXML private TableColumn<Bit, Byte> tableColumnMemoryBit2;
+    @FXML private TableColumn<Bit, Byte> tableColumnMemoryBit3;
+    @FXML private TableColumn<Bit, Byte> tableColumnMemoryBit4;
+    @FXML private TableColumn<Bit, Byte> tableColumnMemoryBit5;
+    @FXML private TableColumn<Bit, Byte> tableColumnMemoryBit6;
+    @FXML private TableColumn<Bit, Byte> tableColumnMemoryBit7;
 
     private FileInputService fileInputService;
     private MemoryInitializerService memoryInitializerService;
@@ -50,6 +53,19 @@ public class Controller {
         registerA = getMemoryInitializerService().initializeRegisterA();
         registerB = getMemoryInitializerService().initializeRegisterB();
         registerStatus = getMemoryInitializerService().initializeRegisterStatus();
+        tableMemory.getItems().addAll(speicher.getSpeicheradressen());
+        for (Speicheradresse a : speicher.getSpeicheradressen()){
+            System.out.println(a.getAdresse());
+        }
+        tableColumnMemoryName.setCellValueFactory(new PropertyValueFactory<>("adresse"));
+        tableColumnMemoryBit0.setCellValueFactory(new PropertyValueFactory<>("bit0Wert"));
+        tableColumnMemoryBit1.setCellValueFactory(new PropertyValueFactory<>("bit1Wert"));
+        tableColumnMemoryBit2.setCellValueFactory(new PropertyValueFactory<>("bit2Wert"));
+        tableColumnMemoryBit3.setCellValueFactory(new PropertyValueFactory<>("bit3Wert"));
+        tableColumnMemoryBit4.setCellValueFactory(new PropertyValueFactory<>("bit4Wert"));
+        tableColumnMemoryBit5.setCellValueFactory(new PropertyValueFactory<>("bit5Wert"));
+        tableColumnMemoryBit6.setCellValueFactory(new PropertyValueFactory<>("bit6Wert"));
+        tableColumnMemoryBit7.setCellValueFactory(new PropertyValueFactory<>("bit7Wert"));
     }
 
     private MemoryInitializerService getMemoryInitializerService() {

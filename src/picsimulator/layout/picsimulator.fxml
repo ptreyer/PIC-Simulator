@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
     <children>
       <MenuBar prefHeight="17.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -46,15 +46,15 @@
                      <children>
                         <TableView fx:id="tableMemory" prefHeight="184.0" prefWidth="230.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" />
-                            <TableColumn prefWidth="75.0" text="00" />
-                            <TableColumn prefWidth="75.0" text="01" />
-                            <TableColumn prefWidth="75.0" text="02" />
-                            <TableColumn prefWidth="75.0" text="03" />
-                            <TableColumn prefWidth="75.0" text="04" />
-                            <TableColumn prefWidth="75.0" text="05" />
-                            <TableColumn prefWidth="75.0" text="06" />
-                              <TableColumn prefWidth="75.0" text="07" />
+                            <TableColumn fx:id="tableColumnMemoryName" prefWidth="75.0" />
+                            <TableColumn fx:id="tableColumnMemoryBit0" prefWidth="75.0" text="00" />
+                            <TableColumn fx:id="tableColumnMemoryBit1" prefWidth="75.0" text="01" />
+                            <TableColumn fx:id="tableColumnMemoryBit2" prefWidth="75.0" text="02" />
+                            <TableColumn fx:id="tableColumnMemoryBit3" prefWidth="75.0" text="03" />
+                            <TableColumn fx:id="tableColumnMemoryBit4" prefWidth="75.0" text="04" />
+                            <TableColumn fx:id="tableColumnMemoryBit5" prefWidth="75.0" text="05" />
+                            <TableColumn fx:id="tableColumnMemoryBit6" prefWidth="75.0" text="06" />
+                              <TableColumn fx:id="tableColumnMemoryBit7" prefWidth="75.0" text="07" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
