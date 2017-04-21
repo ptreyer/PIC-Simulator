@@ -123,18 +123,16 @@ public class Controller {
 
     private void initializeMemory() {
         speicher = new Speicher();
-        registerA = getMemoryInitializerService().initializeRegisterA();
-        registerB = getMemoryInitializerService().initializeRegisterB();
-        registerStatus = getMemoryInitializerService().initializeRegisterStatus();
+        speicher = getMemoryInitializerService().initializeMemory(speicher);
         tableColumnMemoryName.setCellValueFactory(new PropertyValueFactory<>("adresse"));
-        tableColumnMemoryBit0.setCellValueFactory(new PropertyValueFactory<>("bit0Wert"));
-        tableColumnMemoryBit1.setCellValueFactory(new PropertyValueFactory<>("bit1Wert"));
-        tableColumnMemoryBit2.setCellValueFactory(new PropertyValueFactory<>("bit2Wert"));
-        tableColumnMemoryBit3.setCellValueFactory(new PropertyValueFactory<>("bit3Wert"));
-        tableColumnMemoryBit4.setCellValueFactory(new PropertyValueFactory<>("bit4Wert"));
-        tableColumnMemoryBit5.setCellValueFactory(new PropertyValueFactory<>("bit5Wert"));
-        tableColumnMemoryBit6.setCellValueFactory(new PropertyValueFactory<>("bit6Wert"));
-        tableColumnMemoryBit7.setCellValueFactory(new PropertyValueFactory<>("bit7Wert"));
+        tableColumnMemoryBit0.setCellValueFactory(new PropertyValueFactory<>("register0Wert"));
+        tableColumnMemoryBit1.setCellValueFactory(new PropertyValueFactory<>("register1Wert"));
+        tableColumnMemoryBit2.setCellValueFactory(new PropertyValueFactory<>("register2Wert"));
+        tableColumnMemoryBit3.setCellValueFactory(new PropertyValueFactory<>("register3Wert"));
+        tableColumnMemoryBit4.setCellValueFactory(new PropertyValueFactory<>("register4Wert"));
+        tableColumnMemoryBit5.setCellValueFactory(new PropertyValueFactory<>("register5Wert"));
+        tableColumnMemoryBit6.setCellValueFactory(new PropertyValueFactory<>("register6Wert"));
+        tableColumnMemoryBit7.setCellValueFactory(new PropertyValueFactory<>("register7Wert"));
         tableMemory.getItems().setAll(speicher.getSpeicheradressen());
     }
 
