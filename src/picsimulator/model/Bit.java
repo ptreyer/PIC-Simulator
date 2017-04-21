@@ -5,22 +5,12 @@ package picsimulator.model;
  */
 public class Bit {
 
-    private byte wert;
     private int pin;
     private int state;
 
-    public Bit(byte wert, int pin, int state) {
-        this.wert = wert;
+    public Bit(int pin, int state) {
         this.pin = pin;
         this.state = state;
-    }
-
-    public String getWert() {
-        return String.format("%02X ", wert);
-    }
-
-    public void setWert(byte wert) {
-        this.wert = wert;
     }
 
     public int getPin() {

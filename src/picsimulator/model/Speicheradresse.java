@@ -6,13 +6,13 @@ package picsimulator.model;
 public class Speicheradresse {
 
     private int adresse;
-    private Bit[] bits;
+    private Register[] register;
 
     public Speicheradresse(int adresse) {
         this.adresse = adresse;
-        bits = new Bit[8];
-        for (int i = 0; i < bits.length; i++) {
-            bits[i] = new Bit(Byte.parseByte("00"), 0, 0);
+        register = new Register[8];
+        for (int i = 0; i < register.length; i++) {
+            register[i] = new Register();
         }
     }
 
@@ -24,44 +24,44 @@ public class Speicheradresse {
         this.adresse = adresse;
     }
 
-    public Bit[] getBits() {
-        return bits;
+    public Register[] getRegister() {
+        return register;
     }
 
-    public void setBits(Bit[] bits) {
-        this.bits = bits;
+    public void setRegister(Register[] register) {
+        this.register = register;
     }
 
-    public String getBit0Wert() {
-        return bits[0].getWert();
+    public String getRegister0Wert() {
+        return register[0].getWert();
     }
 
-    public String getBit1Wert() {
-        return bits[1].getWert();
+    public String getRegister1Wert() {
+        return register[1].getWert();
     }
 
-    public String getBit2Wert() {
-        return bits[2].getWert();
+    public String getRegister2Wert() {
+        return register[2].getWert();
     }
 
-    public String getBit3Wert() {
-        return bits[3].getWert();
+    public String getRegister3Wert() {
+        return register[3].getWert();
     }
 
-    public String getBit4Wert() {
-        return bits[4].getWert();
+    public String getRegister4Wert() {
+        return register[4].getWert();
     }
 
-    public String getBit5Wert() {
-        return bits[5].getWert();
+    public String getRegister5Wert() {
+        return register[5].getWert();
     }
 
-    public String getBit6Wert() {
-        return bits[6].getWert();
+    public String getRegister6Wert() {
+        return register[6].getWert();
     }
 
-    public String getBit7Wert() {
-        return bits[7].getWert();
+    public String getRegister7Wert() {
+        return register[7].getWert();
     }
 
 }
