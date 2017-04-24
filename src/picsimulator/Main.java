@@ -12,8 +12,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("layout/picsimulator.fxml"));
         primaryStage.setTitle("PIC 16F84-Simulator");
-        primaryStage.setScene(new Scene(root, 500, 450));
+        primaryStage.setScene(new Scene(root, 600, 450));
         primaryStage.show();
+
     }
 
 

@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
@@ -36,8 +35,33 @@
       </MenuBar>
         <SplitPane dividerPositions="0.7" layoutY="23.0" orientation="VERTICAL" prefHeight="377.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0">
             <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="229.0" prefWidth="200.0" SplitPane.resizableWithParent="false">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="229.0" prefWidth="200.0">
                     <children>
+                  <SplitPane dividerPositions="0.6" prefHeight="260.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="310.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <TableView fx:id="tableMemory" maxHeight="500.0" maxWidth="400.0" minHeight="400.0" minWidth="300.0" prefHeight="400.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columns>
+                                  <TableColumn fx:id="tableColumnMemoryName" prefWidth="75.0" />
+                                  <TableColumn fx:id="tableColumnMemoryBit0" prefWidth="75.0" text="00" />
+                                  <TableColumn fx:id="tableColumnMemoryBit1" prefWidth="75.0" text="01" />
+                                  <TableColumn fx:id="tableColumnMemoryBit2" prefWidth="75.0" text="02" />
+                                  <TableColumn fx:id="tableColumnMemoryBit3" prefWidth="75.0" text="03" />
+                                  <TableColumn fx:id="tableColumnMemoryBit4" prefWidth="75.0" text="04" />
+                                  <TableColumn fx:id="tableColumnMemoryBit5" prefWidth="75.0" text="05" />
+                                  <TableColumn fx:id="tableColumnMemoryBit6" prefWidth="75.0" text="06" />
+                                    <TableColumn fx:id="tableColumnMemoryBit7" prefWidth="75.0" text="07" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
                   <AnchorPane layoutY="174.0" prefHeight="33.0" prefWidth="128.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
                      <children>
                         <Button fx:id="BtnStart" layoutY="8.0" mnemonicParsing="false" onAction="#run" text="Start" />
@@ -46,26 +70,7 @@
                         <Button fx:id="BtnClear" layoutX="127.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="296.0" prefHeight="204.0" prefWidth="302.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="296.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <TableView fx:id="tableMemory" layoutX="2.0" maxHeight="500.0" maxWidth="300.0" minHeight="400.0" minWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <columns>
-                            <TableColumn fx:id="tableColumnMemoryName" prefWidth="75.0" />
-                            <TableColumn fx:id="tableColumnMemoryBit0" prefWidth="75.0" text="00" />
-                            <TableColumn fx:id="tableColumnMemoryBit1" prefWidth="75.0" text="01" />
-                            <TableColumn fx:id="tableColumnMemoryBit2" prefWidth="75.0" text="02" />
-                            <TableColumn fx:id="tableColumnMemoryBit3" prefWidth="75.0" text="03" />
-                            <TableColumn fx:id="tableColumnMemoryBit4" prefWidth="75.0" text="04" />
-                            <TableColumn fx:id="tableColumnMemoryBit5" prefWidth="75.0" text="05" />
-                            <TableColumn fx:id="tableColumnMemoryBit6" prefWidth="75.0" text="06" />
-                              <TableColumn fx:id="tableColumnMemoryBit7" prefWidth="75.0" text="07" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
+                  <AnchorPane layoutX="296.0" prefHeight="204.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <AnchorPane prefHeight="102.0" prefWidth="220.0">
                      <children>
                         <AnchorPane prefHeight="102.0" prefWidth="230.0">
@@ -74,18 +79,14 @@
                                  <children>
                                     <TextField layoutY="2.0" prefHeight="25.0" prefWidth="45.0" text="RegA" />
                                     <TextField layoutY="27.0" prefHeight="25.0" prefWidth="45.0" text="PinA" />
-                                    <ToggleButton id="A0" fx:id="A0" layoutX="198.0" layoutY="27.0" mnemonicParsing="false" text="0">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="InOut" />
-                                       </toggleGroup>
-                                    </ToggleButton>
-                                    <ToggleButton id="A1" fx:id="A1" layoutX="176.0" layoutY="27.0" mnemonicParsing="false" text="0" toggleGroup="$InOut" />
-                                    <ToggleButton id="A2" fx:id="A2" layoutX="154.0" layoutY="27.0" mnemonicParsing="false" text="0" toggleGroup="$InOut" />
-                                    <ToggleButton id="A3" fx:id="A3" layoutX="132.0" layoutY="27.0" mnemonicParsing="false" text="0" toggleGroup="$InOut" />
-                                    <ToggleButton id="A4" fx:id="A4" layoutX="110.0" layoutY="27.0" mnemonicParsing="false" text="0" toggleGroup="$InOut" />
-                                    <ToggleButton id="A5" fx:id="A5" layoutX="88.0" layoutY="27.0" mnemonicParsing="false" text="0" toggleGroup="$InOut" />
-                                    <ToggleButton id="A6" fx:id="A6" layoutX="66.0" layoutY="27.0" mnemonicParsing="false" text="0" toggleGroup="$InOut" />
-                                    <ToggleButton id="A7" fx:id="A7" layoutX="44.0" layoutY="27.0" mnemonicParsing="false" text="0" toggleGroup="$InOut" />
+                                    <ToggleButton id="A0" fx:id="A0" layoutX="198.0" layoutY="27.0" mnemonicParsing="false" text="0" />
+                                    <ToggleButton id="A1" fx:id="A1" layoutX="176.0" layoutY="27.0" mnemonicParsing="false" text="0" />
+                                    <ToggleButton id="A2" fx:id="A2" layoutX="154.0" layoutY="27.0" mnemonicParsing="false" text="0" />
+                                    <ToggleButton id="A3" fx:id="A3" layoutX="132.0" layoutY="27.0" mnemonicParsing="false" text="0" />
+                                    <ToggleButton id="A4" fx:id="A4" layoutX="110.0" layoutY="27.0" mnemonicParsing="false" text="0" />
+                                    <ToggleButton id="A5" fx:id="A5" layoutX="88.0" layoutY="27.0" mnemonicParsing="false" text="0" />
+                                    <ToggleButton id="A6" fx:id="A6" layoutX="66.0" layoutY="27.0" mnemonicParsing="false" text="0" />
+                                    <ToggleButton id="A7" fx:id="A7" layoutX="44.0" layoutY="27.0" mnemonicParsing="false" text="0" />
                                     <TextField layoutX="198.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="0" />
                                     <TextField layoutX="176.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="1" />
                                     <TextField layoutX="154.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="2" />
@@ -96,14 +97,14 @@
                                     <TextField layoutX="44.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="7" />
                                     <TextField layoutX="1.0" layoutY="52.0" prefHeight="25.0" prefWidth="45.0" text="RegB" />
                                     <TextField layoutX="1.0" layoutY="77.0" prefHeight="25.0" prefWidth="45.0" text="PinB" />
-                                    <ToggleButton id="B0" fx:id="B0" layoutX="199.0" layoutY="77.0" mnemonicParsing="false" text="0" toggleGroup="$InOut" />
-                                    <ToggleButton id="B1" fx:id="B1" layoutX="177.0" layoutY="77.0" mnemonicParsing="false" text="0" toggleGroup="$InOut" />
-                                    <ToggleButton id="B2" fx:id="B2" layoutX="155.0" layoutY="77.0" mnemonicParsing="false" text="0" toggleGroup="$InOut" />
-                                    <ToggleButton id="B3" fx:id="B3" layoutX="133.0" layoutY="77.0" mnemonicParsing="false" text="0" toggleGroup="$InOut" />
-                                    <ToggleButton id="B4" fx:id="B4" layoutX="111.0" layoutY="77.0" mnemonicParsing="false" text="0" toggleGroup="$InOut" />
-                                    <ToggleButton id="B5" fx:id="B5" layoutX="89.0" layoutY="77.0" mnemonicParsing="false" text="0" toggleGroup="$InOut" />
-                                    <ToggleButton id="B6" fx:id="B6" layoutX="67.0" layoutY="77.0" mnemonicParsing="false" text="0" toggleGroup="$InOut" />
-                                    <ToggleButton id="B7" fx:id="B7" layoutX="45.0" layoutY="77.0" mnemonicParsing="false" text="0" toggleGroup="$InOut" />
+                                    <ToggleButton id="B0" fx:id="B0" layoutX="199.0" layoutY="77.0" mnemonicParsing="false" text="0" />
+                                    <ToggleButton id="B1" fx:id="B1" layoutX="177.0" layoutY="77.0" mnemonicParsing="false" text="0" />
+                                    <ToggleButton id="B2" fx:id="B2" layoutX="155.0" layoutY="77.0" mnemonicParsing="false" text="0" />
+                                    <ToggleButton id="B3" fx:id="B3" layoutX="133.0" layoutY="77.0" mnemonicParsing="false" text="0" />
+                                    <ToggleButton id="B4" fx:id="B4" layoutX="111.0" layoutY="77.0" mnemonicParsing="false" text="0" />
+                                    <ToggleButton id="B5" fx:id="B5" layoutX="89.0" layoutY="77.0" mnemonicParsing="false" text="0" />
+                                    <ToggleButton id="B6" fx:id="B6" layoutX="67.0" layoutY="77.0" mnemonicParsing="false" text="0" />
+                                    <ToggleButton id="B7" fx:id="B7" layoutX="45.0" layoutY="77.0" mnemonicParsing="false" text="0" />
                                     <TextField layoutX="199.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="0" />
                                     <TextField layoutX="177.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="1" />
                                     <TextField layoutX="155.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="2" />
@@ -122,7 +123,7 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                     <children>
-                        <TableView fx:id="tableFileContent" prefHeight="130.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="tableFileContent" minHeight="109.0" prefHeight="109.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
                                 <TableColumn maxWidth="90" minWidth="90" text="Breakpoint" />
                                 <TableColumn fx:id="tableColumnZeilennummer" maxWidth="50" minWidth="50" text="Zeile" />
