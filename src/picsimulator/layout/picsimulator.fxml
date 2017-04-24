@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
     <children>
-      <MenuBar prefHeight="17.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar prefHeight="17.0" prefWidth="600.0" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -34,7 +34,7 @@
           </Menu>
         </menus>
       </MenuBar>
-        <SplitPane dividerPositions="0.5549597855227882" layoutY="23.0" orientation="VERTICAL" prefHeight="377.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+        <SplitPane dividerPositions="0.7" layoutY="23.0" orientation="VERTICAL" prefHeight="377.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="229.0" prefWidth="200.0" SplitPane.resizableWithParent="false">
                     <children>
@@ -46,9 +46,9 @@
                         <Button fx:id="BtnClear" layoutX="127.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="323.0" prefHeight="204.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="323.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane layoutX="296.0" prefHeight="204.0" prefWidth="302.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="296.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TableView fx:id="tableMemory" maxHeight="500.0" maxWidth="300.0" minHeight="180.0" minWidth="198.0" prefHeight="204.0" prefWidth="274.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="tableMemory" layoutX="2.0" maxHeight="500.0" maxWidth="300.0" minHeight="400.0" minWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
                             <TableColumn fx:id="tableColumnMemoryName" prefWidth="75.0" />
                             <TableColumn fx:id="tableColumnMemoryBit0" prefWidth="75.0" text="00" />
@@ -122,7 +122,7 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                     <children>
-                        <TableView fx:id="tableFileContent" prefHeight="163.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="tableFileContent" prefHeight="130.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
                                 <TableColumn maxWidth="90" minWidth="90" text="Breakpoint" />
                                 <TableColumn fx:id="tableColumnZeilennummer" maxWidth="50" minWidth="50" text="Zeile" />
