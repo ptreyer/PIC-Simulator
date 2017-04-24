@@ -1,5 +1,9 @@
 package picsimulator.services;
 
+import picsimulator.model.befehle.pic.ADDWF;
+import picsimulator.model.befehle.pic.ANDWF;
+import picsimulator.model.befehle.pic.CLRF;
+
 /**
  * Created by ptrey on 24.04.2017.
  */
@@ -8,13 +12,13 @@ public class BefehlSteuerungService {
     public void steuereBefehl(String binaryString) {
 
         if (binaryString.startsWith("000111")) {
-// ADDWF
+            ADDWF addwf = new ADDWF(binaryString, 6);
         }
         if (binaryString.startsWith("000101")) {
-// ANDWF
+            ANDWF andwf = new ANDWF(binaryString, 6);
         }
         if (binaryString.startsWith("0000011")) {
-// CLRF
+            CLRF clrf = new CLRF(binaryString, 7);
         }
         if (binaryString.startsWith("0000010")) {
 // CLRW

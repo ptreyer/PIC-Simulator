@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
 
@@ -8,12 +9,13 @@ import picsimulator.model.befehle.Operation;
  */
 public class ADDLW extends Operation implements Executable {
 
-    public ADDLW(String binaryString, int opcodeBits) {
-        super(binaryString, opcodeBits);
+    public ADDLW(String binaryString, int opcodeBits, Speicher memory) {
+        super(binaryString, opcodeBits, memory);
     }
 
     @Override
     public String execute() {
         return null;
     }
+
 }
