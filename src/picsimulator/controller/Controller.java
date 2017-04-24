@@ -126,7 +126,7 @@ public class Controller {
                 for (currentRow = 1; currentRow <= befehle.size(); currentRow++) {
                     Befehl befehl = tableFileContent.getItems().get(currentRow - 1);
                     if (befehl.isAusfuehrbar()) {
-                        System.out.println(befehl.getBefehlscode());
+                        System.out.println(getRegisterService().hexToBin(befehl.getBefehlscode()));
                     }
                     Platform.runLater(() -> tableFileContent.refresh());
                     Thread.sleep(250);
@@ -150,10 +150,15 @@ public class Controller {
     public void reset(ActionEvent actionEvent) {
         currentRow = 1;
         initializeMemory();
+        setRegisterA();
+        setRegisterB();
         tableFileContent.refresh();
     }
 
     public void clear(ActionEvent actionEvent) {
+        initializeMemory();
+        setRegisterA();
+        setRegisterB();
         tableFileContent.getItems().clear();
         tableMemory.getItems().clear();
     }
@@ -221,14 +226,14 @@ public class Controller {
         Bit bit6 = getRegisterA().getBits()[6];
         getRegisterA().getBits()[6] = getRegisterService().toggleBit(bit6);
         tableMemory.refresh();
-        a6.setText(String.valueOf(getRegisterA().getBits()[5].getPin()));
+        a6.setText(String.valueOf(getRegisterA().getBits()[6].getPin()));
     }
 
     public void toggleA7(ActionEvent actionEvent) {
         Bit bit7 = getRegisterA().getBits()[7];
         getRegisterA().getBits()[7] = getRegisterService().toggleBit(bit7);
         tableMemory.refresh();
-        a7.setText(String.valueOf(getRegisterA().getBits()[6].getPin()));
+        a7.setText(String.valueOf(getRegisterA().getBits()[7].getPin()));
     }
 
     public void toggleB0(ActionEvent actionEvent) {
