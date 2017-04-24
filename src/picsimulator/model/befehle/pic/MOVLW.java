@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
 
@@ -8,8 +9,9 @@ import picsimulator.model.befehle.Operation;
  */
 public class MOVLW extends Operation implements Executable {
 
-    public MOVLW(String binaryString, int opcodeBits) {
-        super(binaryString, opcodeBits);
+
+    public MOVLW(String binaryString, int opcodeBits, Speicher memory) {
+        super(binaryString, opcodeBits, memory);
     }
 
     @Override

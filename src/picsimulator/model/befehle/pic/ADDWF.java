@@ -9,6 +9,7 @@ import picsimulator.model.befehle.Operation;
  */
 public class ADDWF extends Operation implements Executable {
 
+
     public ADDWF(String binaryString, int opcodeBits, Speicher memory) {
         super(binaryString, opcodeBits, memory);
     }
