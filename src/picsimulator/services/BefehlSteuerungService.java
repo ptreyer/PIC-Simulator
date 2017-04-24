@@ -1,8 +1,6 @@
 package picsimulator.services;
 
-import picsimulator.model.befehle.pic.ADDWF;
-import picsimulator.model.befehle.pic.ANDWF;
-import picsimulator.model.befehle.pic.CLRF;
+import picsimulator.model.befehle.pic.*;
 
 /**
  * Created by ptrey on 24.04.2017.
@@ -90,31 +88,31 @@ public class BefehlSteuerungService {
 // CLRWDT
         }
         if (binaryString.startsWith("101")) {
-// GOTO
+            GOTO goto = new GOTO(binaryString,3, speicher)
         }
         if (binaryString.startsWith("111000")) {
-// IORLW
+            IORLW iorlw = new IORLW(binaryString,6, speicher);
         }
         if (binaryString.startsWith("1100")) {
-// MOVLW
+            MOVLW movlw = new MOVLW(binaryString,4, speicher);
         }
         if (binaryString.startsWith("00000000001001")) {
-// RETFIE
+            RETFIE retfie = new RETFIE(binaryString,14, speicher);
         }
         if (binaryString.startsWith("1101")) {
-// RETLW
+            RETLW retlw = new RETLW(binaryString, 4, speicher);
         }
         if (binaryString.startsWith("00000000001000")) {
-// RETURN
+            RETURN return = new RETURN(binaryString,14, speicher);
         }
         if (binaryString.startsWith("00000001100011")) {
-// SLEEP
+            SLEEP sleep new SLEEP(binaryString,14, speicher);
         }
         if (binaryString.startsWith("11110")) {
-// SUBLW
+            SUBLW sublw = new SUBLW(binaryString,5, speicher);
         }
         if (binaryString.startsWith("111010")) {
-// XORLW
+            XORLW xorlw = new XORLW(binaryString,6, speicher);
         }
 
 
