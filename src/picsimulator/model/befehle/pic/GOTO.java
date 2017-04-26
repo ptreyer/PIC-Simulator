@@ -9,13 +9,12 @@ import picsimulator.model.befehle.Operation;
  */
 public class GOTO extends Operation implements Executable {
 
-
     public GOTO(String binaryString, int opcodeBits, Speicher memory) {
         super(binaryString, opcodeBits, memory);
     }
 
     @Override
-    public String execute() {
+    public Speicher execute() {
         return null;
     }
 }

@@ -9,6 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import picsimulator.model.*;
+import picsimulator.services.BefehlSteuerungService;
 import picsimulator.services.FileInputService;
 import picsimulator.services.MemoryInitializerService;
 import picsimulator.services.RegisterService;
@@ -86,6 +87,7 @@ public class Controller {
     private FileInputService fileInputService;
     private MemoryInitializerService memoryInitializerService;
     private RegisterService registerService;
+    private BefehlSteuerungService befehlSteuerungService;
     private List<Befehl> befehle;
     private Speicher speicher;
     private Register registerA;
@@ -126,7 +128,9 @@ public class Controller {
                 for (currentRow = 1; currentRow <= befehle.size(); currentRow++) {
                     Befehl befehl = tableFileContent.getItems().get(currentRow - 1);
                     if (befehl.isAusfuehrbar()) {
-                        System.out.println(getRegisterService().hexToBin(befehl.getBefehlscode()));
+                        String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
+                        speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
+                        System.out.println(binaryString);
                     }
                     Platform.runLater(() -> tableFileContent.refresh());
                     Thread.sleep(250);
@@ -293,7 +297,7 @@ public class Controller {
     }
 
     public Register getRegisterA() {
-        if(speicher == null){
+        if (speicher == null) {
             initializeMemory();
         }
         return speicher.getSpeicheradressen()[0].getRegister()[5];
@@ -311,7 +315,7 @@ public class Controller {
     }
 
     public Register getRegisterB() {
-        if(speicher == null){
+        if (speicher == null) {
             initializeMemory();
         }
         return speicher.getSpeicheradressen()[0].getRegister()[6];
@@ -347,5 +351,12 @@ public class Controller {
             registerService = new RegisterService();
         }
         return registerService;
+    }
+
+    public BefehlSteuerungService getBefehlSteuerungService() {
+        if (befehlSteuerungService == null) {
+            befehlSteuerungService = new BefehlSteuerungService();
+        }
+        return befehlSteuerungService;
     }
 }

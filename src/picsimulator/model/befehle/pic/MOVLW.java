@@ -9,13 +9,12 @@ import picsimulator.model.befehle.Operation;
  */
 public class MOVLW extends Operation implements Executable {
 
-
     public MOVLW(String binaryString, int opcodeBits, Speicher memory) {
         super(binaryString, opcodeBits, memory);
     }
 
     @Override
-    public String execute() {
+    public Speicher execute() {
         return null;
     }
 }

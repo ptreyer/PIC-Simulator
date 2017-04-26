@@ -14,7 +14,7 @@ public class MOVWF extends Operation implements Executable {
     }
 
     @Override
-    public String execute() {
+    public Speicher execute() {
         return null;
     }
 }

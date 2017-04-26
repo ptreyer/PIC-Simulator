@@ -14,7 +14,7 @@ public class ADDLW extends Operation implements Executable {
     }
 
     @Override
-    public String execute() {
+    public Speicher execute() {
         return null;
     }
 

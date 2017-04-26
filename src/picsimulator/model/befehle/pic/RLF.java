@@ -9,13 +9,12 @@ import picsimulator.model.befehle.Operation;
  */
 public class RLF extends Operation implements Executable {
 
-
     public RLF(String binaryString, int opcodeBits, Speicher memory) {
         super(binaryString, opcodeBits, memory);
     }
 
     @Override
-    public String execute() {
+    public Speicher execute() {
         return null;
     }
 }

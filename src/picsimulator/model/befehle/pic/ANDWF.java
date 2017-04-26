@@ -15,7 +15,7 @@ public class ANDWF extends Operation implements Executable {
     }
 
     @Override
-    public String execute() {
+    public Speicher execute() {
         return null;
     }
 }

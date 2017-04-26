@@ -9,13 +9,12 @@ import picsimulator.model.befehle.Operation;
  */
 public class INCF extends Operation implements Executable {
 
-
     public INCF(String binaryString, int opcodeBits, Speicher memory) {
         super(binaryString, opcodeBits, memory);
     }
 
     @Override
-    public String execute() {
+    public Speicher execute() {
         return null;
     }
 }

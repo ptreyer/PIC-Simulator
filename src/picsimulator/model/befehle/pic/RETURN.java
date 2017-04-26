@@ -9,13 +9,12 @@ import picsimulator.model.befehle.Operation;
  */
 public class RETURN extends Operation implements Executable {
 
-
     public RETURN(String binaryString, int opcodeBits, Speicher memory) {
         super(binaryString, opcodeBits, memory);
     }
 
     @Override
-    public String execute() {
+    public Speicher execute() {
         return null;
     }
 }

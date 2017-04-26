@@ -9,13 +9,12 @@ import picsimulator.model.befehle.Operation;
  */
 public class SLEEP extends Operation implements Executable {
 
-
     public SLEEP(String binaryString, int opcodeBits, Speicher memory) {
         super(binaryString, opcodeBits, memory);
     }
 
     @Override
-    public String execute() {
+    public Speicher execute() {
         return null;
     }
 }

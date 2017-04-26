@@ -9,13 +9,12 @@ import picsimulator.model.befehle.Operation;
  */
 public class BTFSC extends Operation implements Executable {
 
-
     public BTFSC(String binaryString, int opcodeBits, Speicher memory) {
         super(binaryString, opcodeBits, memory);
     }
 
     @Override
-    public String execute() {
+    public Speicher execute() {
         return null;
     }
 }

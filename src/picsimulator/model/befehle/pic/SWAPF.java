@@ -9,13 +9,12 @@ import picsimulator.model.befehle.Operation;
  */
 public class SWAPF extends Operation implements Executable {
 
-
     public SWAPF(String binaryString, int opcodeBits, Speicher memory) {
         super(binaryString, opcodeBits, memory);
     }
 
     @Override
-    public String execute() {
+    public Speicher execute() {
         return null;
     }
 }

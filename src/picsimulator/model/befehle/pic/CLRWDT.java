@@ -9,13 +9,12 @@ import picsimulator.model.befehle.Operation;
  */
 public class CLRWDT extends Operation implements Executable {
 
-
     public CLRWDT(String binaryString, int opcodeBits, Speicher memory) {
         super(binaryString, opcodeBits, memory);
     }
 
     @Override
-    public String execute() {
+    public Speicher execute() {
         return null;
     }
 }

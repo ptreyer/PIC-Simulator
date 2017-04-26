@@ -9,13 +9,12 @@ import picsimulator.model.befehle.Operation;
  */
 public class IORLW extends Operation implements Executable {
 
-
     public IORLW(String binaryString, int opcodeBits, Speicher memory) {
         super(binaryString, opcodeBits, memory);
     }
 
     @Override
-    public String execute() {
+    public Speicher execute() {
         return null;
     }
 }
