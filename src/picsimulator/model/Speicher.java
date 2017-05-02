@@ -8,7 +8,7 @@ public class Speicher {
     private Speicheradresse[] speicheradressen;
     private Stack[] stack;
 
-    private byte registerW;
+    private int registerW;
     private int watchdogTimer;
 
     public Speicher(){
@@ -40,11 +40,11 @@ public class Speicher {
         this.stack = stack;
     }
 
-    public byte getRegisterW() {
+    public int getRegisterW() {
         return registerW;
     }
 
-    public void setRegisterW(byte registerW) {
+    public void setRegisterW(int registerW) {
         this.registerW = registerW;
     }
 
