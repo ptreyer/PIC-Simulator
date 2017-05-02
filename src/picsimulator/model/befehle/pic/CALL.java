@@ -15,7 +15,8 @@ public class CALL extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
-        increaseProgrammCounter();
+        memory.getStack()[0].setWert(memory.getSpeicheradressen()[0].getRegister()[2].getWert());
+        memory.getSpeicheradressen()[0].getRegister()[2].setWert(binaryString.substring(opcodeBits));
         return memory;
     }
 }

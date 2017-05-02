@@ -33,6 +33,33 @@ public class Stack {
         return Integer.toString(decimal,16).toUpperCase();
     }
 
+    public void setWert(int wert) {
+        resetBits();
+        String reverseBinaryString = new StringBuilder(Integer.toBinaryString(wert)).reverse().toString();
+        char[] chars = reverseBinaryString.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            if (i == 8) return;
+            bits[i].setPin(Character.getNumericValue(chars[i]));
+        }
+    }
+
+    public void setWert(String binaryString) {
+        resetBits();
+        String reverseBinaryString = new StringBuilder(binaryString).reverse().toString();
+        char[] chars = reverseBinaryString.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            if (i == 8) return;
+            bits[i].setPin(Character.getNumericValue(chars[i]));
+        }
+    }
+
+    private void resetBits() {
+        bits = new Bit[13];
+        for (int i = 0; i < bits.length; i++) {
+            bits[i] = new Bit( 0, 0);
+        }
+    }
+
     public Bit[] getBits() {
         return bits;
     }
