@@ -17,6 +17,7 @@ public class CLRF extends Operation implements Executable {
     public Speicher execute() {
         String registerAdress = binaryString.substring(opcodeBits);
         memory.getFileRegister(getRegisterService().binToInt(registerAdress)).setWert(0);
+        memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(1);
         increaseProgrammCounter();
         return memory;
     }
