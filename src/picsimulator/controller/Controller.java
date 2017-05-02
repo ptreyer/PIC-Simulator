@@ -127,17 +127,14 @@ public class Controller {
             try {
                 while (true) {
                     int pcl = speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();
+                    System.out.println("PCL: " + pcl);
                     for (Befehl befehl : befehle) {
                         if (befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()) {
-                            System.out.println("PCL GO: " + pcl);
-                            System.out.println("BEFEHL GO: " + getRegisterService().hexToBin(befehl.getBefehlscode()));
                             currentRow = befehl.getZeilennummer();
                             String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
                             speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
-                            //System.out.println(befehl.getZeigernummer() + ": " +binaryString);
                             Platform.runLater(() -> tableFileContent.refresh());
                             Thread.sleep(250);
-                            // System.out.println("PCL: " + pcl);
                         }
                     }
                 }
@@ -154,6 +151,7 @@ public class Controller {
             return;
         }
         int pcl = speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();
+        System.out.println("PCL: " + pcl);
         for (Befehl befehl : befehle) {
             if (befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()) {
                 currentRow = befehl.getZeilennummer();

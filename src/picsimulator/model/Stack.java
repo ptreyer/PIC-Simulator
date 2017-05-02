@@ -38,7 +38,7 @@ public class Stack {
         String reverseBinaryString = new StringBuilder(Integer.toBinaryString(wert)).reverse().toString();
         char[] chars = reverseBinaryString.toCharArray();
         for (int i = 0; i < chars.length; i++) {
-            if (i == 8) return;
+            if (i == 13) return;
             bits[i].setPin(Character.getNumericValue(chars[i]));
         }
     }
@@ -48,7 +48,7 @@ public class Stack {
         String reverseBinaryString = new StringBuilder(binaryString).reverse().toString();
         char[] chars = reverseBinaryString.toCharArray();
         for (int i = 0; i < chars.length; i++) {
-            if (i == 8) return;
+            if (i == 13) return;
             bits[i].setPin(Character.getNumericValue(chars[i]));
         }
     }

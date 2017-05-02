@@ -19,9 +19,9 @@ public class RegisterService {
     }
 
     public String hexToBin(String hex) {
-        int i = Integer.parseInt(hex, 16);
-        String bin = Integer.toBinaryString(i);
-        return bin;
+        String value = new BigInteger(hex, 16).toString(2);
+        String formatPad = "%" + (14) + "s";
+        return String.format(formatPad, value).replace(" ", "0");
     }
 
 

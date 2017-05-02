@@ -10,6 +10,8 @@ public class BefehlSteuerungService {
 
     public Speicher steuereBefehl(Speicher speicher, String binaryString) {
 
+        System.out.println(binaryString);
+
         if (binaryString.startsWith("000111")) {
             ADDWF addwf = new ADDWF(binaryString, 6, speicher);
             return addwf.execute();
@@ -58,7 +60,7 @@ public class BefehlSteuerungService {
             MOVWF movwf = new MOVWF(binaryString, 7, speicher);
             return movwf.execute();
         }
-        if (binaryString.equals("0")) {
+        if (binaryString.startsWith("0000000") && binaryString.endsWith("00000")) {
             NOP nop = new NOP(binaryString, 14, speicher);
             return nop.execute();
         }
