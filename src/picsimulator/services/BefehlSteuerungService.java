@@ -58,7 +58,7 @@ public class BefehlSteuerungService {
             MOVWF movwf = new MOVWF(binaryString, 7, speicher);
             return movwf.execute();
         }
-        if (binaryString.startsWith("0000000") && binaryString.endsWith("00000")) {
+        if (binaryString.equals("0")) {
             NOP nop = new NOP(binaryString, 14, speicher);
             return nop.execute();
         }

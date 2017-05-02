@@ -35,7 +35,7 @@ public class FileInputService {
                 if (befehl.isAusfuehrbar()) {
                     String subline = line.substring(0, 25);
                     subline = subline.replaceAll("\\s+", "");
-                    befehl.setZeigernummer(Integer.parseInt(subline.substring(0, 4)));
+                    befehl.setZeigernummer(Integer.parseInt(subline.substring(0, 4), 16));
                     befehl.setBefehlscode(subline.substring(4, 8));
                     befehl.setZeilennummer(Integer.parseInt(subline.substring(8, 13)));
                 } else {
@@ -55,7 +55,6 @@ public class FileInputService {
                     }
                     befehl.setKommentar(strings[i]);
                 }
-
                 befehle.add(befehl);
             }
             in.close();

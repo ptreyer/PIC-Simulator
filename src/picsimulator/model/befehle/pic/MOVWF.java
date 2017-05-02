@@ -15,6 +15,7 @@ public class MOVWF extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
+        increaseProgrammCounter();
         return memory;
     }
 }

@@ -15,6 +15,7 @@ public class XORWF extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
+        increaseProgrammCounter();
         return memory;
     }
 }

@@ -15,6 +15,8 @@ public class GOTO extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
+        String addresse = binaryString.substring(opcodeBits);
+        memory.getSpeicheradressen()[0].getRegister()[2].setWert(addresse);
         return memory;
     }
 }

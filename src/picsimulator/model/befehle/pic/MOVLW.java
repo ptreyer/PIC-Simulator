@@ -15,6 +15,8 @@ public class MOVLW extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
+        increaseProgrammCounter();
+        System.out.println(memory.getSpeicheradressen()[0].getRegister()[0].getWert());
         return memory;
     }
 }

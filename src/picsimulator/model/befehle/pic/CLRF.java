@@ -15,6 +15,7 @@ public class CLRF extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
+        increaseProgrammCounter();
         return memory;
     }
 }

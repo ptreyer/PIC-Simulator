@@ -15,6 +15,7 @@ public class COMF extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
+        increaseProgrammCounter();
         return memory;
     }
 }

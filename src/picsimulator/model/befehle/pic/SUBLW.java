@@ -15,6 +15,7 @@ public class SUBLW extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
+        increaseProgrammCounter();
         return memory;
     }
 }

@@ -100,6 +100,7 @@ public class Controller {
         tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("befehlscode"));
         tableColumnBefehl.setCellValueFactory(new PropertyValueFactory<>("befehl"));
         tableColumnKommentar.setCellValueFactory(new PropertyValueFactory<>("kommentar"));
+        if (befehle != null) befehle.clear();
         befehle = getFileInputService().importFile();
         initializeMemory();
         tableFileContent.getItems().addAll(befehle);
@@ -124,18 +125,19 @@ public class Controller {
         }
         Thread th = new Thread(() -> {
             try {
-                while(true){
+                while (true) {
                     int pcl = speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();
-                    for (Befehl befehl : befehle){
-                        if(befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()){
+                    for (Befehl befehl : befehle) {
+                        if (befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()) {
+                            System.out.println("PCL GO: " + pcl);
+                            System.out.println("BEFEHL GO: " + getRegisterService().hexToBin(befehl.getBefehlscode()));
                             currentRow = befehl.getZeilennummer();
                             String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
                             speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
-                            System.out.println(befehl.getZeigernummer() + ": " +binaryString);
+                            //System.out.println(befehl.getZeigernummer() + ": " +binaryString);
                             Platform.runLater(() -> tableFileContent.refresh());
                             Thread.sleep(250);
-                            speicher.getSpeicheradressen()[0].getRegister()[2].setWert(pcl++);
-                            System.out.println("PCL: " + pcl);
+                            // System.out.println("PCL: " + pcl);
                         }
                     }
                 }
@@ -152,8 +154,8 @@ public class Controller {
             return;
         }
         int pcl = speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();
-        for (Befehl befehl : befehle){
-            if(befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()){
+        for (Befehl befehl : befehle) {
+            if (befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()) {
                 currentRow = befehl.getZeilennummer();
                 String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
                 speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);

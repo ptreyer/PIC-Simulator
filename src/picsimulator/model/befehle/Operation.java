@@ -16,4 +16,9 @@ public class Operation {
         this.opcodeBits = opcodeBits;
         this.memory = memory;
     }
+
+    protected void increaseProgrammCounter(){
+        int pc = memory.getSpeicheradressen()[0].getRegister()[2].getIntWert()+1;
+        memory.getSpeicheradressen()[0].getRegister()[2].setWert(pc);
+    }
 }

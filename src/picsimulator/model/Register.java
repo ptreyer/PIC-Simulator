@@ -38,7 +38,6 @@ public class Register {
         builder.append(bits[2].getPin());
         builder.append(bits[1].getPin());
         builder.append(bits[0].getPin());
-        System.out.println("BUILDER: " + builder.toString());
         return Integer.parseInt(builder.toString(), 2);
     }
 
@@ -46,10 +45,8 @@ public class Register {
         resetBits();
         String reverseBinaryString = new StringBuilder(Integer.toBinaryString(wert)).reverse().toString();
         char[] chars = reverseBinaryString.toCharArray();
-        System.out.println(reverseBinaryString);
         for (int i = 0; i < chars.length; i++) {
             if (i == 8) return;
-            System.out.println("ii: " + i + " :" + Character.getNumericValue(chars[i]));
             bits[i].setPin(Character.getNumericValue(chars[i]));
         }
     }
@@ -60,7 +57,7 @@ public class Register {
         char[] chars = reverseBinaryString.toCharArray();
         for (int i = 0; i < chars.length; i++) {
             if (i == 8) return;
-            bits[i].setPin(chars[i]);
+            bits[i].setPin(Character.getNumericValue(chars[i]));
         }
     }
 
