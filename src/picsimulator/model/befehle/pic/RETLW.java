@@ -15,6 +15,9 @@ public class RETLW extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
+        String literal = binaryString.substring(opcodeBits);
+        memory.setRegisterW(Integer.parseInt(literal, 2));
+        memory.getSpeicheradressen()[0].getRegister()[2].setWert(memory.getStack()[0].getIntWert());
         increaseProgrammCounter();
         return memory;
     }

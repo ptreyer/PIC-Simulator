@@ -14,7 +14,7 @@ public class Register {
         }
     }
 
-    public String getWert() {
+    public String getHexWert() {
         StringBuilder builder = new StringBuilder();
         builder.append(bits[7].getPin());
         builder.append(bits[6].getPin());

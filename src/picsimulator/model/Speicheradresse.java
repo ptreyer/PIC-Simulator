@@ -33,35 +33,35 @@ public class Speicheradresse {
     }
 
     public String getRegister0Wert() {
-        return register[0].getWert();
+        return register[0].getHexWert();
     }
 
     public String getRegister1Wert() {
-        return register[1].getWert();
+        return register[1].getHexWert();
     }
 
     public String getRegister2Wert() {
-        return register[2].getWert();
+        return register[2].getHexWert();
     }
 
     public String getRegister3Wert() {
-        return register[3].getWert();
+        return register[3].getHexWert();
     }
 
     public String getRegister4Wert() {
-        return register[4].getWert();
+        return register[4].getHexWert();
     }
 
     public String getRegister5Wert() {
-        return register[5].getWert();
+        return register[5].getHexWert();
     }
 
     public String getRegister6Wert() {
-        return register[6].getWert();
+        return register[6].getHexWert();
     }
 
     public String getRegister7Wert() {
-        return register[7].getWert();
+        return register[7].getHexWert();
     }
 
 }

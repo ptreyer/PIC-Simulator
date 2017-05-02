@@ -15,7 +15,7 @@ public class RETURN extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
-        memory.getSpeicheradressen()[0].getRegister()[2].setWert(memory.getStack()[0].getWert());
+        memory.getSpeicheradressen()[0].getRegister()[2].setWert(memory.getStack()[0].getIntWert());
         increaseProgrammCounter();
         return memory;
     }

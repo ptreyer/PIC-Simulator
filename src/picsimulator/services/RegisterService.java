@@ -24,5 +24,11 @@ public class RegisterService {
         return String.format(formatPad, value).replace(" ", "0");
     }
 
+    public String hexToBinNoLeadingZeros(String hex) {
+        int i = Integer.parseInt(hex, 16);
+        String bin = Integer.toBinaryString(i);
+        return bin;
+    }
+
 
 }

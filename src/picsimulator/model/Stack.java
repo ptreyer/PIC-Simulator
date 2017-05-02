@@ -14,7 +14,26 @@ public class Stack {
         }
     }
 
-    public String getWert() {
+    public int getIntWert() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(bits[7].getPin());
+        builder.append(bits[12].getPin());
+        builder.append(bits[11].getPin());
+        builder.append(bits[10].getPin());
+        builder.append(bits[9].getPin());
+        builder.append(bits[8].getPin());
+        builder.append(bits[7].getPin());
+        builder.append(bits[6].getPin());
+        builder.append(bits[5].getPin());
+        builder.append(bits[4].getPin());
+        builder.append(bits[3].getPin());
+        builder.append(bits[2].getPin());
+        builder.append(bits[1].getPin());
+        builder.append(bits[0].getPin());
+        return Integer.parseInt(builder.toString(), 2);
+    }
+
+    public String getHexWert() {
         StringBuilder builder = new StringBuilder();
         builder.append(bits[12].getPin());
         builder.append(bits[11].getPin());
