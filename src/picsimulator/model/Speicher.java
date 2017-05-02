@@ -11,7 +11,6 @@ public class Speicher {
     private byte registerW;
     private int watchdogTimer;
 
-
     public Speicher(){
         this.speicheradressen = new Speicheradresse[32];
         int adresse = 0;

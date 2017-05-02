@@ -118,22 +118,26 @@ public class Controller {
         });
     }
 
-
     public void run(ActionEvent actionEvent) {
         if (tableFileContent.getItems().isEmpty()) {
             return;
         }
         Thread th = new Thread(() -> {
             try {
-                for (currentRow = 1; currentRow <= befehle.size(); currentRow++) {
-                    Befehl befehl = tableFileContent.getItems().get(currentRow - 1);
-                    if (befehl.isAusfuehrbar()) {
-                        String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
-                        speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
-                        System.out.println(befehl.getZeigernummer() + ": " +binaryString);
+                while(true){
+                    int pcl = speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();
+                    for (Befehl befehl : befehle){
+                        if(befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()){
+                            currentRow = befehl.getZeilennummer();
+                            String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
+                            speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
+                            System.out.println(befehl.getZeigernummer() + ": " +binaryString);
+                            Platform.runLater(() -> tableFileContent.refresh());
+                            Thread.sleep(250);
+                            speicher.getSpeicheradressen()[0].getRegister()[2].setWert(pcl++);
+                            System.out.println("PCL: " + pcl);
+                        }
                     }
-                    Platform.runLater(() -> tableFileContent.refresh());
-                    Thread.sleep(250);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -147,8 +151,15 @@ public class Controller {
         if (tableFileContent.getItems().isEmpty()) {
             return;
         }
-        currentRow++;
-        tableFileContent.refresh();
+        int pcl = speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();
+        for (Befehl befehl : befehle){
+            if(befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()){
+                currentRow = befehl.getZeilennummer();
+                String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
+                speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
+                tableFileContent.refresh();
+            }
+        }
     }
 
     public void reset(ActionEvent actionEvent) {

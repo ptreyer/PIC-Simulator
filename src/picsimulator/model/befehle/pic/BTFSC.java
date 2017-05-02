@@ -15,6 +15,6 @@ public class BTFSC extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
-        return null;
+        return memory;
     }
 }

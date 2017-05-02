@@ -15,6 +15,6 @@ public class CLRF extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
-        return null;
+        return memory;
     }
 }

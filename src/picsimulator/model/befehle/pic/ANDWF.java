@@ -9,13 +9,12 @@ import picsimulator.model.befehle.Operation;
  */
 public class ANDWF extends Operation implements Executable {
 
-
     public ANDWF(String binaryString, int opcodeBits, Speicher memory) {
         super(binaryString, opcodeBits, memory);
     }
 
     @Override
     public Speicher execute() {
-        return null;
+        return memory;
     }
 }
