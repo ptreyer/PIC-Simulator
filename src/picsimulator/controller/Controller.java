@@ -134,6 +134,7 @@ public class Controller {
                             String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
                             speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
                             Platform.runLater(() -> tableFileContent.refresh());
+                            tableMemory.refresh();
                             Thread.sleep(250);
                         }
                     }
@@ -158,6 +159,7 @@ public class Controller {
                 String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
                 speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
                 tableFileContent.refresh();
+                tableMemory.refresh();
             }
         }
     }

@@ -16,7 +16,7 @@ public class MOVLW extends Operation implements Executable {
     @Override
     public Speicher execute() {
         String literal = binaryString.substring(opcodeBits);
-        memory.setRegisterW(Integer.parseInt(literal, 2));
+        memory.setRegisterW(getRegisterService().binToInt(literal));
         increaseProgrammCounter();
         return memory;
     }

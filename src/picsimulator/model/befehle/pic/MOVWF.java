@@ -15,6 +15,8 @@ public class MOVWF extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
+        String registerAdress = binaryString.substring(opcodeBits);
+        memory.getFileRegister(getRegisterService().binToInt(registerAdress)).setWert(getRegisterService().intToBin(memory.getRegisterW()));
         increaseProgrammCounter();
         return memory;
     }

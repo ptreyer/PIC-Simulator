@@ -30,5 +30,19 @@ public class RegisterService {
         return bin;
     }
 
+    public int hexToInt(String hex){
+        return Integer.parseInt(hex, 16);
+    }
+
+    public String intToBin(int wert){
+        return Integer.toBinaryString(wert);
+    }
+
+    public int binToInt(String binary){
+        return Integer.parseInt(binary, 2);
+    }
+
+
+
 
 }
