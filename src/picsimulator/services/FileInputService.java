@@ -35,6 +35,7 @@ public class FileInputService {
                 if (befehl.isAusfuehrbar()) {
                     String subline = line.substring(0, 25);
                     subline = subline.replaceAll("\\s+", "");
+                    befehl.setZeigernummer(Integer.parseInt(subline.substring(0, 4)));
                     befehl.setBefehlscode(subline.substring(4, 8));
                     befehl.setZeilennummer(Integer.parseInt(subline.substring(8, 13)));
                 } else {
@@ -42,6 +43,7 @@ public class FileInputService {
                     subline = subline.replaceAll("\\s+", "");
                     befehl.setBefehlscode("-");
                     befehl.setZeilennummer(Integer.parseInt(subline.substring(0, 5)));
+                    befehl.setZeigernummer(0);
                 }
 
                 String subline2 = line.substring(25);

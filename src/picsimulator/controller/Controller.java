@@ -130,7 +130,7 @@ public class Controller {
                     if (befehl.isAusfuehrbar()) {
                         String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
                         speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
-                        System.out.println(binaryString);
+                        System.out.println(befehl.getZeigernummer() + ": " +binaryString);
                     }
                     Platform.runLater(() -> tableFileContent.refresh());
                     Thread.sleep(250);

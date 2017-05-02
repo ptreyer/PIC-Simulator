@@ -4,6 +4,7 @@ public class Befehl {
 
     private boolean ausfuehrbar;
     private int zeilennummer;
+    private int zeigernummer;
     private String befehlscode;
     private String befehl;
     private String kommentar;
@@ -22,6 +23,14 @@ public class Befehl {
 
     public void setZeilennummer(int zeilennummer) {
         this.zeilennummer = zeilennummer;
+    }
+
+    public int getZeigernummer() {
+        return zeigernummer;
+    }
+
+    public void setZeigernummer(int zeigernummer) {
+        this.zeigernummer = zeigernummer;
     }
 
     public String getBefehlscode() {
