@@ -28,12 +28,6 @@ public class DECFSZ extends Operation implements Executable {
             memory.getFileRegister(registerNr).setWert(dekrementierterWert);
         }
 
-        if (dekrementierterWert == 0) {
-            memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(1);
-        } else {
-            memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(0);
-        }
-
         if(dekrementierterWert == 0){
             NOP nop = new NOP(binaryString, 14, memory);
             memory =  nop.execute();
