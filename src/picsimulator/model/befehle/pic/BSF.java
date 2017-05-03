@@ -15,6 +15,11 @@ public class BSF extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
+        int registerIndex = opcodeBits + 3;
+        String binBit = binaryString.substring(opcodeBits, registerIndex);
+        String register = binaryString.substring(registerIndex);
+        int bit = getRegisterService().binToInt(binBit);
+        memory.getFileRegister(getRegisterService().binToInt(register)).getBits()[bit].setPin(1);
         increaseProgrammCounter();
         return memory;
     }
