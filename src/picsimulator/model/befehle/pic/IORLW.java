@@ -1,6 +1,5 @@
 package picsimulator.model.befehle.pic;
 
-import picsimulator.model.Bit;
 import picsimulator.model.Register;
 import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
