@@ -56,18 +56,6 @@ public class Speicher {
         this.watchdogTimer = watchdogTimer;
     }
 
-    public void setFlags(int registerW){
-        if(registerW > 255){
-            memory.setCarry();
-        }
-        if(memory.getRegisterW()>0x0F){
-            memory.setDigitCarry();
-        }
-        if (registerW = null) {
-            memory.setZeroBit();
-        }
-    }
-
     public Register getFileRegister(int nummer) {
         if (0 < nummer && nummer <= 7) {
             return getSpeicheradressen()[0].getRegister()[nummer];
