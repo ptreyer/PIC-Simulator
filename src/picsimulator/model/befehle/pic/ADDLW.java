@@ -17,16 +17,19 @@ public class ADDLW extends Operation implements Executable {
     public Speicher execute() {
         String literal = binaryString.substring(opcodeBits);
         int registerW = memory.getRegisterW() + getRegisterService().binToInt(literal);
+
         memory.setRegisterW(registerW);
-        if(registerW>255){
+        if (registerW > 255) {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].setPin(1);
-        }else{
+        } else {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].setPin(0);
         }
-        if (registerW)
-        if(registerW==0){
+
+        // TODO DC
+
+        if (registerW == 0) {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(1);
-        }else {
+        } else {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(0);
         }
 

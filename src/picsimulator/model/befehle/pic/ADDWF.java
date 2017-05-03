@@ -22,10 +22,27 @@ public class ADDWF extends Operation implements Executable {
         String registerAdress = binaryString.substring(opcodeBits + 1);
         int registerNr = getRegisterService().binToInt(registerAdress);
 
-        Bit[] bits = memory.getFileRegister(registerNr).getBits();
-        Register resultRegister = new Register();
-        Register wRegister = new Register();
-        wRegister.setWert(memory.getRegisterW());
+        int result = memory.getFileRegister(registerNr).getIntWert() + memory.getRegisterW();
+
+        if (Integer.parseInt(ziel) == 0) {
+            memory.setRegisterW(result);
+        } else {
+            memory.getFileRegister(registerNr).setWert(result);
+        }
+
+        if (result > 255) {
+            memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].setPin(1);
+        } else {
+            memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].setPin(0);
+        }
+
+        // TODO DC
+
+        if (result == 0) {
+            memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(1);
+        } else {
+            memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(0);
+        }
 
 
         increaseProgrammCounter();
