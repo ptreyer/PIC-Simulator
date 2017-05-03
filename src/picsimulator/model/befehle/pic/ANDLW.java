@@ -15,6 +15,10 @@ public class ANDLW extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
+        String literal = binaryString.substring(opcodeBits);
+        int registerW = memory.getRegisterW() & getRegisterService().binToInt(literal);
+        memory.setRegisterW(registerW);
+        memory.setFlags(registerW);
         increaseProgrammCounter();
         return memory;
     }
