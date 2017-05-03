@@ -135,6 +135,7 @@ public class Controller {
                     for (Befehl befehl : befehle) {
                         if (befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()) {
                             currentRow = befehl.getZeilennummer();
+                            Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
                             String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
                             speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
                             Platform.runLater(() -> tableFileContent.refresh());
@@ -160,6 +161,7 @@ public class Controller {
         for (Befehl befehl : befehle) {
             if (befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()) {
                 currentRow = befehl.getZeilennummer();
+                tableFileContent.scrollTo(currentRow - 2);
                 String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
                 speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
                 tableFileContent.refresh();
