@@ -15,6 +15,8 @@ public class CLRW extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
+        memory.setRegisterW(0);
+        memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(1);
         increaseProgrammCounter();
         return memory;
     }
