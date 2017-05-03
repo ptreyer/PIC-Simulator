@@ -8,12 +8,16 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
+import picsimulator.constants.PicSimulatorConstants;
 import picsimulator.model.*;
 import picsimulator.services.BefehlSteuerungService;
 import picsimulator.services.FileInputService;
 import picsimulator.services.MemoryInitializerService;
 import picsimulator.services.RegisterService;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 public class Controller {
@@ -343,6 +347,16 @@ public class Controller {
         b5.setText(String.valueOf(getRegisterB().getBits()[5].getPin()));
         b6.setText(String.valueOf(getRegisterB().getBits()[6].getPin()));
         b7.setText(String.valueOf(getRegisterB().getBits()[7].getPin()));
+    }
+
+    public void openDocumentation(ActionEvent actionEvent) {
+        try {
+            java.awt.Desktop.getDesktop().browse(new URI(PicSimulatorConstants.LINK_DOCUMENTATION));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     private MemoryInitializerService getMemoryInitializerService() {

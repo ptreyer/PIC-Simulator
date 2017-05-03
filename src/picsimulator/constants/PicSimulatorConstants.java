@@ -9,4 +9,6 @@ public class PicSimulatorConstants {
     public static final String REGISTER_B = "REGISTER_B";
     public static final String REGISTER_STATUS = "REGISTER_STATUS";
 
+    public static final String LINK_DOCUMENTATION = "https://github.com/ptreyer/PIC-Simulator/blob/master/docs/documentation.pdf";
+
 }

@@ -28,7 +28,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem fx:id="BtnOpenHelp" mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="BtnOpenHelp" mnemonicParsing="false" onAction="#openDocumentation" text="Open Documentation" />
             </items>
           </Menu>
         </menus>
@@ -101,7 +101,7 @@
                                     <ToggleButton id="b1" fx:id="b1" layoutX="177.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB1" text="0" />
                                     <ToggleButton id="b2" fx:id="b2" layoutX="155.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB2" text="0" />
                                     <ToggleButton id="b3" fx:id="b3" layoutX="133.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB3" text="0" />
-                                    <ToggleButton id="b4" fx:id="b4" layoutX="111.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB4"  text="0" />
+                                    <ToggleButton id="b4" fx:id="b4" layoutX="111.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB4" text="0" />
                                     <ToggleButton id="b5" fx:id="b5" layoutX="89.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB5" text="0" />
                                     <ToggleButton id="b6" fx:id="b6" layoutX="67.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB6" text="0" />
                                     <ToggleButton id="b7" fx:id="b7" layoutX="45.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB7" text="0" />
