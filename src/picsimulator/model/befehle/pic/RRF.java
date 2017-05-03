@@ -1,5 +1,7 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.model.Bit;
+import picsimulator.model.Register;
 import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
@@ -15,7 +17,31 @@ public class RRF extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
+        String ziel = binaryString.substring(opcodeBits, opcodeBits + 1);
+        String registerAdress = binaryString.substring(opcodeBits + 1);
+        int registerNr = getRegisterService().binToInt(registerAdress);
+
+        Bit[] bits = memory.getFileRegister(registerNr).getBits();
+        Register shiftedRegister = new Register();
+        shiftedRegister.getBits()[0] = bits[1];
+        shiftedRegister.getBits()[1] = bits[2];
+        shiftedRegister.getBits()[2] = bits[3];
+        shiftedRegister.getBits()[3] = bits[4];
+        shiftedRegister.getBits()[4] = bits[5];
+        shiftedRegister.getBits()[5] = bits[6];
+        shiftedRegister.getBits()[6] = bits[7];
+        shiftedRegister.getBits()[7] = memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0];;
+
+        memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0] = bits[0];
+
+        if (Integer.parseInt(ziel) == 0) {
+            memory.setRegisterW(shiftedRegister.getIntWert());
+        } else {
+            memory.getFileRegister(registerNr).setWert(shiftedRegister.getIntWert());
+        }
+
         increaseProgrammCounter();
         return memory;
     }
+
 }
