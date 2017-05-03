@@ -28,7 +28,7 @@ public class DECF extends Operation implements Executable {
             memory.getFileRegister(registerNr).setWert(dekrementierterWert);
         }
 
-        if (memory.getFileRegister(registerNr).getIntWert() == 0) {
+        if (dekrementierterWert == 0) {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(1);
         } else {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(0);

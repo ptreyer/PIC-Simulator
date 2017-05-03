@@ -28,7 +28,7 @@ public class INCF extends Operation implements Executable {
             memory.getFileRegister(registerNr).setWert(inkrementierterWert);
         }
 
-        if (memory.getFileRegister(registerNr).getIntWert() == 0) {
+        if (inkrementierterWert == 0) {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(1);
         } else {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(0);
