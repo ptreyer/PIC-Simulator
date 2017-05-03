@@ -11,7 +11,7 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
     <children>
       <MenuBar prefHeight="17.0" prefWidth="600.0" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -42,7 +42,7 @@
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="310.0" />
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <TableView fx:id="tableMemory" maxHeight="500.0" maxWidth="400.0" minHeight="400.0" minWidth="300.0" prefHeight="400.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="tableMemory" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
                                   <TableColumn fx:id="tableColumnMemoryName" prefWidth="75.0" />
                                   <TableColumn fx:id="tableColumnMemoryBit0" prefWidth="75.0" text="00" />
@@ -70,8 +70,7 @@
                         <Button fx:id="BtnClear" layoutX="127.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="296.0" prefHeight="204.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <AnchorPane prefHeight="102.0" prefWidth="220.0">
+                  <AnchorPane prefHeight="98.0" prefWidth="235.0">
                      <children>
                         <AnchorPane prefHeight="102.0" prefWidth="230.0">
                            <children>
@@ -95,24 +94,24 @@
                                     <TextField layoutX="88.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="5" />
                                     <TextField layoutX="66.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="6" />
                                     <TextField layoutX="44.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="7" />
-                                    <TextField layoutX="1.0" layoutY="52.0" prefHeight="25.0" prefWidth="45.0" text="RegB" />
-                                    <TextField layoutX="1.0" layoutY="77.0" prefHeight="25.0" prefWidth="45.0" text="PinB" />
-                                    <ToggleButton id="b0" fx:id="b0" layoutX="199.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB0" text="0" />
-                                    <ToggleButton id="b1" fx:id="b1" layoutX="177.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB1" text="0" />
-                                    <ToggleButton id="b2" fx:id="b2" layoutX="155.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB2" text="0" />
-                                    <ToggleButton id="b3" fx:id="b3" layoutX="133.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB3" text="0" />
-                                    <ToggleButton id="b4" fx:id="b4" layoutX="111.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB4" text="0" />
-                                    <ToggleButton id="b5" fx:id="b5" layoutX="89.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB5" text="0" />
-                                    <ToggleButton id="b6" fx:id="b6" layoutX="67.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB6" text="0" />
-                                    <ToggleButton id="b7" fx:id="b7" layoutX="45.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB7" text="0" />
-                                    <TextField layoutX="199.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField layoutX="177.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="1" />
-                                    <TextField layoutX="155.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="2" />
-                                    <TextField layoutX="133.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="3" />
-                                    <TextField layoutX="111.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="4" />
-                                    <TextField layoutX="89.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="5" />
-                                    <TextField layoutX="67.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="6" />
-                                    <TextField layoutX="45.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="7" />
+                                    <TextField layoutY="52.0" prefHeight="25.0" prefWidth="45.0" text="RegB" />
+                                    <TextField layoutY="77.0" prefHeight="25.0" prefWidth="45.0" text="PinB" />
+                                    <ToggleButton id="b0" fx:id="b0" layoutX="198.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB0" text="0" />
+                                    <ToggleButton id="b1" fx:id="b1" layoutX="176.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB1" text="0" />
+                                    <ToggleButton id="b2" fx:id="b2" layoutX="154.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB2" text="0" />
+                                    <ToggleButton id="b3" fx:id="b3" layoutX="132.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB3" text="0" />
+                                    <ToggleButton id="b4" fx:id="b4" layoutX="110.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB4" text="0" />
+                                    <ToggleButton id="b5" fx:id="b5" layoutX="88.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB5" text="0" />
+                                    <ToggleButton id="b6" fx:id="b6" layoutX="66.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB6" text="0" />
+                                    <ToggleButton id="b7" fx:id="b7" layoutX="44.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB7" text="0" />
+                                    <TextField layoutX="198.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="176.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="1" />
+                                    <TextField layoutX="154.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="2" />
+                                    <TextField layoutX="132.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="3" />
+                                    <TextField layoutX="110.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="4" />
+                                    <TextField layoutX="88.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="5" />
+                                    <TextField layoutX="66.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="6" />
+                                    <TextField layoutX="44.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="7" />
                                  </children>
                               </AnchorPane>
                            </children>
