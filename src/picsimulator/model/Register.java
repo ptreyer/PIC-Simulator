@@ -3,7 +3,7 @@ package picsimulator.model;
 /**
  * Created by ptrey on 10.04.2017.
  */
-public class Register {
+public class Register implements Cloneable{
 
     private Bit[] bits;
 

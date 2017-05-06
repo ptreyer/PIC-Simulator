@@ -23,16 +23,16 @@ public class RLF extends Operation implements Executable {
 
         Bit[] bits = memory.getFileRegister(registerNr).getBits();
         Register shiftedRegister = new Register();
-        shiftedRegister.getBits()[0] = memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0];
-        shiftedRegister.getBits()[1] = bits[0];
-        shiftedRegister.getBits()[2] = bits[1];
-        shiftedRegister.getBits()[3] = bits[2];
-        shiftedRegister.getBits()[4] = bits[3];
-        shiftedRegister.getBits()[5] = bits[4];
-        shiftedRegister.getBits()[6] = bits[5];
-        shiftedRegister.getBits()[7] = bits[5];
+        shiftedRegister.getBits()[0] = new Bit(memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].getPin(), 0);;
+        shiftedRegister.getBits()[1] = new Bit(bits[0].getPin(), 0);
+        shiftedRegister.getBits()[2] = new Bit(bits[1].getPin(), 0);
+        shiftedRegister.getBits()[3] = new Bit(bits[2].getPin(), 0);
+        shiftedRegister.getBits()[4] = new Bit(bits[3].getPin(), 0);
+        shiftedRegister.getBits()[5] = new Bit(bits[4].getPin(), 0);
+        shiftedRegister.getBits()[6] = new Bit(bits[5].getPin(), 0);
+        shiftedRegister.getBits()[7] = new Bit(bits[6].getPin(), 0);
 
-        memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0] = bits[7];
+        memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0] = new Bit(bits[7].getPin(), 0);
 
         if (Integer.parseInt(ziel) == 0) {
             memory.setRegisterW(shiftedRegister.getIntWert());

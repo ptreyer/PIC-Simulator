@@ -21,12 +21,6 @@ public class SUBWF extends Operation implements Executable {
 
         int result = memory.getFileRegister(registerNr).getIntWert() - memory.getRegisterW();
 
-        if (Integer.parseInt(ziel) == 0) {
-            memory.setRegisterW(result);
-        } else {
-            memory.getFileRegister(registerNr).setWert(result);
-        }
-
         if (result > 255 | result < 0) {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].setPin(1);
         } else {
@@ -39,6 +33,16 @@ public class SUBWF extends Operation implements Executable {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(1);
         } else {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(0);
+        }
+
+        if (result < 0) {
+            result = 256 - (result * -1);
+        }
+
+        if (Integer.parseInt(ziel) == 0) {
+            memory.setRegisterW(result);
+        } else {
+            memory.getFileRegister(registerNr).setWert(result);
         }
 
         increaseProgrammCounter();

@@ -10,12 +10,13 @@ import java.math.BigInteger;
 public class RegisterService {
 
     public Bit toggleBit (Bit bit) {
+        Bit result = new Bit(0,0);
         if(bit.getPin() == 0){
-            bit.setPin(1);
+            result.setPin(1);
         }else{
-            bit.setPin(0);
+            result.setPin(0);
         }
-        return bit;
+        return result;
     }
 
     public String hexToBin(String hex) {

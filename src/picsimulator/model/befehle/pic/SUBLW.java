@@ -17,7 +17,6 @@ public class SUBLW extends Operation implements Executable {
     public Speicher execute() {
         String literal = binaryString.substring(opcodeBits);
         int registerW = memory.getRegisterW() - getRegisterService().binToInt(literal);
-        memory.setRegisterW(registerW);
 
         if (registerW > 255 | registerW < 0) {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].setPin(1);
@@ -32,6 +31,11 @@ public class SUBLW extends Operation implements Executable {
         } else {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(0);
         }
+
+        if (registerW < 0) {
+            registerW = (registerW * -1);
+        }
+        memory.setRegisterW(registerW);
 
         increaseProgrammCounter();
         return memory;

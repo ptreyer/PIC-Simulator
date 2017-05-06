@@ -166,8 +166,16 @@ public class Controller {
                 speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
                 tableFileContent.refresh();
                 tableMemory.refresh();
+                debugResult();
             }
         }
+    }
+
+    private void debugResult(){
+        System.out.println("--- BEFEHL ausgefuehrt ---");
+        System.out.println("W: " + Integer.toHexString(speicher.getRegisterW()));
+        System.out.println("Z: " + speicher.getSpeicheradressen()[0].getRegister()[3].getBits()[2].getPin());
+        System.out.println("C: " + speicher.getSpeicheradressen()[0].getRegister()[3].getBits()[0].getPin());
     }
 
     public void reset(ActionEvent actionEvent) {

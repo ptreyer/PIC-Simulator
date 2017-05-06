@@ -21,9 +21,10 @@ public class COMF extends Operation implements Executable {
         String registerAdress = binaryString.substring(opcodeBits + 1);
         int registerNr = getRegisterService().binToInt(registerAdress);
 
-        Register fileRegister = memory.getFileRegister(registerNr);
+        Register register = memory.getFileRegister(registerNr);
+        Register fileRegister = new Register();
         for (int i = 0; i < fileRegister.getBits().length; i++) {
-            fileRegister.getBits()[i] = getRegisterService().toggleBit(fileRegister.getBits()[i]);
+            fileRegister.getBits()[i] = getRegisterService().toggleBit(register.getBits()[i]);
         }
 
         if (Integer.parseInt(ziel) == 0) {
