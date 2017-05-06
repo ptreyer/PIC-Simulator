@@ -21,8 +21,6 @@ public class RRF extends Operation implements Executable {
         String registerAdress = binaryString.substring(opcodeBits + 1);
         int registerNr = getRegisterService().binToInt(registerAdress);
 
-        System.out.println("RRF 0: " + getRegisterService().intToBin(memory.getFileRegister(registerNr).getIntWert()));
-
         Bit[] bits = memory.getFileRegister(registerNr).getBits();
         Register shiftedRegister = new Register();
         shiftedRegister.getBits()[0] = new Bit(bits[1].getPin(), 0);
@@ -35,8 +33,6 @@ public class RRF extends Operation implements Executable {
         shiftedRegister.getBits()[7] = new Bit(memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].getPin(), 0);
 
         memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0] = bits[0];
-
-        System.out.println("RRF 1: " + getRegisterService().intToBin(shiftedRegister.getIntWert()));
 
         if (Integer.parseInt(ziel) == 0) {
             memory.setRegisterW(shiftedRegister.getIntWert());
