@@ -18,17 +18,37 @@ public class SUBWF extends Operation implements Executable {
         String ziel = binaryString.substring(opcodeBits, opcodeBits + 1);
         String registerAdress = binaryString.substring(opcodeBits + 1);
         int registerNr = getRegisterService().binToInt(registerAdress);
-
         int result = memory.getFileRegister(registerNr).getIntWert() - memory.getRegisterW();
 
-        if (result > 255 | result < 0) {
+        /**
+         *  Check Carry Flag
+         */
+        String wTwoCom = getRegisterService().leftPad32(Integer.toBinaryString(memory.getRegisterW() * -1));
+        wTwoCom = wTwoCom.substring(24);
+        short wC = (short) (Short.parseShort(wTwoCom, 2) & 0xFF);
+        short fileC = Short.parseShort((Integer.toString(memory.getFileRegister(registerNr).getIntWert() & 0xFF)));
+        short resultC = (short) (fileC + wC);
+        if (Short.toUnsignedInt(resultC) > 255) {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].setPin(1);
         } else {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].setPin(0);
         }
 
-        // TODO DC
+        /**
+         *  Check Digit Carry Flag
+         */
+        short wDC = (short) (Short.parseShort(wTwoCom, 2) & 0xF);
+        short fileDC = Short.parseShort((Integer.toString(memory.getFileRegister(registerNr).getIntWert() & 0xF)));
+        short resultDC = (short) (fileDC + wDC);
+        if (Short.toUnsignedInt(resultDC) > 15) {
+            memory.getSpeicheradressen()[0].getRegister()[3].getBits()[1].setPin(1);
+        } else {
+            memory.getSpeicheradressen()[0].getRegister()[3].getBits()[1].setPin(0);
+        }
 
+        /**
+         *  Check Zero Flag
+         */
         if (result == 0) {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(1);
         } else {

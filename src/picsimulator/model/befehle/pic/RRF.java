@@ -23,6 +23,7 @@ public class RRF extends Operation implements Executable {
 
         Bit[] bits = memory.getFileRegister(registerNr).getBits();
         Register shiftedRegister = new Register();
+        int pin = new Integer(memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].getPin());
         shiftedRegister.getBits()[0] = new Bit(bits[1].getPin(), 0);
         shiftedRegister.getBits()[1] = new Bit(bits[2].getPin(), 0);
         shiftedRegister.getBits()[2] = new Bit(bits[3].getPin(), 0);
@@ -30,7 +31,7 @@ public class RRF extends Operation implements Executable {
         shiftedRegister.getBits()[4] = new Bit(bits[5].getPin(), 0);
         shiftedRegister.getBits()[5] = new Bit(bits[6].getPin(), 0);
         shiftedRegister.getBits()[6] = new Bit(bits[7].getPin(), 0);
-        shiftedRegister.getBits()[7] = new Bit(memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].getPin(), 0);
+        shiftedRegister.getBits()[7] = new Bit(pin, 0);
 
         memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0] = bits[0];
 

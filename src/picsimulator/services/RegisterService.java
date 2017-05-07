@@ -43,7 +43,17 @@ public class RegisterService {
         return Integer.parseInt(binary, 2);
     }
 
+    public String intToHex(int wert){
+        return String.format("%02X", wert);
+    }
 
 
+    public String leftPad32(String input){
+        StringBuffer buf = new StringBuffer(input);
+        while (buf.length() < 32) {
+            buf.insert(0, '0');
+        }
+        return buf.toString();
+    }
 
 }

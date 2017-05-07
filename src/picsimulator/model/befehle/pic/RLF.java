@@ -23,7 +23,9 @@ public class RLF extends Operation implements Executable {
 
         Bit[] bits = memory.getFileRegister(registerNr).getBits();
         Register shiftedRegister = new Register();
-        shiftedRegister.getBits()[0] = new Bit(memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].getPin(), 0);;
+
+        int pin = new Integer(memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].getPin());
+        shiftedRegister.getBits()[0] = new Bit(pin, 0);
         shiftedRegister.getBits()[1] = new Bit(bits[0].getPin(), 0);
         shiftedRegister.getBits()[2] = new Bit(bits[1].getPin(), 0);
         shiftedRegister.getBits()[3] = new Bit(bits[2].getPin(), 0);

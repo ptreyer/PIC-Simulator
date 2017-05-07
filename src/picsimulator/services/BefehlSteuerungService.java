@@ -10,8 +10,6 @@ public class BefehlSteuerungService {
 
     public Speicher steuereBefehl(Speicher speicher, String binaryString) {
 
-        System.out.println(binaryString);
-
         if (binaryString.startsWith("000111")) {
             ADDWF addwf = new ADDWF(binaryString, 6, speicher);
             return addwf.execute();

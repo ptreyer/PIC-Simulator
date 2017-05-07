@@ -3,10 +3,7 @@ package picsimulator.controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import picsimulator.constants.PicSimulatorConstants;
 import picsimulator.model.*;
@@ -88,6 +85,35 @@ public class Controller {
     @FXML
     private ToggleButton a7;
 
+    @FXML
+    private TextField WREG;
+    @FXML
+    private TextField FSR;
+    @FXML
+    private TextField PCL;
+    @FXML
+    private TextField PCLATH;
+    @FXML
+    private TextField PC;
+    @FXML
+    private TextField STATUS;
+    @FXML
+    private TextField Carry;
+    @FXML
+    private TextField DigitCarry;
+    @FXML
+    private TextField Zero;
+    @FXML
+    private TextField PD;
+    @FXML
+    private TextField TO;
+    @FXML
+    private TextField RP0;
+    @FXML
+    private TextField RP1;
+    @FXML
+    private TextField IRP;
+
     private FileInputService fileInputService;
     private MemoryInitializerService memoryInitializerService;
     private RegisterService registerService;
@@ -121,6 +147,7 @@ public class Controller {
                 }
             }
         });
+        updateView();
     }
 
     public void run(ActionEvent actionEvent) {
@@ -131,15 +158,13 @@ public class Controller {
             try {
                 while (true) {
                     int pcl = speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();
-                    System.out.println("PCL: " + pcl);
                     for (Befehl befehl : befehle) {
                         if (befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()) {
                             currentRow = befehl.getZeilennummer();
                             Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
                             String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
                             speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
-                            Platform.runLater(() -> tableFileContent.refresh());
-                            tableMemory.refresh();
+                            updateView();
                             Thread.sleep(250);
                         }
                     }
@@ -157,25 +182,36 @@ public class Controller {
             return;
         }
         int pcl = speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();
-        System.out.println("PCL: " + pcl);
         for (Befehl befehl : befehle) {
             if (befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()) {
                 currentRow = befehl.getZeilennummer();
                 tableFileContent.scrollTo(currentRow - 2);
                 String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
                 speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
-                tableFileContent.refresh();
-                tableMemory.refresh();
-                debugResult();
+                updateView();
             }
         }
     }
 
-    private void debugResult(){
-        System.out.println("--- BEFEHL ausgefuehrt ---");
-        System.out.println("W: " + Integer.toHexString(speicher.getRegisterW()));
-        System.out.println("Z: " + speicher.getSpeicheradressen()[0].getRegister()[3].getBits()[2].getPin());
-        System.out.println("C: " + speicher.getSpeicheradressen()[0].getRegister()[3].getBits()[0].getPin());
+    private void updateView() {
+        tableFileContent.refresh();
+        tableMemory.refresh();
+        WREG.setText(getRegisterService().intToHex(speicher.getRegisterW()));
+        FSR.setText(speicher.getSpeicheradressen()[0].getRegister()[3].getHexWert());
+        PCL.setText(speicher.getSpeicheradressen()[0].getRegister()[2].getHexWert());
+        PCLATH.setText(speicher.getSpeicheradressen()[1].getRegister()[2].getHexWert());
+        int pc = speicher.getSpeicheradressen()[1].getRegister()[2].getIntWert() + speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();
+        PC.setText(getRegisterService().intToHex(pc));
+        Register statusReg = speicher.getSpeicheradressen()[0].getRegister()[3];
+        STATUS.setText(statusReg.getHexWert());
+        Carry.setText(Integer.toString(statusReg.getBits()[0].getPin()));
+        DigitCarry.setText(Integer.toString(statusReg.getBits()[1].getPin()));
+        Zero.setText(Integer.toString(statusReg.getBits()[2].getPin()));
+        PD.setText(Integer.toString(statusReg.getBits()[3].getPin()));
+        TO.setText(Integer.toString(statusReg.getBits()[4].getPin()));
+        RP0.setText(Integer.toString(statusReg.getBits()[5].getPin()));
+        RP1.setText(Integer.toString(statusReg.getBits()[6].getPin()));
+        IRP.setText(Integer.toString(statusReg.getBits()[7].getPin()));
     }
 
     public void reset(ActionEvent actionEvent) {

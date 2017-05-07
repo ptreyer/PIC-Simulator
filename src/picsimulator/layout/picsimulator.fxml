@@ -11,7 +11,7 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
     <children>
       <MenuBar prefHeight="17.0" prefWidth="600.0" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -122,9 +122,9 @@
                                     <TextField editable="false" layoutY="161.0" prefHeight="25.0" prefWidth="35.0" text="IRP" />
                                     <TextField editable="false" layoutX="238.0" layoutY="161.0" prefHeight="25.0" prefWidth="35.0" text="C" />
                                     <TextField editable="false" layoutX="204.0" layoutY="161.0" prefHeight="25.0" prefWidth="35.0" text="DC" />
-                                    <TextField fx:id="ZeroBit" editable="false" layoutX="170.0" layoutY="185.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="Zero" editable="false" layoutX="170.0" layoutY="185.0" prefHeight="25.0" prefWidth="35.0" />
                                     <TextField fx:id="PD" editable="false" layoutX="136.0" layoutY="185.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField editable="false" layoutX="102.0" layoutY="185.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="TO" editable="false" layoutX="102.0" layoutY="185.0" prefHeight="25.0" prefWidth="35.0" />
                                     <TextField fx:id="RP0" editable="false" layoutX="68.0" layoutY="185.0" prefHeight="25.0" prefWidth="35.0" />
                                     <TextField fx:id="RP1" editable="false" layoutX="34.0" layoutY="185.0" prefHeight="25.0" prefWidth="35.0" />
                                     <TextField fx:id="IRP" editable="false" layoutY="185.0" prefHeight="25.0" prefWidth="35.0" />

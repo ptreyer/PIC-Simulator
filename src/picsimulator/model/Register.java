@@ -25,7 +25,7 @@ public class Register implements Cloneable{
         builder.append(bits[1].getPin());
         builder.append(bits[0].getPin());
         int decimal = Integer.parseInt(builder.toString(), 2);
-        return Integer.toString(decimal, 16).toUpperCase();
+        return String.format("%02X", decimal);
     }
 
     public int getIntWert() {
