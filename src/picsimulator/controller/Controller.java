@@ -7,10 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import picsimulator.constants.PicSimulatorConstants;
 import picsimulator.model.*;
-import picsimulator.services.BefehlSteuerungService;
-import picsimulator.services.FileInputService;
-import picsimulator.services.MemoryInitializerService;
-import picsimulator.services.RegisterService;
+import picsimulator.services.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -118,6 +115,7 @@ public class Controller {
     private MemoryInitializerService memoryInitializerService;
     private RegisterService registerService;
     private BefehlSteuerungService befehlSteuerungService;
+    private InterruptService interruptService;
     private List<Befehl> befehle;
     private Speicher speicher;
     private Register registerA;
@@ -130,7 +128,7 @@ public class Controller {
         tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("befehlscode"));
         tableColumnBefehl.setCellValueFactory(new PropertyValueFactory<>("befehl"));
         tableColumnKommentar.setCellValueFactory(new PropertyValueFactory<>("kommentar"));
-        if (befehle != null){
+        if (befehle != null) {
             befehle.clear();
             tableFileContent.getItems().clear();
             tableFileContent.refresh();
@@ -167,7 +165,7 @@ public class Controller {
                             currentRow = befehl.getZeilennummer();
                             Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
                             String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
-                            speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
+                            if(checkInterrupt(binaryString)) break;
                             updateView();
                             Thread.sleep(250);
                         }
@@ -181,6 +179,20 @@ public class Controller {
         th.start();
     }
 
+    private boolean checkInterrupt(String binaryString) {
+        if (getInterruptService().checkInterrupt(speicher)) {
+            Register pclReg = speicher.getSpeicheradressen()[0].getRegister()[2];
+            // TODO referenz pruefen
+            //PC auf den Stack pushen
+            speicher.getStack()[0].setWert(new Integer(pclReg.getIntWert()));
+            speicher.getSpeicheradressen()[0].getRegister()[2].setWert(4);
+            return true;
+        }
+        speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
+        return false;
+
+    }
+
     public void next(ActionEvent actionEvent) {
         if (tableFileContent.getItems().isEmpty()) {
             return;
@@ -191,7 +203,7 @@ public class Controller {
                 currentRow = befehl.getZeilennummer();
                 tableFileContent.scrollTo(currentRow - 2);
                 String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
-                speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
+                if (checkInterrupt(binaryString)) break;
                 updateView();
             }
         }
@@ -435,5 +447,12 @@ public class Controller {
             befehlSteuerungService = new BefehlSteuerungService();
         }
         return befehlSteuerungService;
+    }
+
+    public InterruptService getInterruptService() {
+        if (interruptService == null) {
+            interruptService = new InterruptService();
+        }
+        return interruptService;
     }
 }
