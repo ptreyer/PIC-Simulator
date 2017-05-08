@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.model.Register;
 import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
@@ -16,7 +17,10 @@ public class MOVWF extends Operation implements Executable {
     @Override
     public Speicher execute() {
         String registerAdress = binaryString.substring(opcodeBits);
-        memory.getFileRegister(getRegisterService().binToInt(registerAdress)).setWert(new Integer(memory.getRegisterW()));
+        Register fileRegister = memory.getFileRegister(getRegisterService().binToInt(registerAdress));
+        if (fileRegister != null){
+            fileRegister.setWert(new Integer(memory.getRegisterW()));
+        }
         increaseProgrammCounter();
         return memory;
     }

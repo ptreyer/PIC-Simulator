@@ -130,7 +130,11 @@ public class Controller {
         tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("befehlscode"));
         tableColumnBefehl.setCellValueFactory(new PropertyValueFactory<>("befehl"));
         tableColumnKommentar.setCellValueFactory(new PropertyValueFactory<>("kommentar"));
-        if (befehle != null) befehle.clear();
+        if (befehle != null){
+            befehle.clear();
+            tableFileContent.getItems().clear();
+            tableFileContent.refresh();
+        }
         befehle = getFileInputService().importFile();
         initializeMemory();
         tableFileContent.getItems().addAll(befehle);
@@ -197,7 +201,7 @@ public class Controller {
         tableFileContent.refresh();
         tableMemory.refresh();
         WREG.setText(getRegisterService().intToHex(speicher.getRegisterW()));
-        FSR.setText(speicher.getSpeicheradressen()[0].getRegister()[3].getHexWert());
+        FSR.setText(speicher.getSpeicheradressen()[0].getRegister()[4].getHexWert());
         PCL.setText(speicher.getSpeicheradressen()[0].getRegister()[2].getHexWert());
         PCLATH.setText(speicher.getSpeicheradressen()[1].getRegister()[2].getHexWert());
         int pc = speicher.getSpeicheradressen()[1].getRegister()[2].getIntWert() + speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();

@@ -30,7 +30,7 @@ public class DECFSZ extends Operation implements Executable {
 
         if(dekrementierterWert == 0){
             NOP nop = new NOP(binaryString, 14, memory);
-            memory =  nop.execute();
+            memory = nop.execute();
         }
         increaseProgrammCounter();
         return memory;

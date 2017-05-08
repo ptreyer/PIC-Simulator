@@ -24,13 +24,16 @@ public class INCFSZ extends Operation implements Executable {
 
         if (Integer.parseInt(ziel) == 0) {
             memory.setRegisterW(inkrementierterWert);
+            if(memory.getRegisterW() == 0){
+                NOP nop = new NOP(binaryString, 14, memory);
+                memory = nop.execute();
+            }
         } else {
             memory.getFileRegister(registerNr).setWert(inkrementierterWert);
-        }
-
-        if(inkrementierterWert == 0){
-            NOP nop = new NOP(binaryString, 14, memory);
-            memory =  nop.execute();
+            if(memory.getFileRegister(registerNr).getIntWert() == 0){
+                NOP nop = new NOP(binaryString, 14, memory);
+                memory = nop.execute();
+            }
         }
 
         increaseProgrammCounter();

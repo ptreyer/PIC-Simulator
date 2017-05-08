@@ -1,5 +1,7 @@
 package picsimulator.model;
 
+import picsimulator.services.RegisterService;
+
 /**
  * Created by ptrey on 10.04.2017.
  */
@@ -45,11 +47,10 @@ public class Speicher {
     }
 
     public void setRegisterW(int registerW) {
-        if(registerW < 0){
-            registerW = 256 -(registerW *-1);
-        }
-        else if (registerW > 255){
-            registerW = 256 - registerW;
+        if (registerW < 0) {
+            registerW = 256 - (registerW * -1);
+        } else if (registerW > 255) {
+            registerW = registerW -256;
         }
         this.registerW = registerW;
     }
@@ -63,6 +64,9 @@ public class Speicher {
     }
 
     public Register getFileRegister(int nummer) {
+        if (nummer == 0) {
+            nummer = getRegisterService().hexToInt(getSpeicheradressen()[0].getRegister()[4].getHexWert());
+        }
         if (0 < nummer && nummer <= 7) {
             return getSpeicheradressen()[0].getRegister()[nummer];
         }
@@ -70,15 +74,19 @@ public class Speicher {
             return getSpeicheradressen()[1].getRegister()[nummer - 8];
         }
         if (15 < nummer && nummer <= 23) {
-            return getSpeicheradressen()[1].getRegister()[nummer - 16];
+            return getSpeicheradressen()[2].getRegister()[nummer - 16];
         }
         if (23 < nummer && nummer <= 31) {
-            return getSpeicheradressen()[1].getRegister()[nummer - 24];
+            return getSpeicheradressen()[3].getRegister()[nummer - 24];
         }
         if (31 < nummer && nummer <= 39) {
-            return getSpeicheradressen()[1].getRegister()[nummer - 32];
+            return getSpeicheradressen()[4].getRegister()[nummer - 32];
         }
         return null;
+    }
+
+    public RegisterService getRegisterService() {
+        return new RegisterService();
     }
 
 }
