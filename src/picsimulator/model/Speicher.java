@@ -3,13 +3,16 @@ package picsimulator.model;
 import picsimulator.controller.Controller;
 import picsimulator.services.RegisterService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by ptrey on 10.04.2017.
  */
 public class Speicher {
 
     private Speicheradresse[] speicheradressen;
-    private Stack[] stack;
+    private List<StackEintrag> stack;
 
     private int registerW;
     private int watchdogTimer;
@@ -21,10 +24,7 @@ public class Speicher {
             speicheradressen[i] = new Speicheradresse(adresse);
             adresse = adresse + 8;
         }
-        this.stack = new Stack[8];
-        for (int i = 0; i < stack.length; i++) {
-            stack[i] = new Stack();
-        }
+        this.stack = new ArrayList<>();
     }
 
     public Speicheradresse[] getSpeicheradressen() {
@@ -35,12 +35,25 @@ public class Speicher {
         this.speicheradressen = speicheradressen;
     }
 
-    public Stack[] getStack() {
+    public List<StackEintrag> getStack() {
         return stack;
     }
 
-    public void setStack(Stack[] stack) {
+    public void setStack(List<StackEintrag> stack) {
         this.stack = stack;
+    }
+
+    public StackEintrag getFromStack(){
+        StackEintrag result = stack.get(0);
+        stack.remove(0);
+        return result;
+    }
+
+    public void addToStack(StackEintrag newStackEntry){
+        stack.add(0, newStackEntry);
+        if(stack.size()>7){
+            stack = stack.subList(0, 7);
+        }
     }
 
     public int getRegisterW() {

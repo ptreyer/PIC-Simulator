@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Stack;
 
 public class Controller {
 
@@ -169,6 +170,15 @@ public class Controller {
                             String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
                             if(checkInterrupt(binaryString)) break;
                             updateView();
+
+                            System.out.println("---------------------------------");
+                            int i = 0;
+                            for (StackEintrag stackEintrag : speicher.getStack()){
+                                System.out.println(i +": " +stackEintrag.getIntWert());
+                                i++;
+                            }
+                            System.out.println("---------------------------------");
+
                             Thread.sleep(250);
                         }
                     }
@@ -185,14 +195,15 @@ public class Controller {
         if (getInterruptService().checkInterrupt(speicher)) {
             Register pclReg = speicher.getSpeicheradressen()[0].getRegister()[2];
             // TODO referenz pruefen
-            //PC auf den Stack pushen
-            speicher.getStack()[0].setWert(new Integer(pclReg.getIntWert()));
+            //PC auf den StackEintrag pushen
+            StackEintrag stackEintrag = new StackEintrag();
+            stackEintrag.setWert(new Integer(pclReg.getIntWert()));
+            speicher.addToStack(stackEintrag);
             speicher.getSpeicheradressen()[0].getRegister()[2].setWert(4);
             return true;
         }
         speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
         return false;
-
     }
 
     public static void increaseRuntime(){

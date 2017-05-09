@@ -16,7 +16,7 @@ public class RETFIE extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
-        int pc = memory.getStack()[0].getIntWert();
+        int pc = memory.getFromStack().getIntWert();
         memory.getSpeicheradressen()[0].getRegister()[2].setWert(new Integer(pc));
         Controller.increaseRuntime();
         Controller.increaseRuntime();

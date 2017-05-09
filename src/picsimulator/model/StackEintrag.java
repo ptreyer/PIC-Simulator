@@ -3,11 +3,11 @@ package picsimulator.model;
 /**
  * Created by ptrey on 26.04.2017.
  */
-public class Stack {
+public class StackEintrag {
 
     private Bit[] bits;
 
-    public Stack(){
+    public StackEintrag(){
         this.bits = new Bit[13];
         for (int i = 0; i < bits.length; i++) {
             bits[i] = new Bit( 0, 0);

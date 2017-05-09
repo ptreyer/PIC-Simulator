@@ -16,7 +16,7 @@ public class RETURN extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
-        memory.getSpeicheradressen()[0].getRegister()[2].setWert(memory.getStack()[0].getIntWert());
+        memory.getSpeicheradressen()[0].getRegister()[2].setWert(memory.getFromStack().getIntWert());
 
         Controller.increaseRuntime();
         Controller.increaseRuntime();
