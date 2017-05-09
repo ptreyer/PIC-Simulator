@@ -123,6 +123,8 @@ public class Controller {
     private Register registerStatus;
     private int currentRow = 1;
 
+    public static int runtime = 0;
+
     public void openFile(ActionEvent actionEvent) {
         tableColumnZeilennummer.setCellValueFactory(new PropertyValueFactory<>("zeilennummer"));
         tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("befehlscode"));
@@ -191,6 +193,10 @@ public class Controller {
         speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
         return false;
 
+    }
+
+    public static void increaseRuntime(){
+        runtime++;
     }
 
     public void next(ActionEvent actionEvent) {

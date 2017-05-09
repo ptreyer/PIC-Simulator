@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.controller.Controller;
 import picsimulator.model.Bit;
 import picsimulator.model.Register;
 import picsimulator.model.Speicher;
@@ -21,7 +22,7 @@ public class SWAPF extends Operation implements Executable {
         String registerAdress = binaryString.substring(opcodeBits + 1);
         int registerNr = getRegisterService().binToInt(registerAdress);
 
-        Bit[] bits = memory.getFileRegister(registerNr).getBits();
+        Bit[] bits = memory.getFileRegister(registerNr, false).getBits();
         Register swappedRegister = new Register();
         swappedRegister.getBits()[0] = bits[4];
         swappedRegister.getBits()[1] = bits[5];
@@ -35,9 +36,10 @@ public class SWAPF extends Operation implements Executable {
         if (Integer.parseInt(ziel) == 0) {
             memory.setRegisterW(swappedRegister.getIntWert());
         } else {
-            memory.getFileRegister(registerNr).setWert(swappedRegister.getIntWert());
+            memory.getFileRegister(registerNr, true).setWert(swappedRegister.getIntWert());
         }
 
+        Controller.increaseRuntime();
         increaseProgrammCounter();
         return memory;
     }

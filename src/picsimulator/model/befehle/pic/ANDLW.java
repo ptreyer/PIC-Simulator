@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.controller.Controller;
 import picsimulator.model.Bit;
 import picsimulator.model.Register;
 import picsimulator.model.Speicher;
@@ -41,6 +42,7 @@ public class ANDLW extends Operation implements Executable {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(0);
         }
 
+        Controller.increaseRuntime();
         increaseProgrammCounter();
         return memory;
     }

@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.controller.Controller;
 import picsimulator.model.Bit;
 import picsimulator.model.Register;
 import picsimulator.model.Speicher;
@@ -21,7 +22,7 @@ public class RLF extends Operation implements Executable {
         String registerAdress = binaryString.substring(opcodeBits + 1);
         int registerNr = getRegisterService().binToInt(registerAdress);
 
-        Bit[] bits = memory.getFileRegister(registerNr).getBits();
+        Bit[] bits = memory.getFileRegister(registerNr, false).getBits();
         Register shiftedRegister = new Register();
 
         int pin = new Integer(memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].getPin());
@@ -39,9 +40,10 @@ public class RLF extends Operation implements Executable {
         if (Integer.parseInt(ziel) == 0) {
             memory.setRegisterW(shiftedRegister.getIntWert());
         } else {
-            memory.getFileRegister(registerNr).setWert(shiftedRegister.getIntWert());
+            memory.getFileRegister(registerNr, true).setWert(shiftedRegister.getIntWert());
         }
 
+        Controller.increaseRuntime();
         increaseProgrammCounter();
         return memory;
     }

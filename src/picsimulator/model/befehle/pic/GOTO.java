@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.controller.Controller;
 import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
@@ -17,6 +18,9 @@ public class GOTO extends Operation implements Executable {
     public Speicher execute() {
         String addresse = binaryString.substring(opcodeBits);
         memory.getSpeicheradressen()[0].getRegister()[2].setWert(addresse);
+
+        Controller.increaseRuntime();
+        Controller.increaseRuntime();
         return memory;
     }
 }

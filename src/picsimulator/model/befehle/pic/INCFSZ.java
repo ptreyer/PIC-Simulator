@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.controller.Controller;
 import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
@@ -19,23 +20,28 @@ public class INCFSZ extends Operation implements Executable {
         String registerAdress = binaryString.substring(opcodeBits + 1);
         int registerNr = getRegisterService().binToInt(registerAdress);
 
-        int aktuellerWert = memory.getFileRegister(registerNr).getIntWert();
+        int aktuellerWert = memory.getFileRegister(registerNr, false).getIntWert();
         int inkrementierterWert = aktuellerWert + 1;
 
         if (Integer.parseInt(ziel) == 0) {
             memory.setRegisterW(inkrementierterWert);
-            if(memory.getRegisterW() == 0){
+            if (memory.getRegisterW() == 0) {
+                Controller.increaseRuntime();
                 NOP nop = new NOP(binaryString, 14, memory);
                 memory = nop.execute();
             }
         } else {
-            memory.getFileRegister(registerNr).setWert(inkrementierterWert);
-            if(memory.getFileRegister(registerNr).getIntWert() == 0){
+            memory.getFileRegister(registerNr, false).setWert(inkrementierterWert);
+            if (memory.getFileRegister(registerNr, false).getIntWert() == 0) {
+                Controller.increaseRuntime();
                 NOP nop = new NOP(binaryString, 14, memory);
                 memory = nop.execute();
+            } else {
+                memory.getFileRegister(registerNr, true);
             }
         }
 
+        Controller.increaseRuntime();
         increaseProgrammCounter();
         return memory;
     }

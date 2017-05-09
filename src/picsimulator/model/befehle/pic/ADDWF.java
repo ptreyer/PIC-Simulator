@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.controller.Controller;
 import picsimulator.model.Bit;
 import picsimulator.model.Register;
 import picsimulator.model.Speicher;
@@ -21,13 +22,7 @@ public class ADDWF extends Operation implements Executable {
         String ziel = binaryString.substring(opcodeBits, opcodeBits + 1);
         String registerAdress = binaryString.substring(opcodeBits + 1);
         int registerNr = getRegisterService().binToInt(registerAdress);
-        int result = memory.getFileRegister(registerNr).getIntWert() + memory.getRegisterW();
-
-
-        System.out.println("RESSSSUULT: " + result);
-        System.out.println("w: " + memory.getRegisterW());
-        System.out.println("f: " + memory.getFileRegister(registerNr).getHexWert());
-
+        int result = memory.getFileRegister(registerNr, false).getIntWert() + memory.getRegisterW();
 
         /**
          *  Check Carry Flag
@@ -35,7 +30,7 @@ public class ADDWF extends Operation implements Executable {
         String wTwoCom = getRegisterService().leftPad32(Integer.toBinaryString(memory.getRegisterW()));
         wTwoCom = wTwoCom.substring(24);
         short wC = (short) (Short.parseShort(wTwoCom, 2) & 0xFF);
-        short fileC = Short.parseShort((Integer.toString(memory.getFileRegister(registerNr).getIntWert() & 0xFF)));
+        short fileC = Short.parseShort((Integer.toString(memory.getFileRegister(registerNr, false).getIntWert() & 0xFF)));
         short resultC = (short) (fileC + wC);
         if (Short.toUnsignedInt(resultC) > 255) {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[0].setPin(1);
@@ -47,7 +42,7 @@ public class ADDWF extends Operation implements Executable {
          *  Check Digit Carry Flag
          */
         short wDC = (short) (Short.parseShort(wTwoCom, 2) & 0xF);
-        short fileDC = Short.parseShort((Integer.toString(memory.getFileRegister(registerNr).getIntWert() & 0xF)));
+        short fileDC = Short.parseShort((Integer.toString(memory.getFileRegister(registerNr, false).getIntWert() & 0xF)));
         short resultDC = (short) (fileDC + wDC);
         if (Short.toUnsignedInt(resultDC) > 15) {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[1].setPin(1);
@@ -67,9 +62,10 @@ public class ADDWF extends Operation implements Executable {
         if (Integer.parseInt(ziel) == 0) {
             memory.setRegisterW(result);
         } else {
-            memory.getFileRegister(registerNr).setWert(result);
+            memory.getFileRegister(registerNr, true).setWert(result);
         }
 
+        Controller.increaseRuntime();
         increaseProgrammCounter();
         return memory;
     }

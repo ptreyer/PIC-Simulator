@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.controller.Controller;
 import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
@@ -18,6 +19,8 @@ public class RETLW extends Operation implements Executable {
         String literal = binaryString.substring(opcodeBits);
         memory.setRegisterW(getRegisterService().binToInt(literal));
         memory.getSpeicheradressen()[0].getRegister()[2].setWert(memory.getStack()[0].getIntWert());
+
+        Controller.increaseRuntime();
         increaseProgrammCounter();
         return memory;
     }

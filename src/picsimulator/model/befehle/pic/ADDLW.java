@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.controller.Controller;
 import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
@@ -54,6 +55,7 @@ public class ADDLW extends Operation implements Executable {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(0);
         }
 
+        Controller.increaseRuntime();
         increaseProgrammCounter();
         return memory;
     }

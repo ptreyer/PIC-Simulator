@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.controller.Controller;
 import picsimulator.model.Bit;
 import picsimulator.model.Register;
 import picsimulator.model.Speicher;
@@ -21,7 +22,7 @@ public class XORWF extends Operation implements Executable {
         String registerAdress = binaryString.substring(opcodeBits + 1);
         int registerNr = getRegisterService().binToInt(registerAdress);
 
-        Bit[] bits = memory.getFileRegister(registerNr).getBits();
+        Bit[] bits = memory.getFileRegister(registerNr, false).getBits();
         Register resultRegister = new Register();
         Register wRegister = new Register();
         wRegister.setWert(memory.getRegisterW());
@@ -38,7 +39,7 @@ public class XORWF extends Operation implements Executable {
         if (Integer.parseInt(ziel) == 0) {
             memory.setRegisterW(resultRegister.getIntWert());
         } else {
-            memory.getFileRegister(registerNr).setWert(resultRegister.getIntWert());
+            memory.getFileRegister(registerNr, true).setWert(resultRegister.getIntWert());
         }
 
         if (resultRegister.getIntWert() == 0) {
@@ -47,6 +48,7 @@ public class XORWF extends Operation implements Executable {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(0);
         }
 
+        Controller.increaseRuntime();
         increaseProgrammCounter();
         return memory;
     }

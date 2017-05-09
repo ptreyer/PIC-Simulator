@@ -1,5 +1,6 @@
 package picsimulator.model;
 
+import picsimulator.controller.Controller;
 import picsimulator.services.RegisterService;
 
 /**
@@ -63,9 +64,12 @@ public class Speicher {
         this.watchdogTimer = watchdogTimer;
     }
 
-    public Register getFileRegister(int nummer) {
+    public Register getFileRegister(int nummer, boolean changePC) {
         if (nummer == 0) {
             nummer = getRegisterService().hexToInt(getSpeicheradressen()[0].getRegister()[4].getHexWert());
+        }
+        if(nummer == 2 && changePC){
+            Controller.increaseRuntime();
         }
         if (0 < nummer && nummer <= 7) {
             return getSpeicheradressen()[0].getRegister()[nummer];

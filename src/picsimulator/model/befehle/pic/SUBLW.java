@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.controller.Controller;
 import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
@@ -58,6 +59,7 @@ public class SUBLW extends Operation implements Executable {
         }
         memory.setRegisterW(registerW);
 
+        Controller.increaseRuntime();
         increaseProgrammCounter();
         return memory;
     }

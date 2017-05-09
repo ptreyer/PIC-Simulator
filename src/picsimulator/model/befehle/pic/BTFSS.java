@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.controller.Controller;
 import picsimulator.model.Bit;
 import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
@@ -20,14 +21,16 @@ public class BTFSS extends Operation implements Executable {
         String binBit = binaryString.substring(opcodeBits, registerIndex);
         String register = binaryString.substring(registerIndex);
         int bit = getRegisterService().binToInt(binBit);
-        Bit selectedBit = memory.getFileRegister(getRegisterService().binToInt(register)).getBits()[bit];
-        if (selectedBit.getPin() == 0) {
-            increaseProgrammCounter();
-        } else {
+        Bit selectedBit = memory.getFileRegister(getRegisterService().binToInt(register), false).getBits()[bit];
+
+        if (selectedBit.getPin() == 1) {
+            Controller.increaseRuntime();
             NOP nop = new NOP(binaryString, 14, memory);
             memory = nop.execute();
-            increaseProgrammCounter();
         }
+
+        Controller.increaseRuntime();
+        increaseProgrammCounter();
         return memory;
     }
 }

@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.controller.Controller;
 import picsimulator.model.Bit;
 import picsimulator.model.Register;
 import picsimulator.model.Speicher;
@@ -21,7 +22,7 @@ public class COMF extends Operation implements Executable {
         String registerAdress = binaryString.substring(opcodeBits + 1);
         int registerNr = getRegisterService().binToInt(registerAdress);
 
-        Register register = memory.getFileRegister(registerNr);
+        Register register = memory.getFileRegister(registerNr, false);
         Register fileRegister = new Register();
         for (int i = 0; i < fileRegister.getBits().length; i++) {
             fileRegister.getBits()[i] = getRegisterService().toggleBit(register.getBits()[i]);
@@ -30,15 +31,16 @@ public class COMF extends Operation implements Executable {
         if (Integer.parseInt(ziel) == 0) {
             memory.setRegisterW(fileRegister.getIntWert());
         } else {
-            memory.getFileRegister(registerNr).setBits(fileRegister.getBits());
+            memory.getFileRegister(registerNr, true).setBits(fileRegister.getBits());
         }
 
-        if (memory.getFileRegister(registerNr).getIntWert() == 0) {
+        if (memory.getFileRegister(registerNr, false).getIntWert() == 0) {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(1);
         } else {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(0);
         }
 
+        Controller.increaseRuntime();
         increaseProgrammCounter();
         return memory;
     }

@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.controller.Controller;
 import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
@@ -17,6 +18,8 @@ public class RETFIE extends Operation implements Executable {
     public Speicher execute() {
         int pc = memory.getStack()[0].getIntWert();
         memory.getSpeicheradressen()[0].getRegister()[2].setWert(new Integer(pc));
+        Controller.increaseRuntime();
+        Controller.increaseRuntime();
         return memory;
     }
 }

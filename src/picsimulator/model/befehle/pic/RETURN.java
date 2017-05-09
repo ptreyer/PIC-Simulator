@@ -1,5 +1,6 @@
 package picsimulator.model.befehle.pic;
 
+import picsimulator.controller.Controller;
 import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
@@ -16,6 +17,9 @@ public class RETURN extends Operation implements Executable {
     @Override
     public Speicher execute() {
         memory.getSpeicheradressen()[0].getRegister()[2].setWert(memory.getStack()[0].getIntWert());
+
+        Controller.increaseRuntime();
+        Controller.increaseRuntime();
         increaseProgrammCounter();
         return memory;
     }
