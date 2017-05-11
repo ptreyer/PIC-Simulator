@@ -50,6 +50,11 @@ public class Controller {
     private TableColumn<Bit, Byte> tableColumnMemoryBit7;
 
     @FXML
+    private TableView<StackEintrag> tableStack;
+    @FXML
+    private TableColumn<StackEintrag, String> tableColumnStack;
+
+    @FXML
     private ToggleButton b0;
     @FXML
     private ToggleButton b1;
@@ -119,9 +124,6 @@ public class Controller {
     private InterruptService interruptService;
     private List<Befehl> befehle;
     private Speicher speicher;
-    private Register registerA;
-    private Register registerB;
-    private Register registerStatus;
     private int currentRow = 1;
 
     public static int runtime = 0;
@@ -229,6 +231,10 @@ public class Controller {
     private void updateView() {
         tableFileContent.refresh();
         tableMemory.refresh();
+
+        tableStack.getItems().clear();
+        tableStack.getItems().addAll(speicher.getStack());
+
         WREG.setText(getRegisterService().intToHex(speicher.getRegisterW()));
         FSR.setText(speicher.getSpeicheradressen()[0].getRegister()[4].getHexWert());
         PCL.setText(speicher.getSpeicheradressen()[0].getRegister()[2].getHexWert());
@@ -278,6 +284,7 @@ public class Controller {
         setRegisterA();
         setRegisterB();
         tableMemory.getItems().setAll(speicher.getSpeicheradressen());
+        tableColumnStack.setCellValueFactory(new PropertyValueFactory<>("hexWert"));
     }
 
     public void toggleA0(ActionEvent actionEvent) {
