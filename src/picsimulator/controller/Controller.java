@@ -1,10 +1,16 @@
 package picsimulator.controller;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import picsimulator.constants.PicSimulatorConstants;
 import picsimulator.model.*;
 import picsimulator.services.*;
@@ -13,12 +19,14 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Stack;
 
 public class Controller {
 
     @FXML
     private TableView<Befehl> tableFileContent;
+
+    @FXML
+    private TableColumn<Befehl, CheckBox> tableColumnBreakpoint;
     @FXML
     private TableColumn<Befehl, Integer> tableColumnZeilennummer;
     @FXML
@@ -129,7 +137,15 @@ public class Controller {
     private boolean run = false;
     public static int runtime = 0;
 
-    public void openFile(ActionEvent actionEvent) {
+    public void openFile() {
+        tableColumnBreakpoint.setCellValueFactory(arg0 -> {
+            Befehl befehl = arg0.getValue();
+            if (!befehl.isAusfuehrbar()) return null;
+            CheckBox checkBox = new CheckBox();
+            checkBox.selectedProperty().setValue(befehl.isBreakpoint());
+            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> befehl.setBreakpoint(new_val));
+            return new SimpleObjectProperty<>(checkBox);
+        });
         tableColumnZeilennummer.setCellValueFactory(new PropertyValueFactory<>("zeilennummer"));
         tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("befehlscode"));
         tableColumnBefehl.setCellValueFactory(new PropertyValueFactory<>("befehl"));
@@ -158,7 +174,7 @@ public class Controller {
         updateView();
     }
 
-    public void run(ActionEvent actionEvent) {
+    public void run() {
         if (tableFileContent.getItems().isEmpty()) {
             return;
         }
@@ -171,6 +187,9 @@ public class Controller {
                         if (befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()) {
                             currentRow = befehl.getZeilennummer();
                             Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
+                            if (befehl.isBreakpoint()) {
+                                run = false;
+                            }
                             String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
                             if (checkInterrupt(binaryString)) break;
                             updateView();
@@ -189,10 +208,9 @@ public class Controller {
     private boolean checkInterrupt(String binaryString) {
         if (getInterruptService().checkInterrupt(speicher)) {
             Register pclReg = speicher.getSpeicheradressen()[0].getRegister()[2];
-            // TODO referenz pruefen
-            //PC auf den StackEintrag pushen
+            // TODO Referenz pruefen
             StackEintrag stackEintrag = new StackEintrag();
-            stackEintrag.setWert(new Integer(pclReg.getIntWert()));
+            stackEintrag.setWert(pclReg.getIntWert());
             speicher.addToStack(stackEintrag);
             speicher.getSpeicheradressen()[0].getRegister()[2].setWert(4);
             return true;
@@ -205,11 +223,11 @@ public class Controller {
         runtime++;
     }
 
-    public void next(ActionEvent actionEvent) {
+    public void next() {
         if (tableFileContent.getItems().isEmpty()) {
             return;
         }
-        if(run){
+        if (run) {
             return;
         }
         int pcl = speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();
@@ -249,11 +267,11 @@ public class Controller {
         IRP.setText(Integer.toString(statusReg.getBits()[7].getPin()));
     }
 
-    public void stop(ActionEvent actionEvent) {
+    public void stop() {
         run = false;
     }
 
-    public void reset(ActionEvent actionEvent) {
+    public void reset() {
         run = false;
         currentRow = 1;
         initializeMemory();
@@ -263,7 +281,7 @@ public class Controller {
         tableFileContent.refresh();
     }
 
-    public void clear(ActionEvent actionEvent) {
+    public void clear() {
         run = false;
         initializeMemory();
         setRegisterA();
@@ -291,126 +309,126 @@ public class Controller {
         tableColumnStack.setCellValueFactory(new PropertyValueFactory<>("hexWert"));
     }
 
-    public void toggleA0(ActionEvent actionEvent) {
+    public void toggleA0() {
         Bit bit0 = getRegisterA().getBits()[0];
         getRegisterA().getBits()[0] = getRegisterService().toggleBit(bit0);
         tableMemory.refresh();
         a0.setText(String.valueOf(getRegisterA().getBits()[0].getPin()));
     }
 
-    public void toggleA1(ActionEvent actionEvent) {
+    public void toggleA1() {
         Bit bit1 = getRegisterA().getBits()[1];
         getRegisterA().getBits()[1] = getRegisterService().toggleBit(bit1);
         tableMemory.refresh();
         a1.setText(String.valueOf(getRegisterA().getBits()[1].getPin()));
     }
 
-    public void toggleA2(ActionEvent actionEvent) {
+    public void toggleA2() {
         Bit bit2 = getRegisterA().getBits()[2];
         getRegisterA().getBits()[2] = getRegisterService().toggleBit(bit2);
         tableMemory.refresh();
         a2.setText(String.valueOf(getRegisterA().getBits()[2].getPin()));
     }
 
-    public void toggleA3(ActionEvent actionEvent) {
+    public void toggleA3() {
         Bit bit3 = getRegisterA().getBits()[3];
         getRegisterA().getBits()[3] = getRegisterService().toggleBit(bit3);
         tableMemory.refresh();
         a3.setText(String.valueOf(getRegisterA().getBits()[3].getPin()));
     }
 
-    public void toggleA4(ActionEvent actionEvent) {
+    public void toggleA4() {
         Bit bit4 = getRegisterA().getBits()[4];
         getRegisterA().getBits()[4] = getRegisterService().toggleBit(bit4);
         tableMemory.refresh();
         a4.setText(String.valueOf(getRegisterA().getBits()[4].getPin()));
     }
 
-    public void toggleA5(ActionEvent actionEvent) {
+    public void toggleA5() {
         Bit bit5 = getRegisterA().getBits()[5];
         getRegisterA().getBits()[5] = getRegisterService().toggleBit(bit5);
         tableMemory.refresh();
         a5.setText(String.valueOf(getRegisterA().getBits()[5].getPin()));
     }
 
-    public void toggleA6(ActionEvent actionEvent) {
+    public void toggleA6() {
         Bit bit6 = getRegisterA().getBits()[6];
         getRegisterA().getBits()[6] = getRegisterService().toggleBit(bit6);
         tableMemory.refresh();
         a6.setText(String.valueOf(getRegisterA().getBits()[6].getPin()));
     }
 
-    public void toggleA7(ActionEvent actionEvent) {
+    public void toggleA7() {
         Bit bit7 = getRegisterA().getBits()[7];
         getRegisterA().getBits()[7] = getRegisterService().toggleBit(bit7);
         tableMemory.refresh();
         a7.setText(String.valueOf(getRegisterA().getBits()[7].getPin()));
     }
 
-    public void toggleB0(ActionEvent actionEvent) {
+    public void toggleB0() {
         Bit bit0 = speicher.getSpeicheradressen()[0].getRegister()[6].getBits()[0];
         speicher.getSpeicheradressen()[0].getRegister()[6].getBits()[0] = getRegisterService().toggleBit(bit0);
         tableMemory.refresh();
         b0.setText(String.valueOf(getRegisterB().getBits()[0].getPin()));
     }
 
-    public void toggleB1(ActionEvent actionEvent) {
+    public void toggleB1() {
         Bit bit1 = speicher.getSpeicheradressen()[0].getRegister()[6].getBits()[1];
         speicher.getSpeicheradressen()[0].getRegister()[6].getBits()[1] = getRegisterService().toggleBit(bit1);
         tableMemory.refresh();
         b1.setText(String.valueOf(getRegisterB().getBits()[1].getPin()));
     }
 
-    public void toggleB2(ActionEvent actionEvent) {
+    public void toggleB2() {
         Bit bit2 = getRegisterB().getBits()[2];
         getRegisterB().getBits()[2] = getRegisterService().toggleBit(bit2);
         tableMemory.refresh();
         b2.setText(String.valueOf(getRegisterB().getBits()[2].getPin()));
     }
 
-    public void toggleB3(ActionEvent actionEvent) {
+    public void toggleB3() {
         Bit bit3 = getRegisterB().getBits()[3];
         getRegisterB().getBits()[3] = getRegisterService().toggleBit(bit3);
         tableMemory.refresh();
         b3.setText(String.valueOf(getRegisterB().getBits()[3].getPin()));
     }
 
-    public void toggleB4(ActionEvent actionEvent) {
+    public void toggleB4() {
         Bit bit4 = getRegisterB().getBits()[4];
         getRegisterB().getBits()[4] = getRegisterService().toggleBit(bit4);
         tableMemory.refresh();
         b4.setText(String.valueOf(getRegisterB().getBits()[4].getPin()));
     }
 
-    public void toggleB5(ActionEvent actionEvent) {
+    public void toggleB5() {
         Bit bit5 = getRegisterB().getBits()[5];
         getRegisterB().getBits()[5] = getRegisterService().toggleBit(bit5);
         tableMemory.refresh();
         b5.setText(String.valueOf(getRegisterB().getBits()[5].getPin()));
     }
 
-    public void toggleB6(ActionEvent actionEvent) {
+    public void toggleB6() {
         Bit bit6 = getRegisterB().getBits()[6];
         getRegisterB().getBits()[6] = getRegisterService().toggleBit(bit6);
         tableMemory.refresh();
         b6.setText(String.valueOf(getRegisterB().getBits()[6].getPin()));
     }
 
-    public void toggleB7(ActionEvent actionEvent) {
+    public void toggleB7() {
         Bit bit7 = getRegisterB().getBits()[7];
         getRegisterB().getBits()[7] = getRegisterService().toggleBit(bit7);
         tableMemory.refresh();
         b7.setText(String.valueOf(getRegisterB().getBits()[7].getPin()));
     }
 
-    public Register getRegisterA() {
+    private Register getRegisterA() {
         if (speicher == null) {
             initializeMemory();
         }
         return speicher.getSpeicheradressen()[0].getRegister()[5];
     }
 
-    public void setRegisterA() {
+    private void setRegisterA() {
         a0.setText(String.valueOf(getRegisterA().getBits()[0].getPin()));
         a1.setText(String.valueOf(getRegisterA().getBits()[1].getPin()));
         a2.setText(String.valueOf(getRegisterA().getBits()[2].getPin()));
@@ -421,14 +439,14 @@ public class Controller {
         a7.setText(String.valueOf(getRegisterA().getBits()[7].getPin()));
     }
 
-    public Register getRegisterB() {
+    private Register getRegisterB() {
         if (speicher == null) {
             initializeMemory();
         }
         return speicher.getSpeicheradressen()[0].getRegister()[6];
     }
 
-    public void setRegisterB() {
+    private void setRegisterB() {
         b0.setText(String.valueOf(getRegisterB().getBits()[0].getPin()));
         b1.setText(String.valueOf(getRegisterB().getBits()[1].getPin()));
         b2.setText(String.valueOf(getRegisterB().getBits()[2].getPin()));
@@ -439,12 +457,10 @@ public class Controller {
         b7.setText(String.valueOf(getRegisterB().getBits()[7].getPin()));
     }
 
-    public void openDocumentation(ActionEvent actionEvent) {
+    public void openDocumentation() {
         try {
             java.awt.Desktop.getDesktop().browse(new URI(PicSimulatorConstants.LINK_DOCUMENTATION));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
     }
@@ -463,21 +479,21 @@ public class Controller {
         return fileInputService;
     }
 
-    public RegisterService getRegisterService() {
+    private RegisterService getRegisterService() {
         if (registerService == null) {
             registerService = new RegisterService();
         }
         return registerService;
     }
 
-    public BefehlSteuerungService getBefehlSteuerungService() {
+    private BefehlSteuerungService getBefehlSteuerungService() {
         if (befehlSteuerungService == null) {
             befehlSteuerungService = new BefehlSteuerungService();
         }
         return befehlSteuerungService;
     }
 
-    public InterruptService getInterruptService() {
+    private InterruptService getInterruptService() {
         if (interruptService == null) {
             interruptService = new InterruptService();
         }

@@ -165,7 +165,7 @@
                     <children>
                         <TableView fx:id="tableFileContent" minHeight="109.0" prefHeight="109.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
-                                <TableColumn maxWidth="90" minWidth="90" text="Breakpoint" />
+                                <TableColumn fx:id="tableColumnBreakpoint" maxWidth="90" minWidth="90" text="Breakpoint" />
                                 <TableColumn fx:id="tableColumnZeilennummer" maxWidth="50" minWidth="50" text="Zeile" />
                                 <TableColumn fx:id="tableColumnBefehlscode" maxWidth="125" minWidth="125" text="Befehlscode" />
                                 <TableColumn fx:id="tableColumnBefehl" text="Befehl" />

@@ -2,12 +2,21 @@ package picsimulator.model;
 
 public class Befehl {
 
+    private boolean breakpoint;
     private boolean ausfuehrbar;
     private int zeilennummer;
     private int zeigernummer;
     private String befehlscode;
     private String befehl;
     private String kommentar;
+
+    public boolean isBreakpoint() {
+        return breakpoint;
+    }
+
+    public void setBreakpoint(boolean breakpoint) {
+        this.breakpoint = breakpoint;
+    }
 
     public boolean isAusfuehrbar() {
         return ausfuehrbar;
