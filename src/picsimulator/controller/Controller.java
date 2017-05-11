@@ -124,8 +124,9 @@ public class Controller {
     private InterruptService interruptService;
     private List<Befehl> befehle;
     private Speicher speicher;
-    private int currentRow = 1;
 
+    private int currentRow = 1;
+    private boolean run = false;
     public static int runtime = 0;
 
     public void openFile(ActionEvent actionEvent) {
@@ -161,26 +162,18 @@ public class Controller {
         if (tableFileContent.getItems().isEmpty()) {
             return;
         }
+        run = true;
         Thread th = new Thread(() -> {
             try {
-                while (true) {
+                while (run) {
                     int pcl = speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();
                     for (Befehl befehl : befehle) {
                         if (befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()) {
                             currentRow = befehl.getZeilennummer();
                             Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
                             String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
-                            if(checkInterrupt(binaryString)) break;
+                            if (checkInterrupt(binaryString)) break;
                             updateView();
-
-                            System.out.println("---------------------------------");
-                            int i = 0;
-                            for (StackEintrag stackEintrag : speicher.getStack()){
-                                System.out.println(i +": " +stackEintrag.getIntWert());
-                                i++;
-                            }
-                            System.out.println("---------------------------------");
-
                             Thread.sleep(250);
                         }
                     }
@@ -208,12 +201,15 @@ public class Controller {
         return false;
     }
 
-    public static void increaseRuntime(){
+    public static void increaseRuntime() {
         runtime++;
     }
 
     public void next(ActionEvent actionEvent) {
         if (tableFileContent.getItems().isEmpty()) {
+            return;
+        }
+        if(run){
             return;
         }
         int pcl = speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();
@@ -253,18 +249,26 @@ public class Controller {
         IRP.setText(Integer.toString(statusReg.getBits()[7].getPin()));
     }
 
+    public void stop(ActionEvent actionEvent) {
+        run = false;
+    }
+
     public void reset(ActionEvent actionEvent) {
+        run = false;
         currentRow = 1;
         initializeMemory();
         setRegisterA();
         setRegisterB();
+        updateView();
         tableFileContent.refresh();
     }
 
     public void clear(ActionEvent actionEvent) {
+        run = false;
         initializeMemory();
         setRegisterA();
         setRegisterB();
+        updateView();
         tableFileContent.getItems().clear();
         tableMemory.getItems().clear();
     }
@@ -479,4 +483,6 @@ public class Controller {
         }
         return interruptService;
     }
+
+
 }

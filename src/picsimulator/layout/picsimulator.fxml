@@ -43,7 +43,7 @@
                            <children>
                               <AnchorPane layoutX="359.0" layoutY="-5.0" prefHeight="254.0" prefWidth="132.0" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="359.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-5.0">
                                  <children>
-                                    <TableView fx:id="tableStack" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="tableStack" prefWidth="131.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columns>
                                         <TableColumn fx:id="tableColumnStack" editable="false" minWidth="138.0" prefWidth="-1.0" text="STACK" />
                                       </columns>
@@ -75,13 +75,12 @@
                   </SplitPane>
                   <AnchorPane layoutY="174.0" prefHeight="33.0" prefWidth="409.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
                      <children>
-                        <Button fx:id="BtnStart" layoutX="-5.0" layoutY="8.0" mnemonicParsing="false" onAction="#run" text="Start" />
-                        <Button fx:id="BtnNext" layoutX="142.0" layoutY="8.0" mnemonicParsing="false" onAction="#next" text="Next" />
-                        <Button fx:id="BtnReset" layoutX="183.0" layoutY="8.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
-                        <Button fx:id="BtnClear" layoutX="228.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
-                        <Button fx:id="BtnStop" layoutX="36.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Stop" />
-                        <Button fx:id="BtnContinue" layoutX="77.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Continue" />
-                        <TextField editable="false" layoutX="271.0" layoutY="8.0" prefHeight="25.0" prefWidth="122.0" text="Taktfrequenz: 4MHz" />
+                        <Button fx:id="BtnStart" layoutX="-5.0" layoutY="8.0" mnemonicParsing="false" onAction="#run" text="Run" />
+                        <Button fx:id="BtnNext" layoutX="73.0" layoutY="8.0" mnemonicParsing="false" onAction="#next" text="Next" />
+                        <Button fx:id="BtnReset" layoutX="114.0" layoutY="8.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
+                        <Button fx:id="BtnClear" layoutX="159.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
+                        <Button fx:id="BtnStop" layoutX="32.0" layoutY="8.0" mnemonicParsing="false" onAction="#stop" text="Stop" />
+                        <TextField editable="false" layoutX="202.0" layoutY="7.0" prefHeight="25.0" prefWidth="122.0" text="Taktfrequenz: 4MHz" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="98.0" prefWidth="295.0">
