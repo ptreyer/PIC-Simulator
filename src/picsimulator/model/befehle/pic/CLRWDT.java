@@ -16,6 +16,15 @@ public class CLRWDT extends Operation implements Executable {
 
     @Override
     public Speicher execute() {
+        memory.setWatchdogTimer(0);
+
+        if(memory.getFileRegister(1, false).getBits()[3].getPin() == 1){
+            memory.setPrescaler(0);
+        }
+
+        memory.getFileRegister(3, false).getBits()[3].setPin(1);
+        memory.getFileRegister(3, false).getBits()[4].setPin(1);
+
         Controller.increaseRuntime();
         increaseProgrammCounter();
         return memory;

@@ -14,8 +14,13 @@ public class Speicher {
     private Speicheradresse[] speicheradressen;
     private List<StackEintrag> stack;
 
+    private boolean interrupt;
+
     private int registerW;
     private int watchdogTimer;
+    private int prescaler;
+    private boolean sleepModus;
+    private boolean watchdogTimerEnabled;
 
     public Speicher() {
         this.speicheradressen = new Speicheradresse[32];
@@ -25,6 +30,10 @@ public class Speicher {
             adresse = adresse + 8;
         }
         this.stack = new ArrayList<>();
+        watchdogTimer = 0;
+        prescaler = 0;
+        sleepModus = false;
+        watchdogTimerEnabled = false;
     }
 
     public Speicheradresse[] getSpeicheradressen() {
@@ -43,15 +52,15 @@ public class Speicher {
         this.stack = stack;
     }
 
-    public StackEintrag getFromStack(){
+    public StackEintrag getFromStack() {
         StackEintrag result = stack.get(0);
         stack.remove(0);
         return result;
     }
 
-    public void addToStack(StackEintrag newStackEntry){
+    public void addToStack(StackEintrag newStackEntry) {
         stack.add(0, newStackEntry);
-        if(stack.size()>7){
+        if (stack.size() > 7) {
             stack = stack.subList(0, 7);
         }
     }
@@ -64,7 +73,7 @@ public class Speicher {
         if (registerW < 0) {
             registerW = 256 - (registerW * -1);
         } else if (registerW > 255) {
-            registerW = registerW -256;
+            registerW = registerW - 256;
         }
         this.registerW = registerW;
     }
@@ -77,11 +86,69 @@ public class Speicher {
         this.watchdogTimer = watchdogTimer;
     }
 
+    public boolean isInterrupt() {
+        return interrupt;
+    }
+
+    public void setInterrupt(boolean interrupt) {
+        this.interrupt = interrupt;
+    }
+
+    public Register getTimer0() {
+        return getFileRegister(1, false);
+    }
+
+    public int getPrescaler() {
+        return prescaler;
+    }
+
+    public void setPrescaler(int prescaler) {
+        this.prescaler = prescaler;
+    }
+
+    public boolean isSleepModus() {
+        return sleepModus;
+    }
+
+    public void setSleepModus(boolean sleepModus) {
+        this.sleepModus = sleepModus;
+    }
+
+    public boolean isWatchdogTimerEnabled() {
+        return watchdogTimerEnabled;
+    }
+
+    public void setWatchdogTimerEnabled(boolean watchdogTimerEnabled) {
+        this.watchdogTimerEnabled = watchdogTimerEnabled;
+    }
+
+    public void incrementPrescaler() {
+        prescaler++;
+    }
+
+    public void incrementTimer0() {
+        Register timer0 = getFileRegister(1, false);
+        timer0.setWert(timer0.getIntWert() + 1);
+    }
+
+    public void incrementWatchdogTimer() {
+        watchdogTimer++;
+    }
+
+    public int getPrescalerMaxValue() {
+        Register optionRegister = getFileRegister(11, false);
+        StringBuilder builder = new StringBuilder();
+        builder.append(optionRegister.getBits()[2].getPin());
+        builder.append(optionRegister.getBits()[1].getPin());
+        builder.append(optionRegister.getBits()[0].getPin());
+        return getRegisterService().binToInt(builder.toString());
+    }
+
     public Register getFileRegister(int nummer, boolean changePC) {
         if (nummer == 0) {
             nummer = getRegisterService().hexToInt(getSpeicheradressen()[0].getRegister()[4].getHexWert());
         }
-        if(nummer == 2 && changePC){
+        if (nummer == 2 && changePC) {
             Controller.increaseRuntime();
         }
         if (0 < nummer && nummer <= 7) {

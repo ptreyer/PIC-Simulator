@@ -190,9 +190,10 @@ public class Controller {
                             if (befehl.isBreakpoint()) {
                                 run = false;
                             }
-                            String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
-                            if (checkInterrupt(binaryString)) break;
+                            if (execute(befehl)) break;
                             updateView();
+                            debugTimer();
+                            speicher.setInterrupt(false);
                             Thread.sleep(250);
                         }
                     }
@@ -205,8 +206,25 @@ public class Controller {
         th.start();
     }
 
-    private boolean checkInterrupt(String binaryString) {
-        if (getInterruptService().checkInterrupt(speicher)) {
+    private boolean execute(Befehl befehl) {
+        String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
+        if (!speicher.isSleepModus()) {
+            speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
+            if (checkInterrupt()) return true;
+        } else {
+            speicher = getInterruptService().checkForWatchDogInterrupt(speicher);
+            if (checkInterrupt()) return true;
+        }
+        return false;
+    }
+
+    private boolean checkInterrupt() {
+        if (!speicher.isSleepModus()) {
+            speicher = getInterruptService().checkForPortBInterrupt(speicher);
+            speicher = getInterruptService().checkForINTInterrupt(speicher);
+            speicher = getInterruptService().checkForTMR0TimerInterrupt(speicher);
+        }
+        if (speicher.isInterrupt()) {
             Register pclReg = speicher.getSpeicheradressen()[0].getRegister()[2];
             // TODO Referenz pruefen
             StackEintrag stackEintrag = new StackEintrag();
@@ -215,12 +233,21 @@ public class Controller {
             speicher.getSpeicheradressen()[0].getRegister()[2].setWert(4);
             return true;
         }
-        speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
         return false;
     }
 
     public static void increaseRuntime() {
         runtime++;
+    }
+
+    private void debugTimer() {
+        System.out.println("------------1--------------");
+        System.out.println("Prescaler: " + speicher.getPrescaler());
+        System.out.println("TMR0: " + speicher.getTimer0().getIntWert());
+        System.out.println("WatchdogTimer: " + speicher.getWatchdogTimer());
+        System.out.println("WatchdogTimerEnabled: " + speicher.isWatchdogTimerEnabled());
+        System.out.println("SLEEP: " + speicher.isSleepModus());
+        System.out.println("------------2-------------");
     }
 
     public void next() {
@@ -235,8 +262,9 @@ public class Controller {
             if (befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()) {
                 currentRow = befehl.getZeilennummer();
                 tableFileContent.scrollTo(currentRow - 2);
-                String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
-                if (checkInterrupt(binaryString)) break;
+                if (execute(befehl)) break;
+                speicher.setInterrupt(false);
+                debugTimer();
                 updateView();
             }
         }
