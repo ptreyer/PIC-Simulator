@@ -11,7 +11,7 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
     <children>
       <MenuBar prefHeight="25.0" prefWidth="800.0" AnchorPane.bottomAnchor="481.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -43,7 +43,7 @@
                            <children>
                               <AnchorPane layoutX="359.0" layoutY="-5.0" prefHeight="254.0" prefWidth="132.0" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="359.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-5.0">
                                  <children>
-                                    <TableView fx:id="tableStack" prefWidth="131.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="tableStack" layoutX="-2.0" prefWidth="131.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
                                       <columns>
                                         <TableColumn fx:id="tableColumnStack" editable="false" minWidth="138.0" prefWidth="-1.0" text="STACK" />
                                       </columns>
@@ -80,7 +80,7 @@
                         <Button fx:id="BtnReset" layoutX="114.0" layoutY="8.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
                         <Button fx:id="BtnClear" layoutX="159.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
                         <Button fx:id="BtnStop" layoutX="32.0" layoutY="8.0" mnemonicParsing="false" onAction="#stop" text="Stop" />
-                        <TextField editable="false" layoutX="202.0" layoutY="7.0" prefHeight="25.0" prefWidth="122.0" text="Taktfrequenz: 4MHz" />
+                        <TextField editable="false" layoutX="202.0" layoutY="8.0" prefHeight="25.0" prefWidth="122.0" text="Taktfrequenz: 4MHz" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="98.0" prefWidth="295.0">
@@ -133,7 +133,7 @@
                                     <TextField editable="false" layoutX="68.0" layoutY="129.0" prefHeight="25.0" prefWidth="35.0" text="RP0" />
                                     <TextField editable="false" layoutX="34.0" layoutY="129.0" prefHeight="25.0" prefWidth="35.0" text="RP1" />
                                     <TextField editable="false" layoutY="129.0" prefHeight="25.0" prefWidth="35.0" text="IRP" />
-                                    <TextField editable="false" layoutX="239.0" layoutY="129.0" prefHeight="25.0" prefWidth="35.0" text="C" />
+                                    <TextField editable="false" layoutX="238.0" layoutY="129.0" prefHeight="25.0" prefWidth="35.0" text="C" />
                                     <TextField editable="false" layoutX="204.0" layoutY="129.0" prefHeight="25.0" prefWidth="35.0" text="DC" />
                                     <TextField fx:id="Zero" editable="false" layoutX="170.0" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
                                     <TextField fx:id="PD" editable="false" layoutX="136.0" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
@@ -141,7 +141,7 @@
                                     <TextField fx:id="RP0" editable="false" layoutX="68.0" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
                                     <TextField fx:id="RP1" editable="false" layoutX="34.0" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
                                     <TextField fx:id="IRP" editable="false" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="Carry" editable="false" layoutX="239.0" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="Carry" editable="false" layoutX="238.0" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
                                     <TextField fx:id="DigitCarry" editable="false" layoutX="204.0" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
                                     <TextField editable="false" layoutX="226.0" layoutY="2.0" prefHeight="25.0" prefWidth="65.0" text="W-REG" />
                                     <TextField editable="false" layoutX="226.0" layoutY="27.0" prefHeight="25.0" prefWidth="65.0" text="FSR" />
