@@ -102,17 +102,5 @@ public class InterruptService {
         }
         return speicher;
     }
-
-    public boolean checkInterrupt(Speicher speicher) {
-        boolean interrupt = false;
-
-        if (speicher.getSpeicheradressen()[1].getRegister()[3].getBits()[7].getPin() == 1) {
-        }
-        if (speicher.getSpeicheradressen()[1].getRegister()[3].getBits()[6].getPin() == 1 && speicher.getSpeicheradressen()[17].getRegister()[0].getBits()[4].getPin() == 1) {
-            interrupt = true;
-        }
-        return false;
-    }
-
 }
 

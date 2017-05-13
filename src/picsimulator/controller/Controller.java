@@ -190,6 +190,7 @@ public class Controller {
                             if (befehl.isBreakpoint()) {
                                 run = false;
                             }
+                            TriggerInterruptService.getAlteWerte(speicher);
                             if (execute(befehl)) break;
                             updateView();
                             debugTimer();
@@ -210,6 +211,7 @@ public class Controller {
         String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
         if (!speicher.isSleepModus()) {
             speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
+            TriggerInterruptService.getNeueWerte(speicher);
             if (checkInterrupt()) return true;
         } else {
             speicher = getInterruptService().checkForWatchDogInterrupt(speicher);
