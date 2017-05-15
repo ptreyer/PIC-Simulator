@@ -22,6 +22,7 @@ public class RETLW extends Operation implements Executable {
 
         Controller.increaseRuntime();
         increaseProgrammCounter();
+        memory.setCalculateProgramCounter(false);
         return memory;
     }
 }

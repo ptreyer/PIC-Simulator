@@ -21,6 +21,7 @@ public class RETURN extends Operation implements Executable {
         Controller.increaseRuntime();
         Controller.increaseRuntime();
         increaseProgrammCounter();
+        memory.setCalculateProgramCounter(false);
         return memory;
     }
 }

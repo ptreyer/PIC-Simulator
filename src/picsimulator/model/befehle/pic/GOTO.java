@@ -17,10 +17,10 @@ public class GOTO extends Operation implements Executable {
     @Override
     public Speicher execute() {
         String addresse = binaryString.substring(opcodeBits);
-        memory.getSpeicheradressen()[0].getRegister()[2].setWert(addresse);
-        memory.getSpeicheradressen()[1].getRegister()[2].getBits()[2].setPin(Character.getNumericValue(binaryString.charAt(0)));
-        memory.getSpeicheradressen()[1].getRegister()[2].getBits()[1].setPin(Character.getNumericValue(binaryString.charAt(1)));
-        memory.getSpeicheradressen()[1].getRegister()[2].getBits()[0].setPin(Character.getNumericValue(binaryString.charAt(2)));
+        memory.getSpeicheradressen()[0].getRegister()[2].setWert(addresse.substring(3));
+        memory.getSpeicheradressen()[1].getRegister()[2].getBits()[2].setPin(Character.getNumericValue(addresse.charAt(0)));
+        memory.getSpeicheradressen()[1].getRegister()[2].getBits()[1].setPin(Character.getNumericValue(addresse.charAt(1)));
+        memory.getSpeicheradressen()[1].getRegister()[2].getBits()[0].setPin(Character.getNumericValue(addresse.charAt(2)));
 
         Controller.increaseRuntime();
         Controller.increaseRuntime();

@@ -157,6 +157,8 @@ public class Controller {
     private TextField PS1;
     @FXML
     private TextField PS0;
+    @FXML
+    private Button btnToggleWDTimer;
 
     private FileInputService fileInputService;
     private MemoryInitializerService memoryInitializerService;
@@ -165,8 +167,6 @@ public class Controller {
     private InterruptService interruptService;
     private List<Befehl> befehle;
     private Speicher speicher;
-
-
 
     private int currentRow = 1;
     private boolean run = false;
@@ -217,9 +217,9 @@ public class Controller {
         Thread th = new Thread(() -> {
             try {
                 while (run) {
-                    int pcl = speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();
+                    int pc = speicher.getProgrammCounter();
                     for (Befehl befehl : befehle) {
-                        if (befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()) {
+                        if (befehl.getZeigernummer() == pc && befehl.isAusfuehrbar()) {
                             currentRow = befehl.getZeilennummer();
                             Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
                             if (befehl.isBreakpoint()) {
@@ -227,7 +227,7 @@ public class Controller {
                             }
                             TriggerInterruptService.saveOldValues(speicher);
                             if (execute(befehl)) break;
-                            Platform.runLater(() -> updateView());
+                            Platform.runLater(this::updateView);
                             Thread.sleep(50);
                         }
                     }
@@ -240,18 +240,41 @@ public class Controller {
         th.start();
     }
 
+    public void next() {
+        if (tableFileContent.getItems().isEmpty()) {
+            return;
+        }
+        if (run) {
+            return;
+        }
+        int pc = speicher.getProgrammCounter();
+        for (Befehl befehl : befehle) {
+            if (befehl.getZeigernummer() == pc && befehl.isAusfuehrbar()) {
+                currentRow = befehl.getZeilennummer();
+                tableFileContent.scrollTo(currentRow - 2);
+                TriggerInterruptService.saveOldValues(speicher);
+                if (execute(befehl)) break;
+                debugTimer();
+                updateView();
+            }
+        }
+    }
+
     private boolean execute(Befehl befehl) {
         String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
+        int cycles = 1;
         if (!speicher.isSleepModus()) {
             int cyclesOld = runtime;
             speicher = getBefehlSteuerungService().steuereBefehl(speicher, binaryString);
             speicher = TriggerInterruptService.analyseNewValues(speicher);
             int cyclesNew = runtime;
-            if (checkInterrupt(cyclesNew-cyclesOld)) return true;
+            cycles = cyclesNew - cyclesOld;
+            if (checkInterrupt(cycles)) return true;
         }
         if (speicher.isWatchdogTimerEnabled()) {
             speicher = TriggerInterruptService.analyseNewValues(speicher);
-            speicher = getInterruptService().checkForWatchDogInterrupt(speicher);
+            speicher = getInterruptService().checkForWatchDogInterrupt(speicher, cycles);
+            runtime++;
             if (checkInterrupt(1)) return true;
         }
         return false;
@@ -262,14 +285,16 @@ public class Controller {
         if (!speicher.isSleepModus()) {
             speicher = getInterruptService().checkForPortBInterrupt(speicher);
             speicher = getInterruptService().checkForINTInterrupt(speicher);
-            speicher = getInterruptService().checkForTMR0TimerInterrupt(speicher, cycles);
+            if(speicher.getSpeicheradressen()[16].getRegister()[1].getBits()[5].getPin() == 0){
+                speicher = getInterruptService().checkForTMR0TimerInterrupt(speicher, cycles);
+            }
         }
         debugTimer();
         if (speicher.isInterrupt()) {
             updateView();
             Register pclReg = speicher.getSpeicheradressen()[0].getRegister()[2];
             StackEintrag stackEintrag = new StackEintrag();
-            stackEintrag.setWert(new Integer(pclReg.getIntWert()+1));
+            stackEintrag.setWert(new Integer(pclReg.getIntWert() + 1));
             speicher.addToStack(stackEintrag);
             speicher.getSpeicheradressen()[0].getRegister()[2].setWert(4);
             // Interrupt deaktivieren
@@ -284,9 +309,9 @@ public class Controller {
     }
 
     private void debugTimer() {
-        /*System.out.println("------------1--------------");
-        System.out.println("Laufzeit: " + runtime);
-        System.out.println("Prescaler: " + speicher.getPrescaler());
+        //System.out.println("------------1--------------");
+        //System.out.println("Laufzeit: " + runtime);
+        /*System.out.println("Prescaler: " + speicher.getPrescaler());
         System.out.println("Prescaler-MAX: " + speicher.getPrescalerMaxValue());
         System.out.println("TMR0: " + speicher.getTimer0().getIntWert());
         System.out.println("WatchdogTimer: " + speicher.getWatchdogTimer());
@@ -295,25 +320,7 @@ public class Controller {
         System.out.println("------------2-------------");*/
     }
 
-    public void next() {
-        if (tableFileContent.getItems().isEmpty()) {
-            return;
-        }
-        if (run) {
-            return;
-        }
-        int pcl = speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();
-        for (Befehl befehl : befehle) {
-            if (befehl.getZeigernummer() == pcl && befehl.isAusfuehrbar()) {
-                currentRow = befehl.getZeilennummer();
-                tableFileContent.scrollTo(currentRow - 2);
-                TriggerInterruptService.saveOldValues(speicher);
-                if (execute(befehl)) break;
-                debugTimer();
-                updateView();
-            }
-        }
-    }
+
 
     private void updateView() {
         tableFileContent.refresh();
@@ -326,8 +333,7 @@ public class Controller {
         FSR.setText(speicher.getSpeicheradressen()[0].getRegister()[4].getHexWert());
         PCL.setText(speicher.getSpeicheradressen()[0].getRegister()[2].getHexWert());
         PCLATH.setText(speicher.getSpeicheradressen()[1].getRegister()[2].getHexWert());
-        int pc = speicher.getSpeicheradressen()[1].getRegister()[2].getIntWert() + speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert();
-        PC.setText(getRegisterService().intToHex(pc));
+        PC.setText(getRegisterService().intToHex(speicher.getFullProrammCounter()));
 
         Register statusReg = speicher.getSpeicheradressen()[0].getRegister()[3];
         STATUS.setText(statusReg.getHexWert());
@@ -340,7 +346,7 @@ public class Controller {
         RP1.setText(Integer.toString(statusReg.getBits()[6].getPin()));
         IRP.setText(Integer.toString(statusReg.getBits()[7].getPin()));
 
-        Register intconReg = speicher.getSpeicheradressen()[16].getRegister()[1];
+        Register intconReg = speicher.getSpeicheradressen()[1].getRegister()[3];
         INTCON.setText(intconReg.getHexWert());
         GIE.setText(Integer.toString(intconReg.getBits()[7].getPin()));
         EEIE.setText(Integer.toString(intconReg.getBits()[6].getPin()));
@@ -351,7 +357,7 @@ public class Controller {
         INTF.setText(Integer.toString(intconReg.getBits()[1].getPin()));
         RBIF.setText(Integer.toString(intconReg.getBits()[0].getPin()));
 
-        Register optionReg = speicher.getSpeicheradressen()[1].getRegister()[3];
+        Register optionReg = speicher.getSpeicheradressen()[16].getRegister()[1];
         OPTION.setText(optionReg.getHexWert());
         RBPU.setText(Integer.toString(optionReg.getBits()[7].getPin()));
         INTEDG.setText(Integer.toString(optionReg.getBits()[6].getPin()));
@@ -361,6 +367,13 @@ public class Controller {
         PS2.setText(Integer.toString(optionReg.getBits()[2].getPin()));
         PS1.setText(Integer.toString(optionReg.getBits()[1].getPin()));
         PS0.setText(Integer.toString(optionReg.getBits()[0].getPin()));
+
+        if (speicher.isWatchdogTimerEnabled()) {
+            btnToggleWDTimer.setText("Disable WDT");
+        } else {
+            btnToggleWDTimer.setText("Enable WDT");
+        }
+
     }
 
     public void stop() {
@@ -600,9 +613,8 @@ public class Controller {
     }
 
 
-    public void toggleWDT(ActionEvent actionEvent) {
-
-
-
+    public void toggleWDT() {
+        speicher.setWatchdogTimerEnabled(!speicher.isWatchdogTimerEnabled());
+        updateView();
     }
 }

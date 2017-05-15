@@ -24,6 +24,7 @@ public class Speicher {
 
     private boolean sleepModus;
     private boolean watchdogTimerEnabled;
+    private boolean calculateProgramCounter;
 
     public Speicher() {
         this.speicheradressen = new Speicheradresse[32];
@@ -41,10 +42,6 @@ public class Speicher {
 
     public List<StackEintrag> getStack() {
         return stack;
-    }
-
-    public void setStack(List<StackEintrag> stack) {
-        this.stack = stack;
     }
 
     public StackEintrag getFromStack() {
@@ -75,10 +72,6 @@ public class Speicher {
 
     public Speicheradresse[] getSpeicheradressen() {
         return speicheradressen;
-    }
-
-    public void setSpeicheradressen(Speicheradresse[] speicheradressen) {
-        this.speicheradressen = speicheradressen;
     }
 
     public int getWatchdogTimer() {
@@ -133,6 +126,28 @@ public class Speicher {
         this.watchdogTimerEnabled = watchdogTimerEnabled;
     }
 
+    public boolean isCalculateProgramCounter() {
+        return calculateProgramCounter;
+    }
+
+    public void setCalculateProgramCounter(boolean calculateProgramCounter) {
+        this.calculateProgramCounter = calculateProgramCounter;
+    }
+
+    public int getProgrammCounter() {
+        if (isCalculateProgramCounter()) {
+           return getFullProrammCounter();
+        }
+        return speicheradressen[0].getRegister()[2].getIntWert();
+    }
+
+    public int getFullProrammCounter(){
+        String pcLatch = speicheradressen[1].getRegister()[2].getHexWert();
+        String pcLow = speicheradressen[0].getRegister()[2].getHexWert();
+        String pc = pcLatch + pcLow;
+        return getRegisterService().hexToInt(pc);
+    }
+
     public void incrementPrescaler() {
         prescaler++;
     }
@@ -144,6 +159,29 @@ public class Speicher {
 
     public void incrementWatchdogTimer() {
         watchdogTimer++;
+        System.out.println("incrementWatchdogTimer: " + watchdogTimer);
+    }
+
+    public int getPrescalerWatchdogMaxValue() {
+        Register optionRegister = speicheradressen[16].getRegister()[1];
+
+        if (optionRegister.getBits()[3].getPin() == 0) {
+            return 1;
+        }
+        StringBuilder builder = new StringBuilder();
+        builder.append(optionRegister.getBits()[2].getPin());
+        builder.append(optionRegister.getBits()[1].getPin());
+        builder.append(optionRegister.getBits()[0].getPin());
+        int value = getRegisterService().binToInt(builder.toString());
+        if (value == 0) return 1;
+        if (value == 1) return 2;
+        if (value == 2) return 4;
+        if (value == 3) return 8;
+        if (value == 4) return 16;
+        if (value == 5) return 32;
+        if (value == 6) return 64;
+        if (value == 7) return 128;
+        return 1;
     }
 
     public int getPrescalerMaxValue() {
@@ -163,6 +201,7 @@ public class Speicher {
         if (value == 7) return 256;
         return 0;
     }
+
 
     public Register getFileRegister(int nummer, boolean changePC) {
         if (nummer == 0) {

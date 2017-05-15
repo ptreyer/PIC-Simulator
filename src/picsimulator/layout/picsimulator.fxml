@@ -81,7 +81,7 @@
                         <Button fx:id="BtnClear" layoutX="159.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
                         <Button fx:id="BtnStop" layoutX="32.0" layoutY="8.0" mnemonicParsing="false" onAction="#stop" text="Stop" />
                         <TextField editable="false" layoutX="307.0" layoutY="8.0" prefHeight="25.0" prefWidth="122.0" text="Taktfrequenz: 4MHz" />
-                        <Button fx:id="BtnEnableWDTimer" layoutX="202.0" layoutY="8.0" mnemonicParsing="false" onAction="#toggleWDT" text="Enable WDTimer" />
+                        <Button fx:id="btnToggleWDTimer" layoutX="202.0" layoutY="8.0" mnemonicParsing="false" onAction="#toggleWDT" text="Enable WDTimer" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="98.0" prefWidth="295.0">
