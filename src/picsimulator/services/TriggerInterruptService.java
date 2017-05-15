@@ -30,14 +30,14 @@ public class TriggerInterruptService {
     public static int cyclesAlt = 0;
 
     //Alte Werte der verschiedenen Faktoren fuer einen spaeteren Vergleich erhalten
-    public static void getAlteWerte(Speicher speicher) {
+    public static void saveOldValues(Speicher speicher) {
         portBAlt = (short) (speicher.getSpeicheradressen()[0].getRegister()[6].getIntWert() & 240);
         rb0intAlt = (short) (speicher.getSpeicheradressen()[0].getRegister()[6].getIntWert() & 1);
         timer0Alt = (short) (speicher.getSpeicheradressen()[0].getRegister()[1].getIntWert() & 255);
         pclAlt = (short) (speicher.getSpeicheradressen()[0].getRegister()[2].getIntWert() & 255);
     }
 
-    public static void getNeueWerte(Speicher speicher) {
+    public static Speicher analyseNewValues(Speicher speicher) {
         portBNeu = (short) (speicher.getSpeicheradressen()[0].getRegister()[6].getIntWert() & 240);
         rb0intNeu = (short) (speicher.getSpeicheradressen()[0].getRegister()[6].getIntWert() & 1);
         timer0Neu = (short) (speicher.getSpeicheradressen()[0].getRegister()[1].getIntWert() & 255);
@@ -81,5 +81,8 @@ public class TriggerInterruptService {
         //Programcounter zusammensetzen oder PCL aktualisiseren
         //TODO
         //Programcounter.pcZusammensetzen();
+
+        return speicher;
     }
+
 }

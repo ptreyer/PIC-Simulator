@@ -1,5 +1,6 @@
 package picsimulator.services;
 
+import picsimulator.controller.Controller;
 import picsimulator.model.Register;
 import picsimulator.model.Speicher;
 
@@ -9,7 +10,7 @@ import picsimulator.model.Speicher;
 public class InterruptService {
 
     public Speicher checkForTMR0TimerInterrupt(Speicher speicher) {
-        Register optionRegister = speicher.getFileRegister(11, false);
+        Register optionRegister = speicher.getSpeicheradressen()[16].getRegister()[1];
 
         if (optionRegister.getBits()[5].getPin() == 0) {
             speicher = incrementTimer0(speicher);
@@ -18,21 +19,22 @@ public class InterruptService {
     }
 
     public Speicher checkForTMR0Interrupt(Speicher speicher) {
-        Register statusRegister = speicher.getFileRegister(3, false);
+        Register intconRegister = speicher.getSpeicheradressen()[1].getRegister()[3];
 
-        if (statusRegister.getBits()[7].getPin() == 1 &&
-                statusRegister.getBits()[2].getPin() == 1 &&
-                statusRegister.getBits()[5].getPin() == 1) {
+        if (intconRegister.getBits()[7].getPin() == 1 &&
+                intconRegister.getBits()[2].getPin() == 1 &&
+                intconRegister.getBits()[5].getPin() == 1) {
             speicher.setInterrupt(true);
         }
         return speicher;
     }
 
     private Speicher incrementTimer0(Speicher speicher) {
-        Register optionRegister = speicher.getFileRegister(11, false);
+        Register optionRegister = speicher.getSpeicheradressen()[16].getRegister()[1];
 
         // Prescaler ist Timer0 zugeordnet
         if (optionRegister.getBits()[3].getPin() == 0) {
+
             speicher.incrementPrescaler();
 
             if (speicher.getPrescaler() >= speicher.getPrescalerMaxValue()) {
@@ -45,31 +47,33 @@ public class InterruptService {
 
         //check for TMR0 Overflow
         if (speicher.getTimer0().getIntWert() == 0) {
+            System.out.println("ZERO");
             //set T0IF flag
-            optionRegister.getBits()[2].setPin(1);
+            speicher.getSpeicheradressen()[1].getRegister()[3].getBits()[2].setPin(1);
         } else {
+            System.out.println("NOT ZERO");
             //clear T0IF flag
-            optionRegister.getBits()[2].setPin(0);
+            speicher.getSpeicheradressen()[1].getRegister()[3].getBits()[2].setPin(0);
         }
 
         return speicher;
     }
 
     public Speicher checkForINTInterrupt(Speicher speicher) {
-        Register statusRegister = speicher.getFileRegister(3, false);
-        if (statusRegister.getBits()[7].getPin() == 1 &&
-                statusRegister.getBits()[4].getPin() == 1 &&
-                statusRegister.getBits()[1].getPin() == 1) {
+        Register intconRegister = speicher.getSpeicheradressen()[1].getRegister()[3];
+        if (intconRegister.getBits()[7].getPin() == 1 &&
+                intconRegister.getBits()[4].getPin() == 1 &&
+                intconRegister.getBits()[1].getPin() == 1) {
             speicher.setInterrupt(true);
         }
         return speicher;
     }
 
     public Speicher checkForPortBInterrupt(Speicher speicher) {
-        Register statusRegister = speicher.getFileRegister(3, false);
-        if (statusRegister.getBits()[7].getPin() == 1 &&
-                statusRegister.getBits()[0].getPin() == 1 &&
-                statusRegister.getBits()[3].getPin() == 1) {
+        Register intconRegister = speicher.getSpeicheradressen()[1].getRegister()[3];
+        if (intconRegister.getBits()[7].getPin() == 1 &&
+                intconRegister.getBits()[0].getPin() == 1 &&
+                intconRegister.getBits()[3].getPin() == 1) {
             speicher.setInterrupt(true);
             speicher.setSleepModus(false);
         }
@@ -77,7 +81,7 @@ public class InterruptService {
     }
 
     public Speicher checkForWatchDogInterrupt(Speicher speicher) {
-        Register optionRegister = speicher.getFileRegister(11, false);
+        Register optionRegister = speicher.getSpeicheradressen()[16].getRegister()[1];
 
         speicher.incrementWatchdogTimer();
         if (speicher.getWatchdogTimer() >= 24)//Default instruction time = 1ms
@@ -89,6 +93,7 @@ public class InterruptService {
                         speicher.setSleepModus(false);
                     } else {
                         speicher = new Speicher();
+                        Controller.runtime = 0;
                     }
                 }
             } else {
@@ -96,6 +101,7 @@ public class InterruptService {
                     speicher.setSleepModus(false);
                 } else {
                     speicher = new Speicher();
+                    Controller.runtime = 0;
                 }
             }
             speicher.setWatchdogTimer(0);
