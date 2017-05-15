@@ -225,10 +225,10 @@ public class Controller {
                             if (befehl.isBreakpoint()) {
                                 run = false;
                             }
-                            TriggerInterruptService.saveOldValues(speicher);
                             if (execute(befehl)) break;
+                            TriggerInterruptService.saveOldValues(speicher);
                             Platform.runLater(this::updateView);
-                            Thread.sleep(50);
+                            Thread.sleep(25);
                         }
                     }
                 }
@@ -252,8 +252,8 @@ public class Controller {
             if (befehl.getZeigernummer() == pc && befehl.isAusfuehrbar()) {
                 currentRow = befehl.getZeilennummer();
                 tableFileContent.scrollTo(currentRow - 2);
-                TriggerInterruptService.saveOldValues(speicher);
                 if (execute(befehl)) break;
+                TriggerInterruptService.saveOldValues(speicher);
                 debugTimer();
                 updateView();
             }

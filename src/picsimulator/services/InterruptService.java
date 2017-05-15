@@ -9,11 +9,7 @@ import picsimulator.model.Speicher;
 public class InterruptService {
 
     public Speicher checkForTMR0TimerInterrupt(Speicher speicher, int cycles) {
-        Register optionRegister = speicher.getSpeicheradressen()[16].getRegister()[1];
-
-        if (optionRegister.getBits()[5].getPin() == 0) {
-            speicher = incrementTimer0(speicher, cycles);
-        }
+        speicher = incrementTimer0(speicher, cycles);
         return checkForTMR0Interrupt(speicher);
     }
 
@@ -35,13 +31,14 @@ public class InterruptService {
         if (optionRegister.getBits()[3].getPin() == 0) {
             for (int i = 0; i < cycles; i++) {
                 speicher.incrementPrescaler();
-
+                System.out.println("incrementPrescaler");
                 if (speicher.getPrescaler() >= speicher.getPrescalerMaxValue()) {
                     speicher.setPrescaler(0);
 
                     if (speicher.getSync() != 0) {
                         speicher.setSync(speicher.getSync() - 1);
                     } else {
+                        System.out.println("incrementTimer0");
                         speicher.incrementTimer0();
                     }
                 }
@@ -51,6 +48,7 @@ public class InterruptService {
                 if (speicher.getSync() != 0) {
                     speicher.setSync(speicher.getSync() - 1);
                 } else {
+                    System.out.println("incrementTimer0");
                     speicher.incrementTimer0();
                 }
             }
