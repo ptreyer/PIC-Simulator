@@ -18,7 +18,10 @@ public class Speicher {
 
     private int registerW;
     private int watchdogTimer;
+
     private int prescaler;
+    private int sync;
+
     private boolean sleepModus;
     private boolean watchdogTimerEnabled;
 
@@ -106,6 +109,14 @@ public class Speicher {
         this.prescaler = prescaler;
     }
 
+    public int getSync() {
+        return sync;
+    }
+
+    public void setSync(int sync) {
+        this.sync = sync;
+    }
+
     public boolean isSleepModus() {
         return sleepModus;
     }
@@ -156,6 +167,10 @@ public class Speicher {
     public Register getFileRegister(int nummer, boolean changePC) {
         if (nummer == 0) {
             nummer = getRegisterService().hexToInt(speicheradressen[0].getRegister()[4].getHexWert());
+        }
+        if (nummer == 1 && changePC) {
+            prescaler = 0;
+            //sync = 2;
         }
         if (nummer == 2 && changePC) {
             Controller.increaseRuntime();

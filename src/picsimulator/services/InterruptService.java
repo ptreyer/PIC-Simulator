@@ -9,11 +9,11 @@ import picsimulator.model.Speicher;
  */
 public class InterruptService {
 
-    public Speicher checkForTMR0TimerInterrupt(Speicher speicher) {
+    public Speicher checkForTMR0TimerInterrupt(Speicher speicher, int cycles) {
         Register optionRegister = speicher.getSpeicheradressen()[16].getRegister()[1];
 
         if (optionRegister.getBits()[5].getPin() == 0) {
-            speicher = incrementTimer0(speicher);
+            speicher = incrementTimer0(speicher, cycles);
         }
         return checkForTMR0Interrupt(speicher);
     }
@@ -29,20 +29,35 @@ public class InterruptService {
         return speicher;
     }
 
-    private Speicher incrementTimer0(Speicher speicher) {
+    private Speicher incrementTimer0(Speicher speicher, int cycles) {
         Register optionRegister = speicher.getSpeicheradressen()[16].getRegister()[1];
 
         // Prescaler ist Timer0 zugeordnet
+
+        System.out.println("CCCYYYCCLLEESSS: " + cycles);
+
         if (optionRegister.getBits()[3].getPin() == 0) {
+            for (int i = 0; i < cycles; i++) {
+                speicher.incrementPrescaler();
 
-            speicher.incrementPrescaler();
+                if (speicher.getPrescaler() >= speicher.getPrescalerMaxValue()) {
+                    speicher.setPrescaler(0);
 
-            if (speicher.getPrescaler() >= speicher.getPrescalerMaxValue()) {
-                speicher.setPrescaler(0);
-                speicher.incrementTimer0();
+                    if (speicher.getSync() != 0) {
+                        speicher.setSync(speicher.getSync() - 1);
+                    } else {
+                        speicher.incrementTimer0();
+                    }
+                }
             }
         } else {
-            speicher.incrementTimer0();
+            for (int i = 0; i < cycles; i++) {
+                if (speicher.getSync() != 0) {
+                    speicher.setSync(speicher.getSync() - 1);
+                } else {
+                    speicher.incrementTimer0();
+                }
+            }
         }
 
         //check for TMR0 Overflow
