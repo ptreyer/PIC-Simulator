@@ -11,7 +11,7 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
     <children>
       <MenuBar prefHeight="25.0" prefWidth="800.0" AnchorPane.bottomAnchor="481.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -43,7 +43,7 @@
                            <children>
                               <AnchorPane layoutX="359.0" layoutY="-5.0" prefHeight="254.0" prefWidth="132.0" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="359.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-5.0">
                                  <children>
-                                    <TableView fx:id="tableStack" layoutX="-2.0" prefWidth="131.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="tableStack" layoutX="-2.0" prefWidth="131.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
                                       <columns>
                                         <TableColumn fx:id="tableColumnStack" editable="false" minWidth="138.0" prefWidth="-1.0" text="STACK" />
                                       </columns>
@@ -87,7 +87,7 @@
                      <children>
                         <AnchorPane prefHeight="102.0" prefWidth="230.0">
                            <children>
-                              <AnchorPane layoutY="-1.0" prefHeight="183.0" prefWidth="355.0">
+                              <AnchorPane layoutY="-1.0" prefHeight="306.0" prefWidth="356.0">
                                  <children>
                                     <TextField editable="false" layoutY="2.0" prefHeight="25.0" prefWidth="45.0" text="RegA" />
                                     <TextField editable="false" layoutY="27.0" prefHeight="25.0" prefWidth="45.0" text="PinA" />
@@ -153,6 +153,42 @@
                                     <TextField fx:id="PCL" editable="false" layoutX="291.0" layoutY="52.0" prefHeight="25.0" prefWidth="65.0" />
                                     <TextField fx:id="PCLATH" editable="false" layoutX="291.0" layoutY="77.0" prefHeight="25.0" prefWidth="65.0" />
                                     <TextField fx:id="PC" editable="false" layoutX="291.0" layoutY="102.0" prefHeight="25.0" prefWidth="65.0" />
+                                    <TextField editable="false" layoutY="178.0" prefHeight="25.0" prefWidth="58.0" text="INTCON" />
+                                    <TextField fx:id="STATUS1" editable="false" layoutX="57.0" layoutY="178.0" prefHeight="25.0" prefWidth="65.0" />
+                                    <TextField editable="false" layoutX="170.0" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="T0IF" />
+                                    <TextField editable="false" layoutX="136.0" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="RBIE" />
+                                    <TextField fx:id="T01" editable="false" layoutX="102.0" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="INTE" />
+                                    <TextField editable="false" layoutX="68.0" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="T0IE" />
+                                    <TextField editable="false" layoutX="34.0" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="EEIE" />
+                                    <TextField editable="false" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="GIE" />
+                                    <TextField editable="false" layoutX="238.0" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="RBIF" />
+                                    <TextField editable="false" layoutX="204.0" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="INTF" />
+                                    <TextField fx:id="Zero1" editable="false" layoutX="170.0" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="PD1" editable="false" layoutX="136.0" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="TO1" editable="false" layoutX="102.0" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="RP01" editable="false" layoutX="68.0" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="RP11" editable="false" layoutX="34.0" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="IRP1" editable="false" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="Carry1" editable="false" layoutX="238.0" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="DigitCarry1" editable="false" layoutX="204.0" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField editable="false" layoutX="1.0" layoutY="251.0" prefHeight="25.0" prefWidth="72.0" text="OPTION" />
+                                    <TextField fx:id="STATUS2" editable="false" layoutX="72.0" layoutY="251.0" prefHeight="25.0" prefWidth="65.0" />
+                                    <TextField editable="false" layoutX="171.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="PS2" />
+                                    <TextField editable="false" layoutX="137.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="PSA" />
+                                    <TextField fx:id="T02" editable="false" layoutX="103.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="T0SE" />
+                                    <TextField editable="false" layoutX="69.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="T0CS" />
+                                    <TextField editable="false" layoutX="35.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="INTEDG" />
+                                    <TextField editable="false" layoutX="1.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="RBPU" />
+                                    <TextField editable="false" layoutX="239.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="PS0" />
+                                    <TextField editable="false" layoutX="205.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="PS1" />
+                                    <TextField fx:id="Zero2" editable="false" layoutX="171.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="PD2" editable="false" layoutX="137.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="TO2" editable="false" layoutX="103.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="RP02" editable="false" layoutX="69.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="RP12" editable="false" layoutX="35.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="IRP2" editable="false" layoutX="1.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="Carry2" editable="false" layoutX="239.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="DigitCarry2" editable="false" layoutX="205.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
                                  </children>
                               </AnchorPane>
                            </children>
