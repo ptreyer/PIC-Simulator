@@ -20,13 +20,17 @@ public class Operation {
         this.memory = memory;
     }
 
-    protected void increaseProgrammCounter(){
-        int pc = memory.getSpeicheradressen()[0].getRegister()[2].getIntWert()+1;
+    protected void increaseProgrammCounter() {
+        int pc = memory.getSpeicheradressen()[0].getRegister()[2].getIntWert() + 1;
         memory.getSpeicheradressen()[0].getRegister()[2].setWert(pc);
+        if (pc > 255) {
+            int pcL = memory.getSpeicheradressen()[1].getRegister()[2].getIntWert() + 1;
+            memory.getSpeicheradressen()[1].getRegister()[2].setWert(pcL);
+        }
     }
 
     public RegisterService getRegisterService() {
-        if(registerService == null){
+        if (registerService == null) {
             registerService = new RegisterService();
         }
         return registerService;
