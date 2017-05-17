@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -11,7 +13,7 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
     <children>
       <MenuBar prefHeight="25.0" prefWidth="800.0" AnchorPane.bottomAnchor="481.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -41,15 +43,31 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="310.0">
                            <children>
-                              <AnchorPane layoutX="359.0" layoutY="-5.0" prefHeight="254.0" prefWidth="132.0" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="359.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-5.0">
+                              <AnchorPane layoutX="359.0" layoutY="-5.0" prefHeight="250.0" prefWidth="131.0" AnchorPane.bottomAnchor="153.0" AnchorPane.leftAnchor="359.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-5.0">
                                  <children>
-                                    <TableView fx:id="tableStack" layoutX="-2.0" prefWidth="131.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="tableStack" layoutX="-2.0" prefHeight="279.0" prefWidth="131.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
                                       <columns>
                                         <TableColumn fx:id="tableColumnStack" editable="false" minWidth="138.0" prefWidth="-1.0" text="STACK" />
                                       </columns>
                                     </TableView>
                                  </children>
                               </AnchorPane>
+                              <AnchorPane layoutX="316.0" layoutY="251.0" prefHeight="70.0" prefWidth="172.0">
+                                 <children>
+                                    <TextField fx:id="Taktfrequenz1" layoutX="13.0" layoutY="115.0" prefHeight="25.0" prefWidth="58.0" text="4" />
+                                    <Label layoutX="73.0" layoutY="119.0" text="Hz" />
+                                    <Button fx:id="BtnStarteExternerTakt" layoutX="95.0" layoutY="114.0" mnemonicParsing="false" text="Starte Takt" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="-1.0" layoutY="328.0" prefHeight="33.0" prefWidth="478.0" />
+                              <TextField fx:id="Taktfrequenz" layoutX="96.0" layoutY="335.0" prefHeight="25.0" prefWidth="37.0" text="4" />
+                              <Label layoutX="24.0" layoutY="339.0" text="Taktfrequenz:" />
+                              <Label layoutX="134.0" layoutY="339.0" text="MHz" />
+                              <TextField fx:id="Laufzeit" editable="false" layoutX="220.0" layoutY="335.0" prefHeight="25.0" prefWidth="41.0" text="4" />
+                              <Label layoutX="175.0" layoutY="339.0" text="Laufzeit:" />
+                              <Label layoutX="261.0" layoutY="338.0" text="µsec" />
+                              <Label layoutX="333.0" layoutY="338.0" text="Taktgenerator:" />
+                              <ChoiceBox fx:id="Taktgenerator" layoutX="411.0" layoutY="334.0" prefHeight="25.0" prefWidth="65.0" />
                            </children></AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
@@ -73,15 +91,14 @@
                         </AnchorPane>
                     </items>
                   </SplitPane>
-                  <AnchorPane layoutY="174.0" prefHeight="33.0" prefWidth="409.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
+                  <AnchorPane layoutY="174.0" prefHeight="33.0" prefWidth="300.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-1.0">
                      <children>
                         <Button fx:id="BtnStart" layoutX="-5.0" layoutY="8.0" mnemonicParsing="false" onAction="#run" text="Run" />
                         <Button fx:id="BtnNext" layoutX="73.0" layoutY="8.0" mnemonicParsing="false" onAction="#next" text="Next" />
                         <Button fx:id="BtnReset" layoutX="114.0" layoutY="8.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
-                        <Button fx:id="BtnClear" layoutX="159.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
+                        <Button fx:id="BtnClear" layoutX="159.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" prefWidth="44.0" text="Clear" />
                         <Button fx:id="BtnStop" layoutX="32.0" layoutY="8.0" mnemonicParsing="false" onAction="#stop" text="Stop" />
-                        <TextField editable="false" layoutX="307.0" layoutY="8.0" prefHeight="25.0" prefWidth="122.0" text="Taktfrequenz: 4MHz" />
-                        <Button fx:id="BtnEnableWDTimer" layoutX="202.0" layoutY="8.0" mnemonicParsing="false" onAction="#toggleWDT" text="Enable WDTimer" />
+                        <Button fx:id="BtnEnableWDTimer" layoutX="203.0" layoutY="8.0" mnemonicParsing="false" onAction="#toggleWDT" text="Enable WDTimer" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="98.0" prefWidth="295.0">
