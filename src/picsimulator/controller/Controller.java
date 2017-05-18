@@ -2,7 +2,8 @@ package picsimulator.controller;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -159,6 +160,16 @@ public class Controller {
     private TextField PS0;
     @FXML
     private Button btnToggleWDTimer;
+    @FXML
+    private Button btnToggleTakt;
+    @FXML
+    private TextField taktfrequenz;
+    @FXML
+    private TextField laufzeit;
+    @FXML
+    private TextField taktGenFrequenz;
+    @FXML
+    private ChoiceBox<String> taktgenerator;
 
     private FileInputService fileInputService;
     private MemoryInitializerService memoryInitializerService;
@@ -171,6 +182,7 @@ public class Controller {
     private int currentRow = 1;
     private boolean run = false;
     public static int runtime = 0;
+    private boolean taktgeneratorEnabled;
 
     public void openFile() {
         tableColumnBreakpoint.setCellValueFactory(arg0 -> {
@@ -191,6 +203,12 @@ public class Controller {
             tableFileContent.refresh();
         }
         befehle = getFileInputService().importFile();
+
+        ObservableList<String> ports = FXCollections.observableArrayList(
+                "RA0", "RA1", "RA2", "RA3", "RA4", "RA5", "RA6", "RA7", "RB0", "RB1", "RB2", "RB3", "RB4", "RB5", "RB6", "RB7");
+        taktgenerator.setItems(ports);
+        taktgenerator.setValue("RA0");
+
         initializeMemory();
         tableFileContent.getItems().addAll(befehle);
         tableFileContent.setRowFactory(tv -> new TableRow<Befehl>() {
@@ -228,7 +246,7 @@ public class Controller {
                             if (execute(befehl)) break;
                             TriggerInterruptService.saveOldValues(speicher);
                             Platform.runLater(this::updateView);
-                            Thread.sleep(25);
+                            Thread.sleep(50);
                         }
                     }
                 }
@@ -285,7 +303,7 @@ public class Controller {
         if (!speicher.isSleepModus()) {
             speicher = getInterruptService().checkForPortBInterrupt(speicher);
             speicher = getInterruptService().checkForINTInterrupt(speicher);
-            if(speicher.getSpeicheradressen()[16].getRegister()[1].getBits()[5].getPin() == 0){
+            if (speicher.getSpeicheradressen()[16].getRegister()[1].getBits()[5].getPin() == 0) {
                 speicher = getInterruptService().checkForTMR0TimerInterrupt(speicher, cycles);
             }
         }
@@ -309,17 +327,16 @@ public class Controller {
     }
 
     private void debugTimer() {
-        //System.out.println("------------1--------------");
-        //System.out.println("Laufzeit: " + runtime);
-        /*System.out.println("Prescaler: " + speicher.getPrescaler());
+        System.out.println("------------1--------------");
+        System.out.println("Laufzeit: " + runtime);
+        System.out.println("Prescaler: " + speicher.getPrescaler());
         System.out.println("Prescaler-MAX: " + speicher.getPrescalerMaxValue());
         System.out.println("TMR0: " + speicher.getTimer0().getIntWert());
         System.out.println("WatchdogTimer: " + speicher.getWatchdogTimer());
         System.out.println("WatchdogTimerEnabled: " + speicher.isWatchdogTimerEnabled());
         System.out.println("SLEEP: " + speicher.isSleepModus());
-        System.out.println("------------2-------------");*/
+        System.out.println("------------2-------------");
     }
-
 
 
     private void updateView() {
@@ -368,10 +385,22 @@ public class Controller {
         PS1.setText(Integer.toString(optionReg.getBits()[1].getPin()));
         PS0.setText(Integer.toString(optionReg.getBits()[0].getPin()));
 
+        laufzeit.setText(Integer.toString(runtime));
+
         if (speicher.isWatchdogTimerEnabled()) {
             btnToggleWDTimer.setText("Disable WDT");
         } else {
             btnToggleWDTimer.setText("Enable WDT");
+        }
+
+        if (taktgeneratorEnabled) {
+            btnToggleTakt.setText("Stoppe Takt");
+            taktGenFrequenz.setDisable(true);
+            taktgenerator.setDisable(true);
+        } else {
+            btnToggleTakt.setText("Starte Takt");
+            taktGenFrequenz.setDisable(false);
+            taktgenerator.setDisable(false);
         }
 
     }
@@ -425,112 +454,112 @@ public class Controller {
         Bit bit0 = getRegisterA().getBits()[0];
         getRegisterA().getBits()[0] = getRegisterService().toggleBit(bit0);
         tableMemory.refresh();
-        a0.setText(String.valueOf(getRegisterA().getBits()[0].getPin()));
+        Platform.runLater(() -> a0.setText(String.valueOf(getRegisterA().getBits()[0].getPin())));
     }
 
     public void toggleA1() {
         Bit bit1 = getRegisterA().getBits()[1];
         getRegisterA().getBits()[1] = getRegisterService().toggleBit(bit1);
         tableMemory.refresh();
-        a1.setText(String.valueOf(getRegisterA().getBits()[1].getPin()));
+        Platform.runLater(() -> a1.setText(String.valueOf(getRegisterA().getBits()[1].getPin())));
     }
 
     public void toggleA2() {
         Bit bit2 = getRegisterA().getBits()[2];
         getRegisterA().getBits()[2] = getRegisterService().toggleBit(bit2);
         tableMemory.refresh();
-        a2.setText(String.valueOf(getRegisterA().getBits()[2].getPin()));
+        Platform.runLater(() -> a2.setText(String.valueOf(getRegisterA().getBits()[2].getPin())));
     }
 
     public void toggleA3() {
         Bit bit3 = getRegisterA().getBits()[3];
         getRegisterA().getBits()[3] = getRegisterService().toggleBit(bit3);
         tableMemory.refresh();
-        a3.setText(String.valueOf(getRegisterA().getBits()[3].getPin()));
+        Platform.runLater(() -> a3.setText(String.valueOf(getRegisterA().getBits()[3].getPin())));
     }
 
     public void toggleA4() {
         Bit bit4 = getRegisterA().getBits()[4];
         getRegisterA().getBits()[4] = getRegisterService().toggleBit(bit4);
         tableMemory.refresh();
-        a4.setText(String.valueOf(getRegisterA().getBits()[4].getPin()));
+        Platform.runLater(() -> a4.setText(String.valueOf(getRegisterA().getBits()[4].getPin())));
     }
 
     public void toggleA5() {
         Bit bit5 = getRegisterA().getBits()[5];
         getRegisterA().getBits()[5] = getRegisterService().toggleBit(bit5);
         tableMemory.refresh();
-        a5.setText(String.valueOf(getRegisterA().getBits()[5].getPin()));
+        Platform.runLater(() -> a5.setText(String.valueOf(getRegisterA().getBits()[5].getPin())));
     }
 
     public void toggleA6() {
         Bit bit6 = getRegisterA().getBits()[6];
         getRegisterA().getBits()[6] = getRegisterService().toggleBit(bit6);
         tableMemory.refresh();
-        a6.setText(String.valueOf(getRegisterA().getBits()[6].getPin()));
+        Platform.runLater(() -> a6.setText(String.valueOf(getRegisterA().getBits()[6].getPin())));
     }
 
     public void toggleA7() {
         Bit bit7 = getRegisterA().getBits()[7];
         getRegisterA().getBits()[7] = getRegisterService().toggleBit(bit7);
         tableMemory.refresh();
-        a7.setText(String.valueOf(getRegisterA().getBits()[7].getPin()));
+        Platform.runLater(() -> a7.setText(String.valueOf(getRegisterA().getBits()[7].getPin())));
     }
 
     public void toggleB0() {
         Bit bit0 = speicher.getSpeicheradressen()[0].getRegister()[6].getBits()[0];
         speicher.getSpeicheradressen()[0].getRegister()[6].getBits()[0] = getRegisterService().toggleBit(bit0);
         tableMemory.refresh();
-        b0.setText(String.valueOf(getRegisterB().getBits()[0].getPin()));
+        Platform.runLater(() -> b0.setText(String.valueOf(getRegisterB().getBits()[0].getPin())));
     }
 
     public void toggleB1() {
         Bit bit1 = speicher.getSpeicheradressen()[0].getRegister()[6].getBits()[1];
         speicher.getSpeicheradressen()[0].getRegister()[6].getBits()[1] = getRegisterService().toggleBit(bit1);
         tableMemory.refresh();
-        b1.setText(String.valueOf(getRegisterB().getBits()[1].getPin()));
+        Platform.runLater(() -> b1.setText(String.valueOf(getRegisterB().getBits()[1].getPin())));
     }
 
     public void toggleB2() {
         Bit bit2 = getRegisterB().getBits()[2];
         getRegisterB().getBits()[2] = getRegisterService().toggleBit(bit2);
         tableMemory.refresh();
-        b2.setText(String.valueOf(getRegisterB().getBits()[2].getPin()));
+        Platform.runLater(() -> b2.setText(String.valueOf(getRegisterB().getBits()[2].getPin())));
     }
 
     public void toggleB3() {
         Bit bit3 = getRegisterB().getBits()[3];
         getRegisterB().getBits()[3] = getRegisterService().toggleBit(bit3);
         tableMemory.refresh();
-        b3.setText(String.valueOf(getRegisterB().getBits()[3].getPin()));
+        Platform.runLater(() -> b3.setText(String.valueOf(getRegisterB().getBits()[3].getPin())));
     }
 
     public void toggleB4() {
         Bit bit4 = getRegisterB().getBits()[4];
         getRegisterB().getBits()[4] = getRegisterService().toggleBit(bit4);
         tableMemory.refresh();
-        b4.setText(String.valueOf(getRegisterB().getBits()[4].getPin()));
+        Platform.runLater(() -> b4.setText(String.valueOf(getRegisterB().getBits()[4].getPin())));
     }
 
     public void toggleB5() {
         Bit bit5 = getRegisterB().getBits()[5];
         getRegisterB().getBits()[5] = getRegisterService().toggleBit(bit5);
         tableMemory.refresh();
-        b5.setText(String.valueOf(getRegisterB().getBits()[5].getPin()));
+        Platform.runLater(() -> b5.setText(String.valueOf(getRegisterB().getBits()[5].getPin())));
     }
 
     public void toggleB6() {
         Bit bit6 = getRegisterB().getBits()[6];
         getRegisterB().getBits()[6] = getRegisterService().toggleBit(bit6);
         tableMemory.refresh();
-        b6.setText(String.valueOf(getRegisterB().getBits()[6].getPin()));
+        Platform.runLater(() -> b6.setText(String.valueOf(getRegisterB().getBits()[6].getPin())));
     }
 
     public void toggleB7() {
         Bit bit7 = getRegisterB().getBits()[7];
         getRegisterB().getBits()[7] = getRegisterService().toggleBit(bit7);
         tableMemory.refresh();
-        b7.setText(String.valueOf(getRegisterB().getBits()[7].getPin()));
+        Platform.runLater(() -> b7.setText(String.valueOf(getRegisterB().getBits()[7].getPin())));
     }
 
     private Register getRegisterA() {
@@ -617,4 +646,45 @@ public class Controller {
         speicher.setWatchdogTimerEnabled(!speicher.isWatchdogTimerEnabled());
         updateView();
     }
+
+    public void toggleTaktGenerator() {
+        taktgeneratorEnabled = !taktgeneratorEnabled;
+
+        if(!taktgeneratorEnabled){
+            updateView();
+        }
+
+        Thread thTakt = new Thread(() -> {
+            try {
+                while (taktgeneratorEnabled) {
+                    if (taktgenerator.getValue() == "RA0") toggleA0();
+                    if (taktgenerator.getValue() == "RA1") toggleA1();
+                    if (taktgenerator.getValue() == "RA2") toggleA2();
+                    if (taktgenerator.getValue() == "RA3") toggleA3();
+                    if (taktgenerator.getValue() == "RA4") toggleA4();
+                    if (taktgenerator.getValue() == "RA5") toggleA5();
+                    if (taktgenerator.getValue() == "RA6") toggleA6();
+                    if (taktgenerator.getValue() == "RA7") toggleA7();
+                    if (taktgenerator.getValue() == "RB0") toggleB0();
+                    if (taktgenerator.getValue() == "RB1") toggleB1();
+                    if (taktgenerator.getValue() == "RB2") toggleB2();
+                    if (taktgenerator.getValue() == "RB3") toggleB3();
+                    if (taktgenerator.getValue() == "RB4") toggleB4();
+                    if (taktgenerator.getValue() == "RB5") toggleB5();
+                    if (taktgenerator.getValue() == "RB6") toggleB6();
+                    if (taktgenerator.getValue() == "RB7") toggleB7();
+
+                    Platform.runLater(this::updateView);
+                    double sleepTime = (1/Double.parseDouble(taktGenFrequenz.getText()))*1000;
+                    Thread.sleep((long) sleepTime);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        thTakt.setDaemon(true);
+        thTakt.start();
+    }
 }
+

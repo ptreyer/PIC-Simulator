@@ -31,14 +31,12 @@ public class InterruptService {
         if (optionRegister.getBits()[3].getPin() == 0) {
             for (int i = 0; i < cycles; i++) {
                 speicher.incrementPrescaler();
-                System.out.println("incrementPrescaler");
                 if (speicher.getPrescaler() >= speicher.getPrescalerMaxValue()) {
                     speicher.setPrescaler(0);
 
                     if (speicher.getSync() != 0) {
                         speicher.setSync(speicher.getSync() - 1);
                     } else {
-                        System.out.println("incrementTimer0");
                         speicher.incrementTimer0();
                     }
                 }
@@ -48,7 +46,6 @@ public class InterruptService {
                 if (speicher.getSync() != 0) {
                     speicher.setSync(speicher.getSync() - 1);
                 } else {
-                    System.out.println("incrementTimer0");
                     speicher.incrementTimer0();
                 }
             }
@@ -72,6 +69,7 @@ public class InterruptService {
                 intconRegister.getBits()[4].getPin() == 1 &&
                 intconRegister.getBits()[1].getPin() == 1) {
             speicher.setInterrupt(true);
+            speicher.setSleepModus(false);
         }
         return speicher;
     }
@@ -82,7 +80,6 @@ public class InterruptService {
                 intconRegister.getBits()[0].getPin() == 1 &&
                 intconRegister.getBits()[3].getPin() == 1) {
             speicher.setInterrupt(true);
-            speicher.setSleepModus(false);
         }
         return speicher;
     }
@@ -90,13 +87,15 @@ public class InterruptService {
     public Speicher checkForWatchDogInterrupt(Speicher speicher, int cycles) {
         for (int i = 0; i < cycles; i++) {
             speicher.incrementWatchdogTimer();
-            if (speicher.getWatchdogTimer() >= 18000 * speicher.getPrescalerWatchdogMaxValue())//Default instruction time = 1ms
+            //if (speicher.getWatchdogTimer() >= 18000 * speicher.getPrescalerWatchdogMaxValue())//Default instruction time = 1ms
+            if (speicher.getWatchdogTimer() >= 20)//Default instruction time = 1ms
             {
                 if (speicher.isSleepModus()) {
                     speicher.setSleepModus(false);
                 } else {
                     speicher = new Speicher();
                 }
+                speicher.setWatchdogTimer(0);
             }
         }
         return speicher;
