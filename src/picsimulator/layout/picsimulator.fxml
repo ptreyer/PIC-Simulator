@@ -60,9 +60,9 @@
                                  </children>
                               </AnchorPane>
                               <AnchorPane layoutX="-1.0" layoutY="328.0" prefHeight="33.0" prefWidth="478.0" />
-                              <TextField fx:id="taktfrequenz" layoutX="96.0" layoutY="335.0" prefHeight="25.0" prefWidth="37.0" text="4" />
-                              <Label layoutX="24.0" layoutY="339.0" text="Taktfrequenz:" />
-                              <Label layoutX="134.0" layoutY="339.0" text="MHz" />
+                              <TextField fx:id="taktfrequenz" layoutX="88.0" layoutY="335.0" onInputMethodTextChanged="#onChangeTaktfrequenz" onKeyPressed="#onChangeTaktfrequenz" onKeyReleased="#onChangeTaktfrequenz" onKeyTyped="#onChangeTaktfrequenz" prefHeight="25.0" prefWidth="45.0" text="4000" />
+                              <Label layoutX="12.0" layoutY="339.0" text="Taktfrequenz:" />
+                              <Label layoutX="134.0" layoutY="339.0" text="kHz" />
                               <TextField fx:id="laufzeit" editable="false" layoutX="220.0" layoutY="335.0" prefHeight="25.0" prefWidth="41.0" text="4" />
                               <Label layoutX="175.0" layoutY="339.0" text="Laufzeit:" />
                               <Label layoutX="261.0" layoutY="338.0" text="µsec" />

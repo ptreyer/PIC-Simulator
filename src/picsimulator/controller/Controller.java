@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.InputMethodEvent;
 import picsimulator.constants.PicSimulatorConstants;
 import picsimulator.model.*;
 import picsimulator.services.*;
@@ -183,6 +184,8 @@ public class Controller {
     private boolean run = false;
     public static int runtime = 0;
     private boolean taktgeneratorEnabled;
+    public static double laufzeitCalculated = 0;
+    public static double taktfrequenzValue = 4000;
 
     public void openFile() {
         tableColumnBreakpoint.setCellValueFactory(arg0 -> {
@@ -246,7 +249,7 @@ public class Controller {
                             if (execute(befehl)) break;
                             TriggerInterruptService.saveOldValues(speicher);
                             Platform.runLater(this::updateView);
-                            Thread.sleep(50);
+                            Thread.sleep((long) (4000 / Double.parseDouble(taktfrequenz.getText()))*1000);
                         }
                     }
                 }
@@ -324,10 +327,12 @@ public class Controller {
 
     public static void increaseRuntime() {
         runtime++;
+        laufzeitCalculated = laufzeitCalculated + (4000 / taktfrequenzValue);
+        System.out.println(laufzeitCalculated);
     }
 
     private void debugTimer() {
-        System.out.println("------------1--------------");
+       /* System.out.println("------------1--------------");
         System.out.println("Laufzeit: " + runtime);
         System.out.println("Prescaler: " + speicher.getPrescaler());
         System.out.println("Prescaler-MAX: " + speicher.getPrescalerMaxValue());
@@ -335,11 +340,13 @@ public class Controller {
         System.out.println("WatchdogTimer: " + speicher.getWatchdogTimer());
         System.out.println("WatchdogTimerEnabled: " + speicher.isWatchdogTimerEnabled());
         System.out.println("SLEEP: " + speicher.isSleepModus());
-        System.out.println("------------2-------------");
+        System.out.println("------------2-------------"); */
     }
 
 
     private void updateView() {
+        taktfrequenzValue = Integer.parseInt(taktfrequenz.getText());
+
         tableFileContent.refresh();
         tableMemory.refresh();
 
@@ -385,7 +392,7 @@ public class Controller {
         PS1.setText(Integer.toString(optionReg.getBits()[1].getPin()));
         PS0.setText(Integer.toString(optionReg.getBits()[0].getPin()));
 
-        laufzeit.setText(Integer.toString(runtime));
+        laufzeit.setText(Double.toString(laufzeitCalculated));
 
         if (speicher.isWatchdogTimerEnabled()) {
             btnToggleWDTimer.setText("Disable WDT");
@@ -413,6 +420,8 @@ public class Controller {
         run = false;
         currentRow = 1;
         runtime = 0;
+        laufzeitCalculated = 0;
+        laufzeit.setText("4000");
         initializeMemory();
         setRegisterA();
         setRegisterB();
@@ -423,6 +432,8 @@ public class Controller {
     public void clear() {
         run = false;
         runtime = 0;
+        laufzeitCalculated = 0;
+        laufzeit.setText("4000");
         initializeMemory();
         setRegisterA();
         setRegisterB();
@@ -685,6 +696,12 @@ public class Controller {
 
         thTakt.setDaemon(true);
         thTakt.start();
+    }
+
+
+    public void onChangeTaktfrequenz() {
+        System.out.println("changeee");
+        taktfrequenzValue = Integer.parseInt(taktfrequenz.getText());
     }
 }
 
