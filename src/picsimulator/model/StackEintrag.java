@@ -1,12 +1,16 @@
 package picsimulator.model;
 
 /**
- * Created by ptrey on 26.04.2017.
+ * Repräsentiert einen Eintrag des Stacks.
  */
 public class StackEintrag {
 
     private Bit[] bits;
 
+    /**
+     * Initialisiert den StackEintrag. Dieser umfasst 13 Bits, diese werden mit
+     * 0 initialisiert.
+     */
     public StackEintrag(){
         this.bits = new Bit[13];
         for (int i = 0; i < bits.length; i++) {
@@ -14,6 +18,11 @@ public class StackEintrag {
         }
     }
 
+    /**
+     * Berechnet den Integer Wert des StackEintrag und gibt diesen zurück.
+     *
+     * @return intWert, als Integer
+     */
     public int getIntWert() {
         StringBuilder builder = new StringBuilder();
         builder.append(bits[7].getPin());
@@ -33,6 +42,11 @@ public class StackEintrag {
         return Integer.parseInt(builder.toString(), 2);
     }
 
+    /**
+     * Berechnet den Hex Wert des StackEintrag und gibt diesen zurück.
+     *
+     * @return hexWert, als String
+     */
     public String getHexWert() {
         StringBuilder builder = new StringBuilder();
         builder.append(bits[12].getPin());
@@ -52,6 +66,11 @@ public class StackEintrag {
         return Integer.toString(decimal,16).toUpperCase();
     }
 
+    /**
+     * Setzt den Wert des Registers anhand des übergebenen Integers.
+     *
+     * @param wert
+     */
     public void setWert(int wert) {
         resetBits();
         String reverseBinaryString = new StringBuilder(Integer.toBinaryString(wert)).reverse().toString();
@@ -62,6 +81,11 @@ public class StackEintrag {
         }
     }
 
+    /**
+     * Setzt den Wert des Registers anhand des übergebenen Binary-Strings.
+     *
+     * @param binaryString
+     */
     public void setWert(String binaryString) {
         resetBits();
         String reverseBinaryString = new StringBuilder(binaryString).reverse().toString();

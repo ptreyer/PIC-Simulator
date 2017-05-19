@@ -44,8 +44,9 @@ public class Operation {
     }
 
     /**
+     * Gibt eine Instanz des RegisterService zurück.
      *
-     * @return
+     * @return RegisterService.
      */
     public RegisterService getRegisterService() {
         if (registerService == null) {

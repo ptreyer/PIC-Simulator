@@ -1,4 +1,4 @@
-package picsimulator.services;
+package picsimulator.model;
 
 import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;

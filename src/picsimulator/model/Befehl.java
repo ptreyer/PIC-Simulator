@@ -1,5 +1,8 @@
 package picsimulator.model;
 
+/**
+ * Klasse Befehl, auf welche dir importierten LST-Files gemapped werden.
+ */
 public class Befehl {
 
     private boolean breakpoint;

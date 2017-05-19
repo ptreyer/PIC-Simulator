@@ -1,7 +1,7 @@
 package picsimulator.model;
 
 /**
- * Created by ptrey on 10.04.2017.
+ * Datenobjekt, welches einzelne Bits repräsentiert.
  */
 public class Bit {
 

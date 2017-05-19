@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ptrey on 10.04.2017.
+ * Datennobjekt, welches den Speicher abbildet. Dieser beinhält Speicheradressen, den Stack sowie
+ * verschiedene Variablen wie beispielswiese die Timer.
  */
 public class Speicher {
 
@@ -26,6 +27,10 @@ public class Speicher {
     private boolean watchdogTimerEnabled;
     private boolean calculateProgramCounter;
 
+    /**
+     * Konstruktor zur Initialisierung des Speichers. Initialisiert 32 Speicheradressen
+     * sowie den Stack.
+     */
     public Speicher() {
         this.speicheradressen = new Speicheradresse[32];
         int adresse = 0;
@@ -44,12 +49,22 @@ public class Speicher {
         return stack;
     }
 
+    /**
+     * Holt das erste Element des Stacks und löscht dieses von eben jenem.
+     *
+     * @return der StackEintrag von Stelle 0
+     */
     public StackEintrag getFromStack() {
         StackEintrag result = stack.get(0);
         stack.remove(0);
         return result;
     }
 
+    /**
+     * Fügt ein neues Element an der ersten Stelle des Stacks hinzu.
+     *
+     * @param newStackEntry
+     */
     public void addToStack(StackEintrag newStackEntry) {
         stack.add(0, newStackEntry);
         if (stack.size() > 7) {
@@ -152,16 +167,26 @@ public class Speicher {
         prescaler++;
     }
 
+    /**
+     * Erhöht den Timer 0 um 1.
+     */
     public void incrementTimer0() {
         Register timer0 = speicheradressen[0].getRegister()[1];
         timer0.setWert(timer0.getIntWert() + 1);
     }
 
+    /**
+     * Erhöht den Watchdog-Timer um 1.
+     */
     public void incrementWatchdogTimer() {
         watchdogTimer++;
-        System.out.println("incrementWatchdogTimer: " + watchdogTimer);
     }
 
+    /**
+     * Berechnet den maximalen Wert des Prescalers für den Watchdog-Timer.
+     *
+     * @return der maximale Wert als Integer.
+     */
     public int getPrescalerWatchdogMaxValue() {
         Register optionRegister = speicheradressen[16].getRegister()[1];
 
@@ -184,6 +209,11 @@ public class Speicher {
         return 1;
     }
 
+    /**
+     * Berechnet den maximalen Wert des Prescalers für den Timer0.
+     *
+     * @return der maximale Wert als Integer.
+     */
     public int getPrescalerMaxValue() {
         Register optionRegister = speicheradressen[16].getRegister()[1];
         StringBuilder builder = new StringBuilder();
@@ -202,7 +232,14 @@ public class Speicher {
         return 0;
     }
 
-
+    /**
+     * Methode zum einfachen Zugriff auf die verschiedenen File-Register.
+     *
+     * @param nummer, die Nummer des Registers.
+     * @param changePC, gibt an ob der Wert des PC geändert wird.
+     *
+     * @return das angefragte Register.
+     */
     public Register getFileRegister(int nummer, boolean changePC) {
         if (nummer == 0) {
             nummer = getRegisterService().hexToInt(speicheradressen[0].getRegister()[4].getHexWert());

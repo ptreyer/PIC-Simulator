@@ -1,13 +1,19 @@
 package picsimulator.model;
 
 /**
- * Created by ptrey on 10.04.2017.
+ * Stellt das Datenobjekt der Speicheradresse dar. Dies beinhält jeweils 8 Register.
  */
 public class Speicheradresse {
 
     private int adresse;
     private Register[] register;
 
+    /**
+     * Konstruktor zur Initialisierung der Speicheradresse. Setzt die Adresse und initialisiert
+     * die Register.
+     *
+     * @param adresse, die Adresse des Registers.
+     */
     public Speicheradresse(int adresse) {
         this.adresse = adresse;
         register = new Register[8];
