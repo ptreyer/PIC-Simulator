@@ -6,7 +6,7 @@ import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
 
 /**
- * Created by ptrey on 24.04.2017.
+ * CLRF
  */
 public class CLRF extends Operation implements Executable {
 
@@ -18,6 +18,10 @@ public class CLRF extends Operation implements Executable {
     public Speicher execute() {
         String registerAdress = binaryString.substring(opcodeBits);
         memory.getFileRegister(getRegisterService().binToInt(registerAdress), true).setWert(0);
+
+        /**
+         *  Set Zero Flag
+         */
         memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(1);
 
         Controller.increaseRuntime();

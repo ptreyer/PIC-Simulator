@@ -6,7 +6,7 @@ import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
 
 /**
- * Created by Edeka on 24.04.2017.
+ * MOVLW
  */
 public class MOVLW extends Operation implements Executable {
 

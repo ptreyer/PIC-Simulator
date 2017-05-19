@@ -8,7 +8,7 @@ import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
 
 /**
- * Created by ptrey on 24.04.2017.
+ * IORWF
  */
 public class IORWF extends Operation implements Executable {
 
@@ -42,6 +42,9 @@ public class IORWF extends Operation implements Executable {
             memory.getFileRegister(registerNr, true).setWert(resultRegister.getIntWert());
         }
 
+        /**
+         *  Check Zero Flag
+         */
         if (resultRegister.getIntWert() == 0) {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(1);
         } else {

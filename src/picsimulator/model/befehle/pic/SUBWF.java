@@ -6,7 +6,7 @@ import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
 
 /**
- * Created by ptrey on 24.04.2017.
+ * SUBWF
  */
 public class SUBWF extends Operation implements Executable {
 
@@ -60,6 +60,9 @@ public class SUBWF extends Operation implements Executable {
             result = 256 - (result * -1);
         }
 
+        /**
+         * Prüft wohin das Ergebnis geschrieben werden soll
+         */
         if (Integer.parseInt(ziel) == 0) {
             memory.setRegisterW(result);
         } else {

@@ -7,7 +7,7 @@ import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
 
 /**
- * Created by Edeka on 24.04.2017.
+ * IORLW
  */
 public class IORLW extends Operation implements Executable {
 
@@ -35,6 +35,9 @@ public class IORLW extends Operation implements Executable {
 
         memory.setRegisterW(resultRegister.getIntWert());
 
+        /**
+         *  Check Zero Flag
+         */
         if (resultRegister.getIntWert() == 0) {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(1);
         } else {

@@ -6,7 +6,7 @@ import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
 
 /**
- * Created by ptrey on 24.04.2017.
+ * NOP
  */
 public class NOP extends Operation implements Executable {
 

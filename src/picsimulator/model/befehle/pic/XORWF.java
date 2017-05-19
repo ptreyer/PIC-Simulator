@@ -8,7 +8,7 @@ import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
 
 /**
- * Created by ptrey on 24.04.2017.
+ * XORWF
  */
 public class XORWF extends Operation implements Executable {
 
@@ -36,12 +36,18 @@ public class XORWF extends Operation implements Executable {
         resultRegister.getBits()[6].setPin(bits[6].getPin() ^ wRegister.getBits()[6].getPin());
         resultRegister.getBits()[7].setPin(bits[7].getPin() ^ wRegister.getBits()[7].getPin());
 
+        /**
+         * Prüft wohin das Ergebnis geschrieben werden soll
+         */
         if (Integer.parseInt(ziel) == 0) {
             memory.setRegisterW(resultRegister.getIntWert());
         } else {
             memory.getFileRegister(registerNr, true).setWert(resultRegister.getIntWert());
         }
 
+        /**
+         *  Check Zero Flag
+         */
         if (resultRegister.getIntWert() == 0) {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(1);
         } else {

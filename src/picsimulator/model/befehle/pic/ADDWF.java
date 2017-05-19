@@ -1,17 +1,14 @@
 package picsimulator.model.befehle.pic;
 
 import picsimulator.controller.Controller;
-import picsimulator.model.Bit;
-import picsimulator.model.Register;
 import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
 
 /**
- * Created by ptrey on 24.04.2017.
+ * ADDWF
  */
 public class ADDWF extends Operation implements Executable {
-
 
     public ADDWF(String binaryString, int opcodeBits, Speicher memory) {
         super(binaryString, opcodeBits, memory);
@@ -59,6 +56,9 @@ public class ADDWF extends Operation implements Executable {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(0);
         }
 
+        /**
+         * Prüft wohin das Ergebnis geschrieben werden soll
+         */
         if (Integer.parseInt(ziel) == 0) {
             memory.setRegisterW(result);
         } else {

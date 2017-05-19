@@ -7,7 +7,7 @@ import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
 
 /**
- * Created by Edeka on 24.04.2017.
+ * BTFSS
  */
 public class BTFSS extends Operation implements Executable {
 

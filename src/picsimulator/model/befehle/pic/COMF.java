@@ -1,14 +1,13 @@
 package picsimulator.model.befehle.pic;
 
 import picsimulator.controller.Controller;
-import picsimulator.model.Bit;
 import picsimulator.model.Register;
 import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
 
 /**
- * Created by ptrey on 24.04.2017.
+ * COMF
  */
 public class COMF extends Operation implements Executable {
 

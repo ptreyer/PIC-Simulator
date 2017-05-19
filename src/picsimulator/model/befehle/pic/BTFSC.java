@@ -7,7 +7,7 @@ import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
 
 /**
- * Created by ptrey on 24.04.2017.
+ * BTFSC
  */
 public class BTFSC extends Operation implements Executable {
 

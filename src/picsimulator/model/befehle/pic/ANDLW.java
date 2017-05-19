@@ -1,14 +1,13 @@
 package picsimulator.model.befehle.pic;
 
 import picsimulator.controller.Controller;
-import picsimulator.model.Bit;
 import picsimulator.model.Register;
 import picsimulator.model.Speicher;
 import picsimulator.model.befehle.Executable;
 import picsimulator.model.befehle.Operation;
 
 /**
- * Created by Edeka on 24.04.2017.
+ * ANDLW
  */
 public class ANDLW extends Operation implements Executable {
 
@@ -36,6 +35,9 @@ public class ANDLW extends Operation implements Executable {
 
         memory.setRegisterW(resultRegister.getIntWert());
 
+        /**
+         *  Check Zero Flag
+         */
         if (resultRegister.getIntWert() == 0) {
             memory.getSpeicheradressen()[0].getRegister()[3].getBits()[2].setPin(1);
         } else {
