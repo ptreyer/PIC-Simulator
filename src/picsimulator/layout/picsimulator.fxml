@@ -13,7 +13,7 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
+<AnchorPane prefHeight="650.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
     <children>
       <MenuBar prefHeight="25.0" prefWidth="800.0" AnchorPane.bottomAnchor="481.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -52,22 +52,24 @@
                                     </TableView>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="316.0" layoutY="251.0" prefHeight="70.0" prefWidth="172.0">
+                              <AnchorPane layoutX="305.0" layoutY="280.0" prefHeight="70.0" prefWidth="172.0">
                                  <children>
                                     <TextField fx:id="taktGenFrequenz" layoutX="13.0" layoutY="115.0" prefHeight="25.0" prefWidth="58.0" text="4" />
                                     <Label layoutX="73.0" layoutY="119.0" text="Hz" />
                                     <Button fx:id="btnToggleTakt" layoutX="95.0" layoutY="114.0" mnemonicParsing="false" onAction="#toggleTaktGenerator" text="Starte Takt" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="-1.0" layoutY="328.0" prefHeight="33.0" prefWidth="478.0" />
-                              <TextField fx:id="taktfrequenz" layoutX="88.0" layoutY="335.0" onInputMethodTextChanged="#onChangeTaktfrequenz" onKeyPressed="#onChangeTaktfrequenz" onKeyReleased="#onChangeTaktfrequenz" onKeyTyped="#onChangeTaktfrequenz" prefHeight="25.0" prefWidth="45.0" text="4000" />
-                              <Label layoutX="12.0" layoutY="339.0" text="Taktfrequenz:" />
-                              <Label layoutX="134.0" layoutY="339.0" text="kHz" />
-                              <TextField fx:id="laufzeit" editable="false" layoutX="220.0" layoutY="335.0" prefHeight="25.0" prefWidth="41.0" text="4" />
-                              <Label layoutX="175.0" layoutY="339.0" text="Laufzeit:" />
-                              <Label layoutX="261.0" layoutY="338.0" text="µsec" />
-                              <Label layoutX="333.0" layoutY="338.0" text="Taktgenerator:" />
-                              <ChoiceBox fx:id="taktgenerator" layoutX="411.0" layoutY="334.0" prefHeight="25.0" prefWidth="65.0" />
+                              <AnchorPane layoutX="-1.0" layoutY="357.0" prefHeight="33.0" prefWidth="478.0">
+                                 <children>
+                                    <TextField fx:id="taktfrequenz" layoutX="77.0" layoutY="5.0" onInputMethodTextChanged="#onChangeTaktfrequenz" onKeyPressed="#onChangeTaktfrequenz" onKeyReleased="#onChangeTaktfrequenz" onKeyTyped="#onChangeTaktfrequenz" prefHeight="25.0" prefWidth="45.0" text="4000" />
+                                    <Label layoutY="9.0" text="Taktfrequenz:" />
+                                    <Label layoutX="127.0" layoutY="9.0" text="kHz" />
+                                    <TextField fx:id="laufzeit" editable="false" layoutX="226.0" layoutY="5.0" prefHeight="25.0" prefWidth="41.0" text="4" />
+                                    <Label layoutX="169.0" layoutY="9.0" text="Laufzeit:" />
+                                    <Label layoutX="270.0" layoutY="9.0" text="µsec" />
+                                    <Label layoutX="314.0" layoutY="9.0" text="Taktgenerator:" />
+                                    <ChoiceBox fx:id="taktgenerator" layoutX="401.0" layoutY="6.0" prefHeight="25.0" prefWidth="65.0" />
+                                 </children></AnchorPane>
                            </children></AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
@@ -105,62 +107,62 @@
                      <children>
                         <AnchorPane prefHeight="102.0" prefWidth="230.0">
                            <children>
-                              <AnchorPane layoutY="-1.0" prefHeight="306.0" prefWidth="356.0">
+                              <AnchorPane prefHeight="306.0" prefWidth="356.0">
                                  <children>
-                                    <TextField editable="false" layoutY="2.0" prefHeight="25.0" prefWidth="45.0" text="RegA" />
-                                    <TextField editable="false" layoutY="27.0" prefHeight="25.0" prefWidth="45.0" text="PinA" />
-                                    <ToggleButton id="a0" fx:id="a0" layoutX="198.0" layoutY="27.0" mnemonicParsing="false" onAction="#toggleA0" text="0" />
-                                    <ToggleButton id="a1" fx:id="a1" layoutX="176.0" layoutY="27.0" mnemonicParsing="false" onAction="#toggleA1" text="0" />
-                                    <ToggleButton id="a2" fx:id="a2" layoutX="154.0" layoutY="27.0" mnemonicParsing="false" onAction="#toggleA2" text="0" />
-                                    <ToggleButton id="a3" fx:id="a3" layoutX="132.0" layoutY="27.0" mnemonicParsing="false" onAction="#toggleA3" text="0" />
-                                    <ToggleButton id="a4" fx:id="a4" layoutX="110.0" layoutY="27.0" mnemonicParsing="false" onAction="#toggleA4" text="0" />
-                                    <ToggleButton id="a5" fx:id="a5" layoutX="88.0" layoutY="27.0" mnemonicParsing="false" onAction="#toggleA5" text="0" />
-                                    <ToggleButton id="a6" fx:id="a6" layoutX="66.0" layoutY="27.0" mnemonicParsing="false" onAction="#toggleA6" text="0" />
-                                    <ToggleButton id="a7" fx:id="a7" layoutX="44.0" layoutY="27.0" mnemonicParsing="false" onAction="#toggleA7" text="0" />
-                                    <TextField editable="false" layoutX="198.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField editable="false" layoutX="176.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="1" />
-                                    <TextField editable="false" layoutX="154.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="2" />
-                                    <TextField editable="false" layoutX="132.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="3" />
-                                    <TextField editable="false" layoutX="110.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="4" />
-                                    <TextField editable="false" layoutX="88.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="5" />
-                                    <TextField editable="false" layoutX="66.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="6" />
-                                    <TextField editable="false" layoutX="44.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="7" />
-                                    <TextField editable="false" layoutY="52.0" prefHeight="25.0" prefWidth="45.0" text="RegB" />
-                                    <TextField editable="false" layoutY="77.0" prefHeight="25.0" prefWidth="45.0" text="PinB" />
-                                    <ToggleButton id="b0" fx:id="b0" layoutX="198.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB0" text="0" />
-                                    <ToggleButton id="b1" fx:id="b1" layoutX="176.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB1" text="0" />
-                                    <ToggleButton id="b2" fx:id="b2" layoutX="154.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB2" text="0" />
-                                    <ToggleButton id="b3" fx:id="b3" layoutX="132.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB3" text="0" />
-                                    <ToggleButton id="b4" fx:id="b4" layoutX="110.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB4" text="0" />
-                                    <ToggleButton id="b5" fx:id="b5" layoutX="88.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB5" text="0" />
-                                    <ToggleButton id="b6" fx:id="b6" layoutX="66.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB6" text="0" />
-                                    <ToggleButton id="b7" fx:id="b7" layoutX="44.0" layoutY="77.0" mnemonicParsing="false" onAction="#toggleB7" text="0" />
-                                    <TextField editable="false" layoutX="198.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField editable="false" layoutX="176.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="1" />
-                                    <TextField editable="false" layoutX="154.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="2" />
-                                    <TextField editable="false" layoutX="132.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="3" />
-                                    <TextField editable="false" layoutX="110.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="4" />
-                                    <TextField editable="false" layoutX="88.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="5" />
-                                    <TextField editable="false" layoutX="66.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="6" />
-                                    <TextField editable="false" layoutX="44.0" layoutY="52.0" prefHeight="25.0" prefWidth="23.0" text="7" />
-                                    <TextField editable="false" layoutY="105.0" prefHeight="25.0" prefWidth="65.0" text="STATUS" />
-                                    <TextField fx:id="STATUS" editable="false" layoutX="64.0" layoutY="105.0" prefHeight="25.0" prefWidth="65.0" />
-                                    <TextField editable="false" layoutX="170.0" layoutY="129.0" prefHeight="25.0" prefWidth="35.0" text="Z" />
-                                    <TextField editable="false" layoutX="136.0" layoutY="129.0" prefHeight="25.0" prefWidth="35.0" text="PD" />
-                                    <TextField fx:id="T0" editable="false" layoutX="102.0" layoutY="129.0" prefHeight="25.0" prefWidth="35.0" text="T0" />
-                                    <TextField editable="false" layoutX="68.0" layoutY="129.0" prefHeight="25.0" prefWidth="35.0" text="RP0" />
-                                    <TextField editable="false" layoutX="34.0" layoutY="129.0" prefHeight="25.0" prefWidth="35.0" text="RP1" />
-                                    <TextField editable="false" layoutY="129.0" prefHeight="25.0" prefWidth="35.0" text="IRP" />
-                                    <TextField editable="false" layoutX="238.0" layoutY="129.0" prefHeight="25.0" prefWidth="35.0" text="C" />
-                                    <TextField editable="false" layoutX="204.0" layoutY="129.0" prefHeight="25.0" prefWidth="35.0" text="DC" />
-                                    <TextField fx:id="Zero" editable="false" layoutX="170.0" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="PD" editable="false" layoutX="136.0" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="TO" editable="false" layoutX="102.0" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="RP0" editable="false" layoutX="68.0" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="RP1" editable="false" layoutX="34.0" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="IRP" editable="false" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="Carry" editable="false" layoutX="238.0" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="DigitCarry" editable="false" layoutX="204.0" layoutY="153.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField editable="false" layoutY="20.0" prefHeight="25.0" prefWidth="45.0" text="RegA" />
+                                    <TextField editable="false" layoutY="45.0" prefHeight="25.0" prefWidth="45.0" text="PinA" />
+                                    <ToggleButton id="a0" fx:id="a0" layoutX="198.0" layoutY="45.0" mnemonicParsing="false" onAction="#toggleA0" text="0" />
+                                    <ToggleButton id="a1" fx:id="a1" layoutX="176.0" layoutY="45.0" mnemonicParsing="false" onAction="#toggleA1" text="0" />
+                                    <ToggleButton id="a2" fx:id="a2" layoutX="154.0" layoutY="45.0" mnemonicParsing="false" onAction="#toggleA2" text="0" />
+                                    <ToggleButton id="a3" fx:id="a3" layoutX="132.0" layoutY="45.0" mnemonicParsing="false" onAction="#toggleA3" text="0" />
+                                    <ToggleButton id="a4" fx:id="a4" layoutX="110.0" layoutY="45.0" mnemonicParsing="false" onAction="#toggleA4" text="0" />
+                                    <ToggleButton id="a5" fx:id="a5" layoutX="88.0" layoutY="45.0" mnemonicParsing="false" onAction="#toggleA5" text="0" />
+                                    <ToggleButton id="a6" fx:id="a6" layoutX="66.0" layoutY="45.0" mnemonicParsing="false" onAction="#toggleA6" text="0" />
+                                    <ToggleButton id="a7" fx:id="a7" layoutX="44.0" layoutY="45.0" mnemonicParsing="false" onAction="#toggleA7" text="0" />
+                                    <TextField editable="false" layoutX="198.0" layoutY="20.0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField editable="false" layoutX="176.0" layoutY="20.0" prefHeight="25.0" prefWidth="23.0" text="1" />
+                                    <TextField editable="false" layoutX="154.0" layoutY="20.0" prefHeight="25.0" prefWidth="23.0" text="2" />
+                                    <TextField editable="false" layoutX="132.0" layoutY="20.0" prefHeight="25.0" prefWidth="23.0" text="3" />
+                                    <TextField editable="false" layoutX="110.0" layoutY="20.0" prefHeight="25.0" prefWidth="23.0" text="4" />
+                                    <TextField editable="false" layoutX="88.0" layoutY="20.0" prefHeight="25.0" prefWidth="23.0" text="5" />
+                                    <TextField editable="false" layoutX="66.0" layoutY="20.0" prefHeight="25.0" prefWidth="23.0" text="6" />
+                                    <TextField editable="false" layoutX="44.0" layoutY="20.0" prefHeight="25.0" prefWidth="23.0" text="7" />
+                                    <TextField editable="false" layoutY="89.0" prefHeight="25.0" prefWidth="45.0" text="RegB" />
+                                    <TextField editable="false" layoutY="114.0" prefHeight="25.0" prefWidth="45.0" text="PinB" />
+                                    <ToggleButton id="b0" fx:id="b0" layoutX="198.0" layoutY="114.0" mnemonicParsing="false" onAction="#toggleB0" text="0" />
+                                    <ToggleButton id="b1" fx:id="b1" layoutX="176.0" layoutY="114.0" mnemonicParsing="false" onAction="#toggleB1" text="0" />
+                                    <ToggleButton id="b2" fx:id="b2" layoutX="154.0" layoutY="114.0" mnemonicParsing="false" onAction="#toggleB2" text="0" />
+                                    <ToggleButton id="b3" fx:id="b3" layoutX="132.0" layoutY="114.0" mnemonicParsing="false" onAction="#toggleB3" text="0" />
+                                    <ToggleButton id="b4" fx:id="b4" layoutX="110.0" layoutY="114.0" mnemonicParsing="false" onAction="#toggleB4" text="0" />
+                                    <ToggleButton id="b5" fx:id="b5" layoutX="88.0" layoutY="114.0" mnemonicParsing="false" onAction="#toggleB5" text="0" />
+                                    <ToggleButton id="b6" fx:id="b6" layoutX="66.0" layoutY="114.0" mnemonicParsing="false" onAction="#toggleB6" text="0" />
+                                    <ToggleButton id="b7" fx:id="b7" layoutX="44.0" layoutY="114.0" mnemonicParsing="false" onAction="#toggleB7" text="0" />
+                                    <TextField editable="false" layoutX="198.0" layoutY="89.0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField editable="false" layoutX="176.0" layoutY="89.0" prefHeight="25.0" prefWidth="23.0" text="1" />
+                                    <TextField editable="false" layoutX="154.0" layoutY="89.0" prefHeight="25.0" prefWidth="23.0" text="2" />
+                                    <TextField editable="false" layoutX="132.0" layoutY="89.0" prefHeight="25.0" prefWidth="23.0" text="3" />
+                                    <TextField editable="false" layoutX="110.0" layoutY="89.0" prefHeight="25.0" prefWidth="23.0" text="4" />
+                                    <TextField editable="false" layoutX="88.0" layoutY="89.0" prefHeight="25.0" prefWidth="23.0" text="5" />
+                                    <TextField editable="false" layoutX="66.0" layoutY="89.0" prefHeight="25.0" prefWidth="23.0" text="6" />
+                                    <TextField editable="false" layoutX="44.0" layoutY="89.0" prefHeight="25.0" prefWidth="23.0" text="7" />
+                                    <TextField editable="false" layoutY="138.0" prefHeight="25.0" prefWidth="65.0" text="STATUS" />
+                                    <TextField fx:id="STATUS" editable="false" layoutX="64.0" layoutY="138.0" prefHeight="25.0" prefWidth="65.0" />
+                                    <TextField editable="false" layoutX="170.0" layoutY="162.0" prefHeight="25.0" prefWidth="35.0" text="Z" />
+                                    <TextField editable="false" layoutX="136.0" layoutY="162.0" prefHeight="25.0" prefWidth="35.0" text="PD" />
+                                    <TextField fx:id="T0" editable="false" layoutX="102.0" layoutY="162.0" prefHeight="25.0" prefWidth="35.0" text="T0" />
+                                    <TextField editable="false" layoutX="68.0" layoutY="162.0" prefHeight="25.0" prefWidth="35.0" text="RP0" />
+                                    <TextField editable="false" layoutX="34.0" layoutY="162.0" prefHeight="25.0" prefWidth="35.0" text="RP1" />
+                                    <TextField editable="false" layoutY="162.0" prefHeight="25.0" prefWidth="35.0" text="IRP" />
+                                    <TextField editable="false" layoutX="238.0" layoutY="162.0" prefHeight="25.0" prefWidth="35.0" text="C" />
+                                    <TextField editable="false" layoutX="204.0" layoutY="162.0" prefHeight="25.0" prefWidth="35.0" text="DC" />
+                                    <TextField fx:id="Zero" editable="false" layoutX="170.0" layoutY="186.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="PD" editable="false" layoutX="136.0" layoutY="186.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="TO" editable="false" layoutX="102.0" layoutY="186.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="RP0" editable="false" layoutX="68.0" layoutY="186.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="RP1" editable="false" layoutX="34.0" layoutY="186.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="IRP" editable="false" layoutY="186.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="Carry" editable="false" layoutX="238.0" layoutY="186.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="DigitCarry" editable="false" layoutX="204.0" layoutY="186.0" prefHeight="25.0" prefWidth="35.0" />
                                     <TextField editable="false" layoutX="226.0" layoutY="2.0" prefHeight="25.0" prefWidth="65.0" text="W-REG" />
                                     <TextField editable="false" layoutX="226.0" layoutY="27.0" prefHeight="25.0" prefWidth="65.0" text="FSR" />
                                     <TextField editable="false" layoutX="226.0" layoutY="52.0" prefHeight="25.0" prefWidth="65.0" text="PCL" />
@@ -171,42 +173,60 @@
                                     <TextField fx:id="PCL" editable="false" layoutX="291.0" layoutY="52.0" prefHeight="25.0" prefWidth="65.0" />
                                     <TextField fx:id="PCLATH" editable="false" layoutX="291.0" layoutY="77.0" prefHeight="25.0" prefWidth="65.0" />
                                     <TextField fx:id="PC" editable="false" layoutX="291.0" layoutY="102.0" prefHeight="25.0" prefWidth="65.0" />
-                                    <TextField editable="false" layoutY="178.0" prefHeight="25.0" prefWidth="58.0" text="INTCON" />
-                                    <TextField fx:id="INTCON" editable="false" layoutX="57.0" layoutY="178.0" prefHeight="25.0" prefWidth="65.0" />
-                                    <TextField editable="false" layoutX="170.0" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="T0IF" />
-                                    <TextField editable="false" layoutX="136.0" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="RBIE" />
-                                    <TextField fx:id="T01" editable="false" layoutX="102.0" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="INTE" />
-                                    <TextField editable="false" layoutX="68.0" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="T0IE" />
-                                    <TextField editable="false" layoutX="34.0" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="EEIE" />
-                                    <TextField editable="false" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="GIE" />
-                                    <TextField editable="false" layoutX="238.0" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="RBIF" />
-                                    <TextField editable="false" layoutX="204.0" layoutY="202.0" prefHeight="25.0" prefWidth="35.0" text="INTF" />
-                                    <TextField fx:id="T0IF" editable="false" layoutX="170.0" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="RBIE" editable="false" layoutX="136.0" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="INTE" editable="false" layoutX="102.0" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="T0IE" editable="false" layoutX="68.0" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="EEIE" editable="false" layoutX="34.0" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="GIE" editable="false" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="RBIF" editable="false" layoutX="238.0" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="INTF" editable="false" layoutX="204.0" layoutY="226.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField editable="false" layoutX="1.0" layoutY="251.0" prefHeight="25.0" prefWidth="72.0" text="OPTION" />
-                                    <TextField fx:id="OPTION" editable="false" layoutX="72.0" layoutY="251.0" prefHeight="25.0" prefWidth="65.0" />
-                                    <TextField editable="false" layoutX="171.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="PS2" />
-                                    <TextField editable="false" layoutX="137.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="PSA" />
-                                    <TextField fx:id="T02" editable="false" layoutX="103.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="T0SE" />
-                                    <TextField editable="false" layoutX="69.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="T0CS" />
-                                    <TextField editable="false" layoutX="35.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="INTEDG" />
-                                    <TextField editable="false" layoutX="1.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="RBPU" />
-                                    <TextField editable="false" layoutX="239.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="PS0" />
-                                    <TextField editable="false" layoutX="205.0" layoutY="275.0" prefHeight="25.0" prefWidth="35.0" text="PS1" />
-                                    <TextField fx:id="PS2" editable="false" layoutX="171.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="PSA" editable="false" layoutX="137.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="T0SE" editable="false" layoutX="103.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="T0CS" editable="false" layoutX="69.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="INTEDG" editable="false" layoutX="35.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="RBPU" editable="false" layoutX="1.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="PS0" editable="false" layoutX="239.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
-                                    <TextField fx:id="PS1" editable="false" layoutX="205.0" layoutY="299.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField editable="false" layoutY="211.0" prefHeight="25.0" prefWidth="58.0" text="INTCON" />
+                                    <TextField fx:id="INTCON" editable="false" layoutX="57.0" layoutY="211.0" prefHeight="25.0" prefWidth="65.0" />
+                                    <TextField editable="false" layoutX="170.0" layoutY="235.0" prefHeight="25.0" prefWidth="35.0" text="T0IF" />
+                                    <TextField editable="false" layoutX="136.0" layoutY="235.0" prefHeight="25.0" prefWidth="35.0" text="RBIE" />
+                                    <TextField fx:id="T01" editable="false" layoutX="102.0" layoutY="235.0" prefHeight="25.0" prefWidth="35.0" text="INTE" />
+                                    <TextField editable="false" layoutX="68.0" layoutY="235.0" prefHeight="25.0" prefWidth="35.0" text="T0IE" />
+                                    <TextField editable="false" layoutX="34.0" layoutY="235.0" prefHeight="25.0" prefWidth="35.0" text="EEIE" />
+                                    <TextField editable="false" layoutY="235.0" prefHeight="25.0" prefWidth="35.0" text="GIE" />
+                                    <TextField editable="false" layoutX="238.0" layoutY="235.0" prefHeight="25.0" prefWidth="35.0" text="RBIF" />
+                                    <TextField editable="false" layoutX="204.0" layoutY="235.0" prefHeight="25.0" prefWidth="35.0" text="INTF" />
+                                    <TextField fx:id="T0IF" editable="false" layoutX="170.0" layoutY="259.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="RBIE" editable="false" layoutX="136.0" layoutY="259.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="INTE" editable="false" layoutX="102.0" layoutY="259.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="T0IE" editable="false" layoutX="68.0" layoutY="259.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="EEIE" editable="false" layoutX="34.0" layoutY="259.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="GIE" editable="false" layoutY="259.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="RBIF" editable="false" layoutX="238.0" layoutY="259.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="INTF" editable="false" layoutX="204.0" layoutY="259.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField editable="false" layoutY="284.0" prefHeight="25.0" prefWidth="72.0" text="OPTION" />
+                                    <TextField fx:id="OPTION" editable="false" layoutX="71.0" layoutY="284.0" prefHeight="25.0" prefWidth="65.0" />
+                                    <TextField editable="false" layoutX="170.0" layoutY="308.0" prefHeight="25.0" prefWidth="35.0" text="PS2" />
+                                    <TextField editable="false" layoutX="136.0" layoutY="308.0" prefHeight="25.0" prefWidth="35.0" text="PSA" />
+                                    <TextField fx:id="T02" editable="false" layoutX="102.0" layoutY="308.0" prefHeight="25.0" prefWidth="35.0" text="T0SE" />
+                                    <TextField editable="false" layoutX="68.0" layoutY="308.0" prefHeight="25.0" prefWidth="35.0" text="T0CS" />
+                                    <TextField editable="false" layoutX="34.0" layoutY="308.0" prefHeight="25.0" prefWidth="35.0" text="INTEDG" />
+                                    <TextField editable="false" layoutY="308.0" prefHeight="25.0" prefWidth="35.0" text="RBPU" />
+                                    <TextField editable="false" layoutX="238.0" layoutY="308.0" prefHeight="25.0" prefWidth="35.0" text="PS0" />
+                                    <TextField editable="false" layoutX="204.0" layoutY="308.0" prefHeight="25.0" prefWidth="35.0" text="PS1" />
+                                    <TextField fx:id="PS2" editable="false" layoutX="170.0" layoutY="332.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="PSA" editable="false" layoutX="136.0" layoutY="332.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="T0SE" editable="false" layoutX="102.0" layoutY="332.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="T0CS" editable="false" layoutX="68.0" layoutY="332.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="INTEDG" editable="false" layoutX="34.0" layoutY="332.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="RBPU" editable="false" layoutY="332.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="PS0" editable="false" layoutX="238.0" layoutY="332.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <TextField fx:id="PS1" editable="false" layoutX="204.0" layoutY="332.0" prefHeight="25.0" prefWidth="35.0" />
+                                    <ToggleButton id="a0" fx:id="b0Int" layoutX="197.0" layoutY="67.0" mnemonicParsing="false" onAction="#toggleA0" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <ToggleButton id="a1" fx:id="b1Int" layoutX="175.0" layoutY="67.0" mnemonicParsing="false" onAction="#toggleA1" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <ToggleButton id="a2" fx:id="b2Int" layoutX="153.0" layoutY="67.0" mnemonicParsing="false" onAction="#toggleA2" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <ToggleButton id="a3" fx:id="b3Int" layoutX="131.0" layoutY="67.0" mnemonicParsing="false" onAction="#toggleA3" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <ToggleButton id="a4" fx:id="b4Int" layoutX="109.0" layoutY="67.0" mnemonicParsing="false" onAction="#toggleA4" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <ToggleButton id="a5" fx:id="b5Int" layoutX="87.0" layoutY="67.0" mnemonicParsing="false" onAction="#toggleA5" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <ToggleButton id="a6" fx:id="b6Int" layoutX="65.0" layoutY="67.0" mnemonicParsing="false" onAction="#toggleA6" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <ToggleButton id="a7" fx:id="b7Int" layoutX="43.0" layoutY="67.0" mnemonicParsing="false" onAction="#toggleA7" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <ToggleButton id="a0" fx:id="a0Int" layoutX="198.0" layoutY="-2.0" mnemonicParsing="false" onAction="#toggleA0" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <ToggleButton id="a1" fx:id="a1Int" layoutX="176.0" layoutY="-2.0" mnemonicParsing="false" onAction="#toggleA1" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <ToggleButton id="a2" fx:id="a2Int" layoutX="154.0" layoutY="-2.0" mnemonicParsing="false" onAction="#toggleA2" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <ToggleButton id="a3" fx:id="a3Int" layoutX="132.0" layoutY="-2.0" mnemonicParsing="false" onAction="#toggleA3" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <ToggleButton id="a4" fx:id="a4Int" layoutX="110.0" layoutY="-2.0" mnemonicParsing="false" onAction="#toggleA4" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <ToggleButton id="a5" fx:id="a5Int" layoutX="88.0" layoutY="-2.0" mnemonicParsing="false" onAction="#toggleA5" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <ToggleButton id="a6" fx:id="a6Int" layoutX="66.0" layoutY="-2.0" mnemonicParsing="false" onAction="#toggleA6" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <ToggleButton id="a7" fx:id="a7Int" layoutX="44.0" layoutY="-2.0" mnemonicParsing="false" onAction="#toggleA7" scaleX="0.75" scaleY="0.75" text="0" />
+                                    <Label layoutX="5.0" layoutY="2.0" text="In/Out" />
+                                    <Label layoutX="6.0" layoutY="71.0" text="In/Out" />
                                  </children>
                               </AnchorPane>
                            </children>
