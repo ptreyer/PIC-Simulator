@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.InputMethodEvent;
 import picsimulator.constants.PicSimulatorConstants;
 import picsimulator.model.*;
 import picsimulator.services.*;
@@ -17,6 +16,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+/**
+ * Controller, welcher direkt von der grafischen Oberfläche angesteuert wird, mit
+ * dieser interagiert und die entsprechende Logik in den Services ansteuert.
+ */
 public class Controller {
 
     @FXML
@@ -187,6 +190,11 @@ public class Controller {
     public static double laufzeitCalculated = 0;
     public static double taktfrequenzValue = 4000;
 
+    /**
+     * Methode zum Öffnen eines LST-Files. Sollte das File erfolgreich geöffnet werden, wird dies
+     * entsprechend ausgewertet und die Felder in der Tabelle dargestellt. Anschließend wird der
+     * Speicher initialisiert und die Oberfläche befüllt.
+     */
     public void openFile() {
         tableColumnBreakpoint.setCellValueFactory(arg0 -> {
             Befehl befehl = arg0.getValue();
@@ -230,6 +238,11 @@ public class Controller {
         updateView();
     }
 
+    /**
+     * Solange die Ausführung nicht über den Stop-Button unterbrochen wird, wird das Programm
+     * sequentiell bearbeitet. Die Befehle werden ausgeführt, PC und PCLATH gesetzt, Timer erhöht,
+     * Interrupt geprüft und die Oberfkäche stetig auktualisiert.
+     */
     public void run() {
         if (tableFileContent.getItems().isEmpty()) {
             return;
@@ -249,7 +262,7 @@ public class Controller {
                             if (execute(befehl)) break;
                             TriggerInterruptService.saveOldValues(speicher);
                             Platform.runLater(this::updateView);
-                            Thread.sleep((long) (4000 / Double.parseDouble(taktfrequenz.getText()))*1000);
+                            Thread.sleep((long) (4000 / Double.parseDouble(taktfrequenz.getText())) * 1000);
                         }
                     }
                 }
@@ -261,6 +274,9 @@ public class Controller {
         th.start();
     }
 
+    /**
+     * Navigiert zum nächsten Befehl anhand des PC und führt diesen aus.
+     */
     public void next() {
         if (tableFileContent.getItems().isEmpty()) {
             return;
@@ -281,6 +297,13 @@ public class Controller {
         }
     }
 
+    /**
+     * Führt den übergebenen Befehl aus. Prüft dabei ob der SleepModus aktiviert ist, bzw der WDT
+     * enabled ist. Erhöht dementsprechend die Timer.
+     *
+     * @param befehl, der Befehl der ausgeführt werden soll.
+     * @return boolean, gibt an ob ein Interrupt aufgetreten ist.
+     */
     private boolean execute(Befehl befehl) {
         String binaryString = getRegisterService().hexToBin(befehl.getBefehlscode());
         int cycles = 1;
@@ -301,6 +324,14 @@ public class Controller {
         return false;
     }
 
+    /**
+     * Prüft ob ein Interrupt aufgetreten ist. Erhöht hierbei auch den Timer0. Sollte ein Interrupt
+     * auftereten sein, wird die Interrupt Service Routine ausgeführt und das Global Interrupt Bit
+     * zurückgesetzt.
+     *
+     * @param cycles Anzahl der Taktzyklen
+     * @return boolean, ob Interrupt aufgetreten ist.
+     */
     private boolean checkInterrupt(int cycles) {
         speicher.setInterrupt(false);
         if (!speicher.isSleepModus()) {
@@ -325,6 +356,9 @@ public class Controller {
         return false;
     }
 
+    /**
+     * Erhöht die Laufzeit und Berechnet diese anhand der eingegebenen Taktfrequenz.
+     */
     public static void increaseRuntime() {
         runtime++;
         laufzeitCalculated = laufzeitCalculated + (4000 / taktfrequenzValue);
@@ -343,7 +377,10 @@ public class Controller {
         System.out.println("------------2-------------"); */
     }
 
-
+    /**
+     * Aktualisiert die grafische Oberfläche nach jedem ausgeführten Befehl um die Änderungen
+     * für den Benutzer sichtbar zu machen.
+     */
     private void updateView() {
         taktfrequenzValue = Integer.parseInt(taktfrequenz.getText());
 
@@ -412,10 +449,16 @@ public class Controller {
 
     }
 
+    /**
+     * Stoppt die Ausführung des Programmes.
+     */
     public void stop() {
         run = false;
     }
 
+    /**
+     * Setzt alle Werte auf den Startzustand zurück.
+     */
     public void reset() {
         run = false;
         currentRow = 1;
@@ -429,6 +472,9 @@ public class Controller {
         tableFileContent.refresh();
     }
 
+    /**
+     * Setzt alle Einstellungen zurück und setzt die Obefläche auf den initialen Zustand.
+     */
     public void clear() {
         run = false;
         runtime = 0;
@@ -442,6 +488,9 @@ public class Controller {
         tableMemory.getItems().clear();
     }
 
+    /**
+     * Initialisiert den Speicher und Ordnet die Werte den Elementen der grafischen Oberfläche zu.
+     */
     private void initializeMemory() {
         speicher = new Speicher();
         speicher = getMemoryInitializerService().initializeMemory(speicher);
@@ -461,6 +510,9 @@ public class Controller {
         runtime = 0;
     }
 
+    /**
+     * Toggelt den Wert des Bits 0 im Register A.
+     */
     public void toggleA0() {
         Bit bit0 = getRegisterA().getBits()[0];
         getRegisterA().getBits()[0] = getRegisterService().toggleBit(bit0);
@@ -468,6 +520,9 @@ public class Controller {
         Platform.runLater(() -> a0.setText(String.valueOf(getRegisterA().getBits()[0].getPin())));
     }
 
+    /**
+     * Toggelt den Wert des Bits 1 im Register A.
+     */
     public void toggleA1() {
         Bit bit1 = getRegisterA().getBits()[1];
         getRegisterA().getBits()[1] = getRegisterService().toggleBit(bit1);
@@ -475,6 +530,9 @@ public class Controller {
         Platform.runLater(() -> a1.setText(String.valueOf(getRegisterA().getBits()[1].getPin())));
     }
 
+    /**
+     * Toggelt den Wert des Bits 2 im Register A.
+     */
     public void toggleA2() {
         Bit bit2 = getRegisterA().getBits()[2];
         getRegisterA().getBits()[2] = getRegisterService().toggleBit(bit2);
@@ -482,6 +540,9 @@ public class Controller {
         Platform.runLater(() -> a2.setText(String.valueOf(getRegisterA().getBits()[2].getPin())));
     }
 
+    /**
+     * Toggelt den Wert des Bits 3 im Register A.
+     */
     public void toggleA3() {
         Bit bit3 = getRegisterA().getBits()[3];
         getRegisterA().getBits()[3] = getRegisterService().toggleBit(bit3);
@@ -489,6 +550,9 @@ public class Controller {
         Platform.runLater(() -> a3.setText(String.valueOf(getRegisterA().getBits()[3].getPin())));
     }
 
+    /**
+     * Toggelt den Wert des Bits 4 im Register A.
+     */
     public void toggleA4() {
         Bit bit4 = getRegisterA().getBits()[4];
         getRegisterA().getBits()[4] = getRegisterService().toggleBit(bit4);
@@ -496,6 +560,9 @@ public class Controller {
         Platform.runLater(() -> a4.setText(String.valueOf(getRegisterA().getBits()[4].getPin())));
     }
 
+    /**
+     * Toggelt den Wert des Bits 5 im Register A.
+     */
     public void toggleA5() {
         Bit bit5 = getRegisterA().getBits()[5];
         getRegisterA().getBits()[5] = getRegisterService().toggleBit(bit5);
@@ -503,6 +570,9 @@ public class Controller {
         Platform.runLater(() -> a5.setText(String.valueOf(getRegisterA().getBits()[5].getPin())));
     }
 
+    /**
+     * Toggelt den Wert des Bits 6 im Register A.
+     */
     public void toggleA6() {
         Bit bit6 = getRegisterA().getBits()[6];
         getRegisterA().getBits()[6] = getRegisterService().toggleBit(bit6);
@@ -510,6 +580,9 @@ public class Controller {
         Platform.runLater(() -> a6.setText(String.valueOf(getRegisterA().getBits()[6].getPin())));
     }
 
+    /**
+     * Toggelt den Wert des Bits 7 im Register A.
+     */
     public void toggleA7() {
         Bit bit7 = getRegisterA().getBits()[7];
         getRegisterA().getBits()[7] = getRegisterService().toggleBit(bit7);
@@ -517,6 +590,9 @@ public class Controller {
         Platform.runLater(() -> a7.setText(String.valueOf(getRegisterA().getBits()[7].getPin())));
     }
 
+    /**
+     * Toggelt den Wert des Bits 0 im Register B.
+     */
     public void toggleB0() {
         Bit bit0 = speicher.getSpeicheradressen()[0].getRegister()[6].getBits()[0];
         speicher.getSpeicheradressen()[0].getRegister()[6].getBits()[0] = getRegisterService().toggleBit(bit0);
@@ -524,6 +600,9 @@ public class Controller {
         Platform.runLater(() -> b0.setText(String.valueOf(getRegisterB().getBits()[0].getPin())));
     }
 
+    /**
+     * Toggelt den Wert des Bits 1 im Register B.
+     */
     public void toggleB1() {
         Bit bit1 = speicher.getSpeicheradressen()[0].getRegister()[6].getBits()[1];
         speicher.getSpeicheradressen()[0].getRegister()[6].getBits()[1] = getRegisterService().toggleBit(bit1);
@@ -531,6 +610,9 @@ public class Controller {
         Platform.runLater(() -> b1.setText(String.valueOf(getRegisterB().getBits()[1].getPin())));
     }
 
+    /**
+     * Toggelt den Wert des Bits 2 im Register B.
+     */
     public void toggleB2() {
         Bit bit2 = getRegisterB().getBits()[2];
         getRegisterB().getBits()[2] = getRegisterService().toggleBit(bit2);
@@ -538,6 +620,9 @@ public class Controller {
         Platform.runLater(() -> b2.setText(String.valueOf(getRegisterB().getBits()[2].getPin())));
     }
 
+    /**
+     * Toggelt den Wert des Bits 3 im Register B.
+     */
     public void toggleB3() {
         Bit bit3 = getRegisterB().getBits()[3];
         getRegisterB().getBits()[3] = getRegisterService().toggleBit(bit3);
@@ -545,6 +630,9 @@ public class Controller {
         Platform.runLater(() -> b3.setText(String.valueOf(getRegisterB().getBits()[3].getPin())));
     }
 
+    /**
+     * Toggelt den Wert des Bits 4 im Register B.
+     */
     public void toggleB4() {
         Bit bit4 = getRegisterB().getBits()[4];
         getRegisterB().getBits()[4] = getRegisterService().toggleBit(bit4);
@@ -552,6 +640,9 @@ public class Controller {
         Platform.runLater(() -> b4.setText(String.valueOf(getRegisterB().getBits()[4].getPin())));
     }
 
+    /**
+     * Toggelt den Wert des Bits 5 im Register B.
+     */
     public void toggleB5() {
         Bit bit5 = getRegisterB().getBits()[5];
         getRegisterB().getBits()[5] = getRegisterService().toggleBit(bit5);
@@ -559,6 +650,9 @@ public class Controller {
         Platform.runLater(() -> b5.setText(String.valueOf(getRegisterB().getBits()[5].getPin())));
     }
 
+    /**
+     * Toggelt den Wert des Bits 6 im Register B.
+     */
     public void toggleB6() {
         Bit bit6 = getRegisterB().getBits()[6];
         getRegisterB().getBits()[6] = getRegisterService().toggleBit(bit6);
@@ -566,6 +660,9 @@ public class Controller {
         Platform.runLater(() -> b6.setText(String.valueOf(getRegisterB().getBits()[6].getPin())));
     }
 
+    /**
+     * Toggelt den Wert des Bits 7 im Register B.
+     */
     public void toggleB7() {
         Bit bit7 = getRegisterB().getBits()[7];
         getRegisterB().getBits()[7] = getRegisterService().toggleBit(bit7);
@@ -573,6 +670,11 @@ public class Controller {
         Platform.runLater(() -> b7.setText(String.valueOf(getRegisterB().getBits()[7].getPin())));
     }
 
+    /**
+     * Liefert das Register A.
+     *
+     * @return Register.
+     */
     private Register getRegisterA() {
         if (speicher == null) {
             initializeMemory();
@@ -580,6 +682,9 @@ public class Controller {
         return speicher.getSpeicheradressen()[0].getRegister()[5];
     }
 
+    /**
+     * Ordnet die Ports des RegisterA den Oberflächenelementen zu.
+     */
     private void setRegisterA() {
         a0.setText(String.valueOf(getRegisterA().getBits()[0].getPin()));
         a1.setText(String.valueOf(getRegisterA().getBits()[1].getPin()));
@@ -591,6 +696,11 @@ public class Controller {
         a7.setText(String.valueOf(getRegisterA().getBits()[7].getPin()));
     }
 
+    /**
+     * Liefert das Register B.
+     *
+     * @return Register
+     */
     private Register getRegisterB() {
         if (speicher == null) {
             initializeMemory();
@@ -598,6 +708,9 @@ public class Controller {
         return speicher.getSpeicheradressen()[0].getRegister()[6];
     }
 
+    /**
+     * Ordnet die Ports des RegisterB den Oberflächenelementen zu.
+     */
     private void setRegisterB() {
         b0.setText(String.valueOf(getRegisterB().getBits()[0].getPin()));
         b1.setText(String.valueOf(getRegisterB().getBits()[1].getPin()));
@@ -609,6 +722,9 @@ public class Controller {
         b7.setText(String.valueOf(getRegisterB().getBits()[7].getPin()));
     }
 
+    /**
+     * Methode zum Öffnen der Dokumentation.
+     */
     public void openDocumentation() {
         try {
             java.awt.Desktop.getDesktop().browse(new URI(PicSimulatorConstants.LINK_DOCUMENTATION));
@@ -617,6 +733,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Liefert eine Instanz des MemoryInitializerService.
+     *
+     * @return MemoryInitializerService.
+     */
     private MemoryInitializerService getMemoryInitializerService() {
         if (memoryInitializerService == null) {
             memoryInitializerService = new MemoryInitializerService();
@@ -624,6 +745,11 @@ public class Controller {
         return memoryInitializerService;
     }
 
+    /**
+     * Liefert eine Instanz des FileInputService.
+     *
+     * @return FileInputService.
+     */
     private FileInputService getFileInputService() {
         if (fileInputService == null) {
             fileInputService = new FileInputService();
@@ -631,6 +757,11 @@ public class Controller {
         return fileInputService;
     }
 
+    /**
+     * Liefert eine Instanz des RegisterService.
+     *
+     * @return RegisterService.
+     */
     private RegisterService getRegisterService() {
         if (registerService == null) {
             registerService = new RegisterService();
@@ -638,6 +769,11 @@ public class Controller {
         return registerService;
     }
 
+    /**
+     * Liefert eine Instant des BefehlSteuerungService.
+     *
+     * @return BefehSteuerungService.
+     */
     private BefehlSteuerungService getBefehlSteuerungService() {
         if (befehlSteuerungService == null) {
             befehlSteuerungService = new BefehlSteuerungService();
@@ -645,6 +781,11 @@ public class Controller {
         return befehlSteuerungService;
     }
 
+    /**
+     * Liefert eine Instanz des InterruptService.
+     *
+     * @return InterruptService
+     */
     private InterruptService getInterruptService() {
         if (interruptService == null) {
             interruptService = new InterruptService();
@@ -652,16 +793,22 @@ public class Controller {
         return interruptService;
     }
 
-
+    /**
+     * Aktiviert/Deaktiviert den Watchdog-Timer
+     */
     public void toggleWDT() {
         speicher.setWatchdogTimerEnabled(!speicher.isWatchdogTimerEnabled());
         updateView();
     }
 
+    /**
+     * Thread der je nach Auwahl des Ports, sowie der Taktfrequenz einen
+     * externen Taktgenerator steuert und den ausgwähten Port toggelt.
+     */
     public void toggleTaktGenerator() {
         taktgeneratorEnabled = !taktgeneratorEnabled;
 
-        if(!taktgeneratorEnabled){
+        if (!taktgeneratorEnabled) {
             updateView();
         }
 
@@ -686,7 +833,7 @@ public class Controller {
                     if (taktgenerator.getValue() == "RB7") toggleB7();
 
                     Platform.runLater(this::updateView);
-                    double sleepTime = (1/Double.parseDouble(taktGenFrequenz.getText()))*1000;
+                    double sleepTime = (1 / Double.parseDouble(taktGenFrequenz.getText())) * 1000;
                     Thread.sleep((long) sleepTime);
                 }
             } catch (InterruptedException e) {
@@ -698,10 +845,40 @@ public class Controller {
         thTakt.start();
     }
 
-
+    /**
+     * Methode, welche bei Änderung der Taktfrequenz diese als Double abspeichert.
+     */
     public void onChangeTaktfrequenz() {
-        System.out.println("changeee");
-        taktfrequenzValue = Integer.parseInt(taktfrequenz.getText());
+        taktfrequenzValue = Double.parseDouble(taktfrequenz.getText());
     }
+
+    public void connectHardware() {
+        int portA = getRegisterA().getIntWert();
+        int portB = getRegisterB().getIntWert();
+        int trisA = speicher.getSpeicheradressen()[16].getRegister()[5].getIntWert();
+        int trisB = speicher.getSpeicheradressen()[16].getRegister()[6].getIntWert();
+
+        System.out.println("---------- SENDEN ---------------");
+        System.out.println("PORTA: " + portA);
+        System.out.println("PORTB: " + portB);
+        System.out.println("TRISA: " + trisA);
+        System.out.println("TRISB: " + trisB);
+
+        List<String> s = SeriellerPort.getAllPorts();
+        if (s.size() == 0) {
+            return;
+        }
+
+        SeriellerPort seriellerPort = new SeriellerPort(trisA, portA, trisB, portB);
+        //SeriellerPort seriellerPort = new SeriellerPort(0, portA, 0, portB);
+        try {
+            seriellerPort.connect(SeriellerPort.getAllPorts().get(0));
+            seriellerPort.writeOut();
+            seriellerPort.readIn();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 

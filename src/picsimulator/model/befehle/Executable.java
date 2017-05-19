@@ -3,7 +3,7 @@ package picsimulator.model.befehle;
 import picsimulator.model.Speicher;
 
 /**
- * Created by ptrey on 24.04.2017.
+ * Interface, welches die Struktur der Befehlsklassen vorgibt.
  */
 public interface Executable {
 
