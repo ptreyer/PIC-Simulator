@@ -4,11 +4,20 @@ import picsimulator.model.Speicher;
 import picsimulator.model.befehle.pic.*;
 
 /**
- *
- * Created by ptrey on 24.04.2017.
+ * Service zur Auswertung und Ansteuerung der Befehle.
  */
 public class BefehlSteuerungService {
 
+    /**
+     * Wertet den übergebenen binaryString aus und erkennt so, welcher Befehl ausgeführt werden muss.
+     * Es wird eine Instanz des auszuführenden Befehles erstellt und die Ausführung diesen
+     * angestossen.
+     *
+     * @param speicher, der Zustand des aktuellen Speichers.
+     * @param binaryString, der opCode als String
+     *
+     * @return der aktualisierte Speicher.
+     */
     public Speicher steuereBefehl(Speicher speicher, String binaryString) {
 
         if (binaryString.startsWith("000111")) {

@@ -1,15 +1,19 @@
 package picsimulator.services;
 
-import picsimulator.constants.PicSimulatorConstants;
 import picsimulator.model.Bit;
-import picsimulator.model.Register;
 import picsimulator.model.Speicher;
 
 /**
- * Created by ptrey on 10.04.2017.
+ * Service zur Initialisierung des Speichers.
  */
 public class MemoryInitializerService {
 
+    /**
+     * Initialisiert den Speicher.
+     *
+     * @param speicher, der aktuelle Zustand des Speichers
+     * @return Speicher, der initialisierte Speicher
+     */
     public Speicher initializeMemory(Speicher speicher){
         Speicher initializedMemory = speicher;
         initializedMemory = initializeRegisterA(initializedMemory);
@@ -25,6 +29,12 @@ public class MemoryInitializerService {
         return initializedMemory;
     }
 
+    /**
+     * Initialisiert Register A und setzt vordefinierte Werte.
+     *
+     * @param speicher, der aktuelle Zustand des Speichers
+     * @return Speicher, der initialisierte Speicher
+     */
     private Speicher initializeRegisterA(Speicher speicher){
         Bit[] bits = new Bit[8];
         bits[0] = new Bit( 0, 1);
@@ -39,6 +49,12 @@ public class MemoryInitializerService {
         return speicher;
     }
 
+    /**
+     * Initialisiert Register B und setzt vordefinierte Werte.
+     *
+     * @param speicher, der aktuelle Zustand des Speichers
+     * @return Speicher, der initialisierte Speicher
+     */
     private Speicher initializeRegisterB(Speicher speicher){
         Bit[] bits = new Bit[8];
         bits[0] = new Bit( 0, 1);
@@ -53,6 +69,12 @@ public class MemoryInitializerService {
         return speicher;
     }
 
+    /**
+     * Initialisiert Register Status und setzt vordefinierte Werte.
+     *
+     * @param speicher, der aktuelle Zustand des Speichers
+     * @return Speicher, der initialisierte Speicher
+     */
     private Speicher initializeRegisterStatus(Speicher speicher){
         Bit[] bits = new Bit[8];
         bits[0] = new Bit( 0, 0);
@@ -67,6 +89,12 @@ public class MemoryInitializerService {
         return speicher;
     }
 
+    /**
+     * Initialisiert Register 7 und setzt vordefinierte Werte.
+     *
+     * @param speicher, der aktuelle Zustand des Speichers
+     * @return Speicher, der initialisierte Speicher
+     */
     private Speicher initializeRegister0007(Speicher speicher){
         Bit[] bits = new Bit[8];
         bits[0] = new Bit( 0, 0);
@@ -81,6 +109,12 @@ public class MemoryInitializerService {
         return speicher;
     }
 
+    /**
+     * Initialisiert Register 0800 und setzt vordefinierte Werte.
+     *
+     * @param speicher, der aktuelle Zustand des Speichers
+     * @return Speicher, der initialisierte Speicher
+     */
     private Speicher initializeRegister0800(Speicher speicher){
         Bit[] bits = new Bit[8];
         bits[0] = new Bit( 0, 0);
@@ -95,6 +129,12 @@ public class MemoryInitializerService {
         return speicher;
     }
 
+    /**
+     * Initialisiert Register 0801 und setzt vordefinierte Werte.
+     *
+     * @param speicher, der aktuelle Zustand des Speichers
+     * @return Speicher, der initialisierte Speicher
+     */
     private Speicher initializeRegister0801(Speicher speicher){
         Bit[] bits = new Bit[8];
         bits[0] = new Bit( 0, 0);
@@ -109,6 +149,12 @@ public class MemoryInitializerService {
         return speicher;
     }
 
+    /**
+     * Initialisiert Register 8001 und setzt vordefinierte Werte.
+     *
+     * @param speicher, der aktuelle Zustand des Speichers
+     * @return Speicher, der initialisierte Speicher
+     */
     private Speicher initializeRegister8001(Speicher speicher){
         Bit[] bits = new Bit[8];
         bits[0] = new Bit( 1, 0);
@@ -123,6 +169,12 @@ public class MemoryInitializerService {
         return speicher;
     }
 
+    /**
+     * Initialisiert Register 8003 und setzt vordefinierte Werte.
+     *
+     * @param speicher, der aktuelle Zustand des Speichers
+     * @return Speicher, der initialisierte Speicher
+     */
     private Speicher initializeRegister8003(Speicher speicher){
         Bit[] bits = new Bit[8];
         bits[0] = new Bit( 0, 0);
@@ -137,6 +189,12 @@ public class MemoryInitializerService {
         return speicher;
     }
 
+    /**
+     * Initialisiert Register 8005 und setzt vordefinierte Werte.
+     *
+     * @param speicher, der aktuelle Zustand des Speichers
+     * @return Speicher, der initialisierte Speicher
+     */
     private Speicher initializeRegister8005(Speicher speicher){
         Bit[] bits = new Bit[8];
         bits[0] = new Bit( 1, 0);
@@ -151,6 +209,12 @@ public class MemoryInitializerService {
         return speicher;
     }
 
+    /**
+     * Initialisiert Register 8006 und setzt vordefinierte Werte.
+     *
+     * @param speicher, der aktuelle Zustand des Speichers
+     * @return Speicher, der initialisierte Speicher
+     */
     private Speicher initializeRegister8006(Speicher speicher){
         Bit[] bits = new Bit[8];
         bits[0] = new Bit( 1, 0);

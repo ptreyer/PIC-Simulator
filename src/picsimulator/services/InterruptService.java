@@ -4,15 +4,31 @@ import picsimulator.model.Register;
 import picsimulator.model.Speicher;
 
 /**
- * Created by Edeka on 08.05.2017.
+ * Service zur Überprüfung von Interrupts.
  */
 public class InterruptService {
 
+    /**
+     * Erhöht den Timer und prüft ob ein Interrupt am Timer0 vorliegt.
+     *
+     * @param speicher, der aktuelle Speicherzustand
+     * @param cycles, die Anzahl der Taktzyklen
+     *
+     * @return der aktualisierte Speicher.
+     */
     public Speicher checkForTMR0TimerInterrupt(Speicher speicher, int cycles) {
         speicher = incrementTimer0(speicher, cycles);
         return checkForTMR0Interrupt(speicher);
     }
 
+    /**
+     * Prüft ob ein Interrupt am Timer0 vorliegt, falls ja werden die entsprechenden
+     * Flags gesetzt.
+     *
+     * @param speicher, der aktuelle Speicherzustand
+     *
+     * @return der aktualisierte Speicher.
+     */
     public Speicher checkForTMR0Interrupt(Speicher speicher) {
         Register intconRegister = speicher.getSpeicheradressen()[1].getRegister()[3];
 
@@ -24,6 +40,14 @@ public class InterruptService {
         return speicher;
     }
 
+    /**
+     * Inkrementiert den Timer0.
+     *
+     * @param speicher, der aktuelle Speicherzustand
+     * @param cycles, die Anzahl der Taktzyklen
+     *
+     * @return der aktualisierte Speicher.
+     */
     private Speicher incrementTimer0(Speicher speicher, int cycles) {
         Register optionRegister = speicher.getSpeicheradressen()[16].getRegister()[1];
 
@@ -63,6 +87,13 @@ public class InterruptService {
         return speicher;
     }
 
+    /**
+     * Prüft ob ein INT-Interrupt vorliegt.
+     *
+     * @param speicher, der aktuelle Speicherzustand
+     *
+     * @return der aktualisierte Speicher.
+     */
     public Speicher checkForINTInterrupt(Speicher speicher) {
         Register intconRegister = speicher.getSpeicheradressen()[1].getRegister()[3];
         if (intconRegister.getBits()[7].getPin() == 1 &&
@@ -74,6 +105,13 @@ public class InterruptService {
         return speicher;
     }
 
+    /**
+     * Prüft ob ein Interrupt an PortB vorliegt.
+     *
+     * @param speicher, der aktuelle Speicherzustand
+     *
+     * @return der aktualisierte Speicher.
+     */
     public Speicher checkForPortBInterrupt(Speicher speicher) {
         Register intconRegister = speicher.getSpeicheradressen()[1].getRegister()[3];
         if (intconRegister.getBits()[7].getPin() == 1 &&
@@ -84,11 +122,18 @@ public class InterruptService {
         return speicher;
     }
 
+    /**
+     * Erhöht den Watchdog-Timer und prüft ob ein Interrupt vorliegt. Je nach Zustand des Sleep-Modus
+     * wird ein Reset des Speichers durchgeführt.
+     *
+     * @param speicher, der aktuelle Speicherzustand
+     *
+     * @return der aktualisierte Speicher.
+     */
     public Speicher checkForWatchDogInterrupt(Speicher speicher, int cycles) {
         for (int i = 0; i < cycles; i++) {
             speicher.incrementWatchdogTimer();
-            //if (speicher.getWatchdogTimer() >= 18000 * speicher.getPrescalerWatchdogMaxValue())//Default instruction time = 1ms
-            if (speicher.getWatchdogTimer() >= 20)//Default instruction time = 1ms
+            if (speicher.getWatchdogTimer() >= 18000 * speicher.getPrescalerWatchdogMaxValue())//Default instruction time = 1ms
             {
                 if (speicher.isSleepModus()) {
                     speicher.setSleepModus(false);

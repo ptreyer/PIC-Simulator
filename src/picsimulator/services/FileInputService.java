@@ -8,10 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ptrey on 10.04.2017.
+ * Service zum Laden und Auswerten eines LST-Files.
  */
 public class FileInputService {
 
+    /**
+     * Importiert ein File. Öffnet zu Beginn einen FileChooser anhand welchem der Benutzer ein
+     * File auswählen kann. Anschließend werden die Inhalte des Files auf den Datentyp Befehl
+     * gemapped.
+     *
+     * @return die Liste der Befehle des LST-Files.
+     */
     public List<Befehl> importFile() {
         try {
             FileChooser fileChooser = new FileChooser();

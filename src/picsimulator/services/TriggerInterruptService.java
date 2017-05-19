@@ -4,7 +4,8 @@ import picsimulator.model.Register;
 import picsimulator.model.Speicher;
 
 /**
- * Created by Edeka on 13.05.2017.
+ * Service, welcher den Zustand vor der Ausführung eines Befehls mit dem danach vergleicht und bei
+ * Änderungen die entsprechenden Bits für die Triggerung eines Interrupts setzt.
  */
 public class TriggerInterruptService {
 
@@ -28,7 +29,11 @@ public class TriggerInterruptService {
     private static int rb0intAlt = 0;
     private static int rb0intNeu = 0;
 
-    //Alte Werte der verschiedenen Faktoren fuer einen spaeteren Vergleich erhalten
+    /**
+     * Alte Werte der verschiedenen Faktoren fuer einen spaeteren Vergleich erhalten
+     *
+     *  @param speicher, der aktuelle Zustand des Speichers.
+     */
     public static void saveOldValues(Speicher speicher) {
         Register aRegister = speicher.getSpeicheradressen()[0].getRegister()[5];
         Register bRegister = speicher.getSpeicheradressen()[0].getRegister()[6];
@@ -42,6 +47,12 @@ public class TriggerInterruptService {
         rb0intAlt = bRegister.getBits()[0].getPin();
     }
 
+    /**
+     * Neue Werte der verschiedenen Faktoren erhalten und die entsprechenden Veränderungen prüfen.
+     * Gegebenenfalls werden Interrupt getriggered.
+     *
+     *  @param speicher, der aktuelle Zustand des Speichers.
+     */
     public static Speicher analyseNewValues(Speicher speicher) {
         Register aRegister = speicher.getSpeicheradressen()[0].getRegister()[5];
         Register bRegister = speicher.getSpeicheradressen()[0].getRegister()[6];
@@ -105,11 +116,20 @@ public class TriggerInterruptService {
         return speicher;
     }
 
-
+    /**
+     * Gibt eine Instanz des RegisterService zurück.
+     *
+     * @return RegisterService
+     */
     public static RegisterService getRegisterService() {
         return new RegisterService();
     }
 
+    /**
+     * Gibt eine Instanz des InterruptService zurück.
+     *
+     * @return InterruptService
+     */
     public static InterruptService getInterruptService() {
         return new InterruptService();
     }

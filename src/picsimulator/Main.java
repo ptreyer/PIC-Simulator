@@ -6,8 +6,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main-Klasse zum Starten des Programmes.
+ */
 public class Main extends Application {
 
+    /**
+     * Startet das Programm und öffnet die grafische Oberfläche.
+     *
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("layout/picsimulator.fxml"));
