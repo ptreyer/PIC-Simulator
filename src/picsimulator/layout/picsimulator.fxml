@@ -13,7 +13,7 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="650.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
+<AnchorPane prefHeight="650.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picsimulator.controller.Controller">
     <children>
       <MenuBar prefHeight="25.0" prefWidth="800.0" AnchorPane.bottomAnchor="481.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -64,7 +64,7 @@
                                     <TextField fx:id="taktfrequenz" layoutX="77.0" layoutY="5.0" onInputMethodTextChanged="#onChangeTaktfrequenz" onKeyPressed="#onChangeTaktfrequenz" onKeyReleased="#onChangeTaktfrequenz" onKeyTyped="#onChangeTaktfrequenz" prefHeight="25.0" prefWidth="45.0" text="4000" />
                                     <Label layoutY="9.0" text="Taktfrequenz:" />
                                     <Label layoutX="127.0" layoutY="9.0" text="kHz" />
-                                    <TextField fx:id="laufzeit" editable="false" layoutX="226.0" layoutY="5.0" prefHeight="25.0" prefWidth="41.0" text="4" />
+                                    <TextField fx:id="laufzeit" editable="false" layoutX="226.0" layoutY="5.0" prefHeight="25.0" prefWidth="41.0" text="0" />
                                     <Label layoutX="169.0" layoutY="9.0" text="Laufzeit:" />
                                     <Label layoutX="270.0" layoutY="9.0" text="µsec" />
                                     <Label layoutX="314.0" layoutY="9.0" text="Taktgenerator:" />
@@ -109,8 +109,8 @@
                            <children>
                               <AnchorPane prefHeight="306.0" prefWidth="356.0">
                                  <children>
-                                    <TextField editable="false" layoutY="20.0" prefHeight="25.0" prefWidth="45.0" text="RegA" />
-                                    <TextField editable="false" layoutY="45.0" prefHeight="25.0" prefWidth="45.0" text="PinA" />
+                                    <TextField editable="false" layoutY="20.0" prefHeight="25.0" prefWidth="45.0" text="RA" />
+                                    <TextField editable="false" layoutY="45.0" prefHeight="25.0" prefWidth="45.0" text="Pin" />
                                     <ToggleButton id="a0" fx:id="a0" layoutX="198.0" layoutY="45.0" mnemonicParsing="false" onAction="#toggleA0" text="0" />
                                     <ToggleButton id="a1" fx:id="a1" layoutX="176.0" layoutY="45.0" mnemonicParsing="false" onAction="#toggleA1" text="0" />
                                     <ToggleButton id="a2" fx:id="a2" layoutX="154.0" layoutY="45.0" mnemonicParsing="false" onAction="#toggleA2" text="0" />
@@ -127,8 +127,8 @@
                                     <TextField editable="false" layoutX="88.0" layoutY="20.0" prefHeight="25.0" prefWidth="23.0" text="5" />
                                     <TextField editable="false" layoutX="66.0" layoutY="20.0" prefHeight="25.0" prefWidth="23.0" text="6" />
                                     <TextField editable="false" layoutX="44.0" layoutY="20.0" prefHeight="25.0" prefWidth="23.0" text="7" />
-                                    <TextField editable="false" layoutY="89.0" prefHeight="25.0" prefWidth="45.0" text="RegB" />
-                                    <TextField editable="false" layoutY="114.0" prefHeight="25.0" prefWidth="45.0" text="PinB" />
+                                    <TextField editable="false" layoutY="89.0" prefHeight="25.0" prefWidth="45.0" text="RB" />
+                                    <TextField editable="false" layoutY="114.0" prefHeight="25.0" prefWidth="45.0" text="Pin" />
                                     <ToggleButton id="b0" fx:id="b0" layoutX="198.0" layoutY="114.0" mnemonicParsing="false" onAction="#toggleB0" text="0" />
                                     <ToggleButton id="b1" fx:id="b1" layoutX="176.0" layoutY="114.0" mnemonicParsing="false" onAction="#toggleB1" text="0" />
                                     <ToggleButton id="b2" fx:id="b2" layoutX="154.0" layoutY="114.0" mnemonicParsing="false" onAction="#toggleB2" text="0" />
@@ -225,8 +225,8 @@
                                     <ToggleButton id="a5" fx:id="a5Int" layoutX="88.0" layoutY="-2.0" mnemonicParsing="false" onAction="#toggleA5" scaleX="0.75" scaleY="0.75" text="0" />
                                     <ToggleButton id="a6" fx:id="a6Int" layoutX="66.0" layoutY="-2.0" mnemonicParsing="false" onAction="#toggleA6" scaleX="0.75" scaleY="0.75" text="0" />
                                     <ToggleButton id="a7" fx:id="a7Int" layoutX="44.0" layoutY="-2.0" mnemonicParsing="false" onAction="#toggleA7" scaleX="0.75" scaleY="0.75" text="0" />
-                                    <Label layoutX="5.0" layoutY="2.0" text="In/Out" />
-                                    <Label layoutX="6.0" layoutY="71.0" text="In/Out" />
+                                    <Label layoutX="5.0" layoutY="2.0" text="Tris" />
+                                    <Label layoutX="6.0" layoutY="71.0" text="Tris" />
                                  </children>
                               </AnchorPane>
                            </children>
