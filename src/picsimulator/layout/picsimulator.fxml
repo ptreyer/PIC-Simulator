@@ -25,7 +25,8 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#connectHardware" text="Serielle Hardwareansteuerung" />
+              <MenuItem mnemonicParsing="false" onAction="#sendData" text="RS232: senden" />
+                  <MenuItem mnemonicParsing="false" onAction="#receiveData" text="RS232: empfangen" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

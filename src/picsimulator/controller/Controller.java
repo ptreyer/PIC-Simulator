@@ -97,6 +97,40 @@ public class Controller {
     private ToggleButton a7;
 
     @FXML
+    private ToggleButton a0tris;
+    @FXML
+    private ToggleButton a1tris;
+    @FXML
+    private ToggleButton a2tris;
+    @FXML
+    private ToggleButton a3tris;
+    @FXML
+    private ToggleButton a4tris;
+    @FXML
+    private ToggleButton a5tris;
+    @FXML
+    private ToggleButton a6tris;
+    @FXML
+    private ToggleButton a7tris;
+
+    @FXML
+    private ToggleButton b0tris;
+    @FXML
+    private ToggleButton b1tris;
+    @FXML
+    private ToggleButton b2tris;
+    @FXML
+    private ToggleButton b3tris;
+    @FXML
+    private ToggleButton b4tris;
+    @FXML
+    private ToggleButton b5tris;
+    @FXML
+    private ToggleButton b6tris;
+    @FXML
+    private ToggleButton b7tris;
+
+    @FXML
     private TextField WREG;
     @FXML
     private TextField FSR;
@@ -185,10 +219,12 @@ public class Controller {
 
     private int currentRow = 1;
     private boolean run = false;
-    public static int runtime = 0;
+    private static int runtime = 0;
     private boolean taktgeneratorEnabled;
-    public static double laufzeitCalculated = 0;
-    public static double taktfrequenzValue = 4000;
+    private static double laufzeitCalculated = 0;
+    private static double taktfrequenzValue = 4000;
+    private SeriellerPort seriellerPort;
+    private boolean connected;
 
     /**
      * Methode zum Öffnen eines LST-Files. Sollte das File erfolgreich geöffnet werden, wird dies
@@ -291,7 +327,6 @@ public class Controller {
                 tableFileContent.scrollTo(currentRow - 2);
                 if (execute(befehl)) break;
                 TriggerInterruptService.saveOldValues(speicher);
-                debugTimer();
                 updateView();
             }
         }
@@ -341,12 +376,11 @@ public class Controller {
                 speicher = getInterruptService().checkForTMR0TimerInterrupt(speicher, cycles);
             }
         }
-        debugTimer();
         if (speicher.isInterrupt()) {
             updateView();
             Register pclReg = speicher.getSpeicheradressen()[0].getRegister()[2];
             StackEintrag stackEintrag = new StackEintrag();
-            stackEintrag.setWert(new Integer(pclReg.getIntWert() + 1));
+            stackEintrag.setWert(pclReg.getIntWert() + 1);
             speicher.addToStack(stackEintrag);
             speicher.getSpeicheradressen()[0].getRegister()[2].setWert(4);
             // Interrupt deaktivieren
@@ -363,18 +397,6 @@ public class Controller {
         runtime++;
         laufzeitCalculated = laufzeitCalculated + (4000 / taktfrequenzValue);
         System.out.println(laufzeitCalculated);
-    }
-
-    private void debugTimer() {
-       /* System.out.println("------------1--------------");
-        System.out.println("Laufzeit: " + runtime);
-        System.out.println("Prescaler: " + speicher.getPrescaler());
-        System.out.println("Prescaler-MAX: " + speicher.getPrescalerMaxValue());
-        System.out.println("TMR0: " + speicher.getTimer0().getIntWert());
-        System.out.println("WatchdogTimer: " + speicher.getWatchdogTimer());
-        System.out.println("WatchdogTimerEnabled: " + speicher.isWatchdogTimerEnabled());
-        System.out.println("SLEEP: " + speicher.isSleepModus());
-        System.out.println("------------2-------------"); */
     }
 
     /**
@@ -468,6 +490,8 @@ public class Controller {
         initializeMemory();
         setRegisterA();
         setRegisterB();
+        setRegisterTrisA();
+        setRegisterTrisB();
         updateView();
         tableFileContent.refresh();
     }
@@ -483,6 +507,8 @@ public class Controller {
         initializeMemory();
         setRegisterA();
         setRegisterB();
+        setRegisterTrisA();
+        setRegisterTrisB();
         updateView();
         tableFileContent.getItems().clear();
         tableMemory.getItems().clear();
@@ -505,6 +531,8 @@ public class Controller {
         tableColumnMemoryBit7.setCellValueFactory(new PropertyValueFactory<>("register7Wert"));
         setRegisterA();
         setRegisterB();
+        setRegisterTrisA();
+        setRegisterTrisB();
         tableMemory.getItems().setAll(speicher.getSpeicheradressen());
         tableColumnStack.setCellValueFactory(new PropertyValueFactory<>("hexWert"));
         runtime = 0;
@@ -671,6 +699,168 @@ public class Controller {
     }
 
     /**
+     * Toggelt den Wert des Bits 0 im Register Tris A.
+     */
+    public void toggleTrisA0() {
+        Bit bit0 = getRegisterTrisA().getBits()[0];
+        getRegisterTrisA().getBits()[0] = getRegisterService().toggleBit(bit0);
+        tableMemory.refresh();
+        Platform.runLater(() -> a0tris.setText(getIOValue(getRegisterTrisA().getBits()[0].getPin())));
+    }
+
+    /**
+     * Toggelt den Wert des Bits 1 im Register Tris A.
+     */
+    public void toggleTrisA1() {
+        Bit bit1 = getRegisterTrisA().getBits()[1];
+        getRegisterTrisA().getBits()[1] = getRegisterService().toggleBit(bit1);
+        tableMemory.refresh();
+        Platform.runLater(() -> a1tris.setText(getIOValue(getRegisterTrisA().getBits()[1].getPin())));
+    }
+
+    /**
+     * Toggelt den Wert des Bits 2 im Register Tris A.
+     */
+    public void toggleTrisA2() {
+        Bit bit2 = getRegisterTrisA().getBits()[2];
+        getRegisterTrisA().getBits()[2] = getRegisterService().toggleBit(bit2);
+        tableMemory.refresh();
+        Platform.runLater(() -> a2tris.setText(getIOValue(getRegisterTrisA().getBits()[2].getPin())));
+    }
+
+    /**
+     * Toggelt den Wert des Bits 3 im Register Tris A.
+     */
+    public void toggleTrisA3() {
+        Bit bit3 = getRegisterTrisA().getBits()[3];
+        getRegisterTrisA().getBits()[3] = getRegisterService().toggleBit(bit3);
+        tableMemory.refresh();
+        Platform.runLater(() -> a3tris.setText(getIOValue(getRegisterTrisA().getBits()[3].getPin())));
+    }
+
+    /**
+     * Toggelt den Wert des Bits 4 im Register Tris A.
+     */
+    public void toggleTrisA4() {
+        Bit bit4 = getRegisterTrisA().getBits()[4];
+        getRegisterTrisA().getBits()[4] = getRegisterService().toggleBit(bit4);
+        tableMemory.refresh();
+        Platform.runLater(() -> a4tris.setText(getIOValue(getRegisterTrisA().getBits()[4].getPin())));
+    }
+
+    /**
+     * Toggelt den Wert des Bits 5 im Register Tris A.
+     */
+    public void toggleTrisA5() {
+        Bit bit5 = getRegisterTrisA().getBits()[5];
+        getRegisterTrisA().getBits()[5] = getRegisterService().toggleBit(bit5);
+        tableMemory.refresh();
+        Platform.runLater(() -> a5tris.setText(getIOValue(getRegisterTrisA().getBits()[5].getPin())));
+    }
+
+    /**
+     * Toggelt den Wert des Bits 6 im Register Tris A.
+     */
+    public void toggleTrisA6() {
+        Bit bit6 = getRegisterTrisA().getBits()[6];
+        getRegisterTrisA().getBits()[6] = getRegisterService().toggleBit(bit6);
+        tableMemory.refresh();
+        Platform.runLater(() -> a6tris.setText(getIOValue(getRegisterTrisA().getBits()[6].getPin())));
+    }
+
+    /**
+     * Toggelt den Wert des Bits 7 im Register Tris A.
+     */
+    public void toggleTrisA7() {
+        Bit bit7 = getRegisterTrisA().getBits()[7];
+        getRegisterTrisA().getBits()[7] = getRegisterService().toggleBit(bit7);
+        tableMemory.refresh();
+        Platform.runLater(() -> a7tris.setText(getIOValue(getRegisterTrisA().getBits()[7].getPin())));
+    }
+
+    /**
+     * Toggelt den Wert des Bits 0 im Register Tris B.
+     */
+    public void toggleTrisB0() {
+        Bit bit0 = getRegisterTrisB().getBits()[0];
+        getRegisterTrisB().getBits()[0] = getRegisterService().toggleBit(bit0);
+        tableMemory.refresh();
+        Platform.runLater(() -> b0tris.setText(getIOValue(getRegisterTrisB().getBits()[0].getPin())));
+    }
+
+    /**
+     * Toggelt den Wert des Bits 1 im Register Tris B.
+     */
+    public void toggleTrisB1() {
+        Bit bit1 = getRegisterTrisB().getBits()[1];
+        getRegisterTrisB().getBits()[1] = getRegisterService().toggleBit(bit1);
+        tableMemory.refresh();
+        Platform.runLater(() -> b1tris.setText(getIOValue(getRegisterTrisB().getBits()[1].getPin())));
+    }
+
+    /**
+     * Toggelt den Wert des Bits 2 im Register Tris B.
+     */
+    public void toggleTrisB2() {
+        Bit bit2 = getRegisterTrisB().getBits()[2];
+        getRegisterTrisB().getBits()[2] = getRegisterService().toggleBit(bit2);
+        tableMemory.refresh();
+        Platform.runLater(() -> b2tris.setText(getIOValue(getRegisterTrisB().getBits()[2].getPin())));
+    }
+
+    /**
+     * Toggelt den Wert des Bits 3 im Register Tris B.
+     */
+    public void toggleTrisB3() {
+        Bit bit3 = getRegisterTrisB().getBits()[3];
+        getRegisterTrisB().getBits()[3] = getRegisterService().toggleBit(bit3);
+        tableMemory.refresh();
+        Platform.runLater(() -> b3tris.setText(getIOValue(getRegisterTrisB().getBits()[3].getPin())));
+    }
+
+    /**
+     * Toggelt den Wert des Bits 4 im Register Tris B.
+     */
+    public void toggleTrisB4() {
+        Bit bit4 = getRegisterTrisB().getBits()[4];
+        getRegisterTrisB().getBits()[4] = getRegisterService().toggleBit(bit4);
+        tableMemory.refresh();
+        Platform.runLater(() -> b4tris.setText(getIOValue(getRegisterTrisB().getBits()[4].getPin())));
+    }
+
+    /**
+     * Toggelt den Wert des Bits 5 im Register Tris B.
+     */
+    public void toggleTrisB5() {
+        Bit bit5 = getRegisterTrisB().getBits()[5];
+        getRegisterTrisB().getBits()[5] = getRegisterService().toggleBit(bit5);
+        tableMemory.refresh();
+        Platform.runLater(() -> b5tris.setText(getIOValue(getRegisterTrisB().getBits()[5].getPin())));
+    }
+
+    /**
+     * Toggelt den Wert des Bits 6 im Register Tris B.
+     */
+    public void toggleTrisB6() {
+        Bit bit6 = getRegisterTrisB().getBits()[6];
+        getRegisterTrisB().getBits()[6] = getRegisterService().toggleBit(bit6);
+        tableMemory.refresh();
+        Platform.runLater(() -> b6tris.setText(getIOValue(getRegisterTrisB().getBits()[6].getPin())));
+    }
+
+    /**
+     * Toggelt den Wert des Bits 7 im Register Tris B.
+     */
+    public void toggleTrisB7() {
+        Bit bit7 = getRegisterTrisB().getBits()[7];
+        getRegisterTrisB().getBits()[7] = getRegisterService().toggleBit(bit7);
+        tableMemory.refresh();
+        Platform.runLater(() -> b7tris.setText(getIOValue(getRegisterTrisB().getBits()[7].getPin())));
+    }
+
+
+
+    /**
      * Liefert das Register A.
      *
      * @return Register.
@@ -680,6 +870,18 @@ public class Controller {
             initializeMemory();
         }
         return speicher.getSpeicheradressen()[0].getRegister()[5];
+    }
+
+    /**
+     * Liefert das Register Tris A.
+     *
+     * @return Register.
+     */
+    private Register getRegisterTrisA() {
+        if (speicher == null) {
+            initializeMemory();
+        }
+        return speicher.getSpeicheradressen()[16].getRegister()[5];
     }
 
     /**
@@ -697,6 +899,20 @@ public class Controller {
     }
 
     /**
+     * Ordnet die Ports des Register Tris A den Oberflächenelementen zu.
+     */
+    private void setRegisterTrisA() {
+        a0tris.setText(getIOValue(getRegisterTrisA().getBits()[0].getPin()));
+        a1tris.setText(getIOValue(getRegisterTrisA().getBits()[1].getPin()));
+        a2tris.setText(getIOValue(getRegisterTrisA().getBits()[2].getPin()));
+        a3tris.setText(getIOValue(getRegisterTrisA().getBits()[3].getPin()));
+        a4tris.setText(getIOValue(getRegisterTrisA().getBits()[4].getPin()));
+        a5tris.setText(getIOValue(getRegisterTrisA().getBits()[5].getPin()));
+        a6tris.setText(getIOValue(getRegisterTrisA().getBits()[6].getPin()));
+        a7tris.setText(getIOValue(getRegisterTrisA().getBits()[7].getPin()));
+    }
+
+    /**
      * Liefert das Register B.
      *
      * @return Register
@@ -706,6 +922,18 @@ public class Controller {
             initializeMemory();
         }
         return speicher.getSpeicheradressen()[0].getRegister()[6];
+    }
+
+    /**
+     * Liefert das Register Tris B.
+     *
+     * @return Register
+     */
+    private Register getRegisterTrisB() {
+        if (speicher == null) {
+            initializeMemory();
+        }
+        return speicher.getSpeicheradressen()[16].getRegister()[6];
     }
 
     /**
@@ -720,6 +948,20 @@ public class Controller {
         b5.setText(String.valueOf(getRegisterB().getBits()[5].getPin()));
         b6.setText(String.valueOf(getRegisterB().getBits()[6].getPin()));
         b7.setText(String.valueOf(getRegisterB().getBits()[7].getPin()));
+    }
+
+    /**
+     * Ordnet die Ports des Register Tris B den Oberflächenelementen zu.
+     */
+    private void setRegisterTrisB() {
+        b0tris.setText(getIOValue(getRegisterTrisB().getBits()[0].getPin()));
+        b1tris.setText(getIOValue(getRegisterTrisB().getBits()[1].getPin()));
+        b2tris.setText(getIOValue(getRegisterTrisB().getBits()[2].getPin()));
+        b3tris.setText(getIOValue(getRegisterTrisB().getBits()[3].getPin()));
+        b4tris.setText(getIOValue(getRegisterTrisB().getBits()[4].getPin()));
+        b5tris.setText(getIOValue(getRegisterTrisB().getBits()[5].getPin()));
+        b6tris.setText(getIOValue(getRegisterTrisB().getBits()[6].getPin()));
+        b7tris.setText(getIOValue(getRegisterTrisB().getBits()[7].getPin()));
     }
 
     /**
@@ -815,22 +1057,22 @@ public class Controller {
         Thread thTakt = new Thread(() -> {
             try {
                 while (taktgeneratorEnabled) {
-                    if (taktgenerator.getValue() == "RA0") toggleA0();
-                    if (taktgenerator.getValue() == "RA1") toggleA1();
-                    if (taktgenerator.getValue() == "RA2") toggleA2();
-                    if (taktgenerator.getValue() == "RA3") toggleA3();
-                    if (taktgenerator.getValue() == "RA4") toggleA4();
-                    if (taktgenerator.getValue() == "RA5") toggleA5();
-                    if (taktgenerator.getValue() == "RA6") toggleA6();
-                    if (taktgenerator.getValue() == "RA7") toggleA7();
-                    if (taktgenerator.getValue() == "RB0") toggleB0();
-                    if (taktgenerator.getValue() == "RB1") toggleB1();
-                    if (taktgenerator.getValue() == "RB2") toggleB2();
-                    if (taktgenerator.getValue() == "RB3") toggleB3();
-                    if (taktgenerator.getValue() == "RB4") toggleB4();
-                    if (taktgenerator.getValue() == "RB5") toggleB5();
-                    if (taktgenerator.getValue() == "RB6") toggleB6();
-                    if (taktgenerator.getValue() == "RB7") toggleB7();
+                    if (taktgenerator.getValue().equals("RA0")) toggleA0();
+                    if (taktgenerator.getValue().equals("RA1")) toggleA1();
+                    if (taktgenerator.getValue().equals("RA2")) toggleA2();
+                    if (taktgenerator.getValue().equals("RA3")) toggleA3();
+                    if (taktgenerator.getValue().equals("RA4")) toggleA4();
+                    if (taktgenerator.getValue().equals("RA5")) toggleA5();
+                    if (taktgenerator.getValue().equals("RA6")) toggleA6();
+                    if (taktgenerator.getValue().equals("RA7")) toggleA7();
+                    if (taktgenerator.getValue().equals("RB0")) toggleB0();
+                    if (taktgenerator.getValue().equals("RB1")) toggleB1();
+                    if (taktgenerator.getValue().equals("RB2")) toggleB2();
+                    if (taktgenerator.getValue().equals("RB3")) toggleB3();
+                    if (taktgenerator.getValue().equals("RB4")) toggleB4();
+                    if (taktgenerator.getValue().equals("RB5")) toggleB5();
+                    if (taktgenerator.getValue().equals("RB6")) toggleB6();
+                    if (taktgenerator.getValue().equals("RB7")) toggleB7();
 
                     Platform.runLater(this::updateView);
                     double sleepTime = (1 / Double.parseDouble(taktGenFrequenz.getText())) * 1000;
@@ -852,7 +1094,7 @@ public class Controller {
         taktfrequenzValue = Double.parseDouble(taktfrequenz.getText());
     }
 
-    public void connectHardware() {
+    public void sendData() {
         int portA = getRegisterA().getIntWert();
         int portB = getRegisterB().getIntWert();
         int trisA = speicher.getSpeicheradressen()[16].getRegister()[5].getIntWert();
@@ -864,21 +1106,55 @@ public class Controller {
         System.out.println("TRISA: " + trisA);
         System.out.println("TRISB: " + trisB);
 
-        List<String> s = SeriellerPort.getAllPorts();
-        if (s.size() == 0) {
-            return;
+        if(seriellerPort == null){
+            seriellerPort = new SeriellerPort(trisA, portA, trisB, portB);
+        }
+        if(!connected){
+            try {
+                List<String> s = SeriellerPort.getAllPorts();
+                if (s.size() == 0) {
+                    return;
+                }
+                seriellerPort.connect(SeriellerPort.getAllPorts().get(0));
+                connected = true;
+
+                seriellerPort.writeOut();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
-        SeriellerPort seriellerPort = new SeriellerPort(trisA, portA, trisB, portB);
-        //SeriellerPort seriellerPort = new SeriellerPort(0, portA, 0, portB);
-        try {
-            seriellerPort.connect(SeriellerPort.getAllPorts().get(0));
-            seriellerPort.writeOut();
-            seriellerPort.readIn();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
+
+    public void receiveData() {
+        seriellerPort.readIn();
+
+        getRegisterA().setWert(seriellerPort.getPortA());
+        getRegisterB().setWert(seriellerPort.getPortB());
+        getRegisterTrisA().setWert(seriellerPort.getTrisA());
+        getRegisterTrisB().setWert(seriellerPort.getTrisB());
+
+        System.out.println("--------------- EMPFANGEN ------------------");
+        System.out.println("PORTA: " + getRegisterA().getIntWert());
+        System.out.println("PORTB: " + getRegisterB().getIntWert());
+        System.out.println("TRISA: " + getRegisterTrisA().getIntWert());
+        System.out.println("TRISB: " + getRegisterTrisB().getIntWert());
+
+    }
+
+    /**
+     * Wertet den Pin des Bits aus und gibt anschließend den I/= Value als String zurück.
+     *
+     * @param pin, der Pin des Bits
+     * @return der I/O Value des Bits als String
+     */
+    private String getIOValue(int pin) {
+        if (pin == 1) {
+            return "i";
+        }
+        return "o";
+    }
+
 
 }
 

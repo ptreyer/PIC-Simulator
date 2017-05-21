@@ -293,12 +293,22 @@ public class SeriellerPort {
     private void updatePortsFromReadIn(int portAB[]) {
         portA = ((portAB[0] - 0x32) << 4) + portAB[1] - 0x30;
         portB = ((portAB[2] - 0x30) << 4) + portAB[3] - 0x30;
-
-        System.out.println("--------------- EMPFANGEN ------------------");
-        System.out.println("PORTA: " + portA);
-        System.out.println("PORTB: " + portB);
-        System.out.println("TRISA: " + trisA);
-        System.out.println("TRISB: " + trisB);
-
     }
+
+    public int getTrisA() {
+        return trisA;
+    }
+
+    public int getPortA() {
+        return portA;
+    }
+
+    public int getTrisB() {
+        return trisB;
+    }
+
+    public int getPortB() {
+        return portB;
+    }
+
 }
