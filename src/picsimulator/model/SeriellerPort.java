@@ -150,14 +150,6 @@ public class SeriellerPort {
         return valueToSend;
     }
 
-    /**
-     * Methode um den im Zwischenspeicher liegenden PortA-Wert auszugeben.
-     *
-     * @return Gibt den aktuellen Wert von PortA als INT zurück
-     */
-    public int getInputPortA() {
-        return portA;
-    }
 
     /**
      * Methode um den im Zwischenspeicher liegenden PortB-Wert auszugeben.

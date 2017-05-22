@@ -29,7 +29,7 @@ public class InterruptService {
      *
      * @return der aktualisierte Speicher.
      */
-    public Speicher checkForTMR0Interrupt(Speicher speicher) {
+    private Speicher checkForTMR0Interrupt(Speicher speicher) {
         Register intconRegister = speicher.getSpeicheradressen()[1].getRegister()[3];
 
         if (intconRegister.getBits()[7].getPin() == 1 &&
@@ -133,6 +133,7 @@ public class InterruptService {
     public Speicher checkForWatchDogInterrupt(Speicher speicher, int cycles) {
         for (int i = 0; i < cycles; i++) {
             speicher.incrementWatchdogTimer();
+            System.out.println("WatchdogTimer: " + speicher.getWatchdogTimer());
             if (speicher.getWatchdogTimer() >= 18000 * speicher.getPrescalerWatchdogMaxValue())//Default instruction time = 1ms
             {
                 if (speicher.isSleepModus()) {

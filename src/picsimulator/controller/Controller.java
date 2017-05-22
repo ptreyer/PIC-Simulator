@@ -298,7 +298,7 @@ public class Controller {
                             if (execute(befehl)) break;
                             TriggerInterruptService.saveOldValues(speicher);
                             Platform.runLater(this::updateView);
-                            Thread.sleep((long) (4000 / Double.parseDouble(taktfrequenz.getText())) * 1000);
+                            Thread.sleep((long) ((4000 / Double.parseDouble(taktfrequenz.getText()))) * 100);
                         }
                     }
                 }
@@ -411,6 +411,11 @@ public class Controller {
 
         tableStack.getItems().clear();
         tableStack.getItems().addAll(speicher.getStack());
+
+        setRegisterA();
+        setRegisterB();
+        setRegisterTrisA();
+        setRegisterTrisB();
 
         WREG.setText(getRegisterService().intToHex(speicher.getRegisterW()));
         FSR.setText(speicher.getSpeicheradressen()[0].getRegister()[4].getHexWert());
@@ -1133,6 +1138,8 @@ public class Controller {
         getRegisterB().setWert(seriellerPort.getPortB());
         getRegisterTrisA().setWert(seriellerPort.getTrisA());
         getRegisterTrisB().setWert(seriellerPort.getTrisB());
+
+        updateView();
 
         System.out.println("--------------- EMPFANGEN ------------------");
         System.out.println("PORTA: " + getRegisterA().getIntWert());
