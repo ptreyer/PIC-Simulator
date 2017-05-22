@@ -65,7 +65,7 @@
                                     <TextField fx:id="taktfrequenz" layoutX="77.0" layoutY="5.0" onInputMethodTextChanged="#onChangeTaktfrequenz" onKeyPressed="#onChangeTaktfrequenz" onKeyReleased="#onChangeTaktfrequenz" onKeyTyped="#onChangeTaktfrequenz" prefHeight="25.0" prefWidth="45.0" text="4000" />
                                     <Label layoutY="9.0" text="Taktfrequenz:" />
                                     <Label layoutX="127.0" layoutY="9.0" text="kHz" />
-                                    <TextField fx:id="laufzeit" editable="false" layoutX="226.0" layoutY="5.0" prefHeight="25.0" prefWidth="41.0" text="4" />
+                                    <TextField fx:id="laufzeit" editable="false" layoutX="226.0" layoutY="5.0" prefHeight="25.0" prefWidth="41.0" text="0" />
                                     <Label layoutX="169.0" layoutY="9.0" text="Laufzeit:" />
                                     <Label layoutX="270.0" layoutY="9.0" text="µsec" />
                                     <Label layoutX="314.0" layoutY="9.0" text="Taktgenerator:" />
